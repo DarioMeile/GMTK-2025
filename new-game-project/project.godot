@@ -10,6 +10,24 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="GMTK 2025 Prototype"
+config/version="0.0.1"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://01_Assets/": "red",
+"res://02_Scenes/": "green",
+"res://03_Scripts/": "blue",
+"res://04_Resources/": "yellow"
+}
