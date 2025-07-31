@@ -21,3 +21,5 @@ func _process(delta: float) -> void:
 			enabled = true
 			PIKACHU_REAL.enabled = true
 			PIKACHU_CRT.enabled = false
+	if Input.is_action_just_pressed("Q"):
+		pass

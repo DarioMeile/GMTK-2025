@@ -23,6 +23,10 @@ sky = SubResource("Sky_docrm")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_du1uk"]
+radius = 0.603894
+height = 2.96355
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_du1uk"]
 albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
 
@@ -31,16 +35,6 @@ albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
 metallic = 0.72
 roughness = 0.5
 
-[sub_resource type="Resource" id="Resource_h6y3j"]
-script = ExtResource("5_1wxww")
-duration = 1.0
-transition = 0
-ease = 2
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_du1uk"]
-radius = 0.603894
-height = 2.96355
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_du1uk"]
 viewport_path = NodePath("SubViewport")
 
@@ -48,6 +42,12 @@ viewport_path = NodePath("SubViewport")
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_du1uk")
 uv1_scale = Vector3(1, -1, 1)
+
+[sub_resource type="Resource" id="Resource_h6y3j"]
+script = ExtResource("5_1wxww")
+duration = 0.5
+transition = 5
+ease = 2
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "PIKACHU_CRT")]
 script = ExtResource("1_1wxww")
@@ -61,21 +61,55 @@ environment = SubResource("Environment_1wxww")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Room" type="CSGBox3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+visible = false
+script = ExtResource("4_1wxww")
+
+[node name="pikachu" parent="CharacterBody3D" instance=ExtResource("4_bllc3")]
+transform = Transform3D(-4.24264, 0, 4.24264, 0, 6, 0, -4.24264, 0, -4.24264, -0.0403547, -2.5, -0.968527)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113979, -1.02348, -0.8691)
+shape = SubResource("CapsuleShape3D_du1uk")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Room" type="CSGBox3D" parent="Environment"]
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
 size = Vector3(9, 6, 9)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Room"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 operation = 2
 size = Vector3(8, 6, 9)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1, -3.15253)
 material_override = SubResource("StandardMaterial3D_kd5td")
 use_collision = true
 size = Vector3(7, 0.4, 1.6)
+
+[node name="TV" parent="Environment" instance=ExtResource("5_3q361")]
+transform = Transform3D(-0.939693, -0.34202, -1.49502e-08, 0, -4.37114e-08, 1, -0.34202, 0.939693, 4.10753e-08, 2.7, 0, -3.1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000315547, 0.0190768, 8.33893e-10)
+material_override = SubResource("StandardMaterial3D_h6y3j")
+mesh = ExtResource("6_3q361")
+skeleton = NodePath("../../..")
+
+[node name="Paper" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.88179, 0, 0.471643, 0, 1, 0, -0.471643, 0, 0.88179, -0.833889, -0.790521, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="Paper2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 0.560327)
+size = Vector3(0.238052, 2.1, 3.5)
 
 [node name="CameraA" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.997452, 0.0713408, 0, -0.0713408, 0.997452, 0.705683, 0.455603, 1.93164)
@@ -87,29 +121,21 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("3_3q361")
 
-[node name="PhantomCamera3D" type="Node3D" parent="."]
+[node name="CRTCamera" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.997452, 0.0713408, 0, -0.0713408, 0.997452, 0.705683, 0.455603, 1.93164)
+script = ExtResource("4_docrm")
+priority = 1
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="Board" type="Node3D" parent="."]
+transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 1.93164)
 script = ExtResource("4_docrm")
 tween_resource = SubResource("Resource_h6y3j")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-script = ExtResource("4_1wxww")
-
-[node name="pikachu" parent="CharacterBody3D" instance=ExtResource("4_bllc3")]
-transform = Transform3D(-4.24264, 0, 4.24264, 0, 6, 0, -4.24264, 0, -4.24264, -0.0403547, -2.5, -0.968527)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113979, -1.02348, -0.8691)
-shape = SubResource("CapsuleShape3D_du1uk")
-
-[node name="TV" parent="." instance=ExtResource("5_3q361")]
-transform = Transform3D(-0.939693, -0.34202, -1.49502e-08, 0, -4.37114e-08, 1, -0.34202, 0.939693, 4.10753e-08, 2.7, 0, -3.1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TV"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000315547, 0.0190768, 8.33893e-10)
-material_override = SubResource("StandardMaterial3D_h6y3j")
-mesh = ExtResource("6_3q361")
-skeleton = NodePath("../..")
+[node name="NoteCamera" type="Node3D" parent="."]
+transform = Transform3D(0.958183, -0.126109, 0.25687, -0.0366358, 0.836205, 0.547192, -0.283802, -0.53372, 0.796617, -0.293389, 0.666602, -1.57776)
+script = ExtResource("4_docrm")
+tween_resource = SubResource("Resource_h6y3j")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 own_world_3d = true
@@ -117,6 +143,7 @@ size = Vector2i(1000, 1000)
 
 [node name="Main" parent="SubViewport" instance=ExtResource("7_docrm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32477, 2.28412, -2.35587)
+metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3.80915, 2.64356, 7.10528)
