@@ -47,7 +47,7 @@ uv1_scale = Vector3(1, -1, 1)
 script = ExtResource("5_1wxww")
 duration = 0.5
 transition = 5
-ease = 2
+ease = 1
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "PIKACHU_CRT")]
 script = ExtResource("1_1wxww")
@@ -75,44 +75,72 @@ shape = SubResource("CapsuleShape3D_du1uk")
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Room" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.289001, 1.63922)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
-size = Vector3(9, 6, 9)
+size = Vector3(9, 6.578, 12.2784)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
 operation = 2
-size = Vector3(8, 6, 9)
+size = Vector3(8, 6, 12.6)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1, -3.15253)
+[node name="Room2nd" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 2.98023e-08, 7.16595e-15, 2.98023e-08, -1, 5.96047e-08, -1.71583e-15, -8.9407e-08, -1, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_du1uk")
+use_collision = true
+size = Vector3(9, 6.578, 12.2784)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Room2nd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
+operation = 2
+size = Vector3(8, 6, 12.6)
+
+[node name="Desktop" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+
+[node name="Table" type="CSGBox3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, -1, -3.15253)
 material_override = SubResource("StandardMaterial3D_kd5td")
 use_collision = true
-size = Vector3(7, 0.4, 1.6)
+size = Vector3(6.5, 0.4, 1.6)
 
-[node name="TV" parent="Environment" instance=ExtResource("5_3q361")]
-transform = Transform3D(-0.939693, -0.34202, -1.49502e-08, 0, -4.37114e-08, 1, -0.34202, 0.939693, 4.10753e-08, 2.7, 0, -3.1)
+[node name="TV" parent="Environment/Desktop" instance=ExtResource("5_3q361")]
+transform = Transform3D(-0.985089, -0.172049, -7.52054e-09, 1.29974e-16, -4.37114e-08, 1, -0.172049, 0.985089, 4.30596e-08, 3.01443, 0, -3.06322)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/TV"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Desktop/TV"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000315547, 0.0190768, 8.33893e-10)
 material_override = SubResource("StandardMaterial3D_h6y3j")
 mesh = ExtResource("6_3q361")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="Paper" type="CSGBox3D" parent="Environment"]
+[node name="TV2" parent="Environment/Desktop" instance=ExtResource("5_3q361")]
+transform = Transform3D(-0.996052, 0.0887729, 3.88037e-09, -8.74685e-16, -4.37114e-08, 1, 0.0887729, 0.996052, 4.35389e-08, 0.690376, 0, -3.14934)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Desktop/TV2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000315547, 0.0190768, 8.33893e-10)
+material_override = SubResource("StandardMaterial3D_h6y3j")
+mesh = ExtResource("6_3q361")
+skeleton = NodePath("../../../..")
+
+[node name="Notes_Paper" type="Node3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60793, 0, 0)
+
+[node name="Paper" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
 transform = Transform3D(0.88179, 0, 0.471643, 0, 1, 0, -0.471643, 0, 0.88179, -0.833889, -0.790521, -3.16019)
 size = Vector3(0.501495, 0.002, 0.720825)
 
-[node name="Paper2" type="CSGBox3D" parent="Environment"]
+[node name="Paper2" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
 transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
 size = Vector3(0.501495, 0.002, 0.720825)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 0.560327)
+[node name="Board" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 5.06033)
 size = Vector3(0.238052, 2.1, 3.5)
 
 [node name="CameraA" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.997452, 0.0713408, 0, -0.0713408, 0.997452, 0.705683, 0.455603, 1.93164)
+transform = Transform3D(1, 0, 0, 0, 0.995587, 0.0938477, 0, -0.0938477, 0.995587, 1.86416, 0.308583, 5.02023)
 current = true
 fov = 50.0
 
@@ -121,19 +149,24 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("3_3q361")
 
+[node name="RoomCamera" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.1556, 6.13164)
+script = ExtResource("4_docrm")
+tween_resource = SubResource("Resource_h6y3j")
+
 [node name="CRTCamera" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.997452, 0.0713408, 0, -0.0713408, 0.997452, 0.705683, 0.455603, 1.93164)
+transform = Transform3D(1, 0, 0, 0, 0.995587, 0.0938477, 0, -0.0938477, 0.995587, 1.86416, 0.308583, 5.02023)
 script = ExtResource("4_docrm")
 priority = 1
 tween_resource = SubResource("Resource_h6y3j")
 
 [node name="Board" type="Node3D" parent="."]
-transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 1.93164)
+transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 6.43164)
 script = ExtResource("4_docrm")
 tween_resource = SubResource("Resource_h6y3j")
 
 [node name="NoteCamera" type="Node3D" parent="."]
-transform = Transform3D(0.958183, -0.126109, 0.25687, -0.0366358, 0.836205, 0.547192, -0.283802, -0.53372, 0.796617, -0.293389, 0.666602, -1.57776)
+transform = Transform3D(0.958183, -0.126109, 0.25687, -0.0366358, 0.836205, 0.547192, -0.283802, -0.53372, 0.796617, -0.901319, 0.666602, 2.92224)
 script = ExtResource("4_docrm")
 tween_resource = SubResource("Resource_h6y3j")
 
