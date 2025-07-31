@@ -12,6 +12,7 @@ config_version=5
 
 config/name="GMTK 2025 Prototype"
 config/version="0.1.0"
+run/main_scene="uid://boks20315hogw"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
