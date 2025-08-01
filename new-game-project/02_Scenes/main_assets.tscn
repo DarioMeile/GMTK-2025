@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=19 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
-[ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3q361"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -271,13 +270,6 @@ tween_resource = SubResource("Resource_h6y3j")
 [node name="Marker3D" type="Marker3D" parent="UIMarkers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
 
-[node name="SecondScene" type="SubViewport" parent="."]
-own_world_3d = true
-size = Vector2i(1000, 1000)
-
-[node name="TestScenario" parent="SecondScene" instance=ExtResource("11_l6366")]
-metadata/_edit_lock_ = true
-
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
 
@@ -289,5 +281,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gug2t")
-
-[editable path="SecondScene/TestScenario"]
