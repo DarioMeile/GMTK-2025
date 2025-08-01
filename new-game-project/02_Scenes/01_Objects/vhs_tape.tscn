@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbf066344ow0t"]
+
+[ext_resource type="PackedScene" uid="uid://cw1uypsake1uv" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Blender/VHS/Tape/VHS-Tape.gltf" id="1_1rqtw"]
+[ext_resource type="Script" uid="uid://dh3sndxy4mphs" path="res://03_Scripts/02_Objects/vhs_tape.gd" id="1_jah1p"]
+[ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="2_ypvvd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1rqtw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jah1p"]
+render_priority = 0
+shader = ExtResource("2_ypvvd")
+shader_parameter/scale = 0.0
+shader_parameter/outline_spread = 0.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypvvd"]
+albedo_color = Color(0.728503, 0.706237, 0.610124, 1)
+metallic = 0.24
+metallic_specular = 0.48
+roughness = 0.3
+clearcoat_roughness = 0.1
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jah1p"]
+size = Vector2(2100, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1rqtw"]
+size = Vector3(23.2305, 3.35, 13.2969)
+
+[node name="VHS_Tape" type="RigidBody3D" node_paths=PackedStringArray("VHS_MESH") groups=["VHS_Tapes"]]
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_1rqtw")
+script = ExtResource("1_jah1p")
+VHS_MESH = NodePath("VHS-Tape/VHSTape/VHSTape_M_VHS_0")
+
+[node name="VHS-Tape" parent="." instance=ExtResource("1_1rqtw")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+
+[node name="VHSTape_M_VHS_0" parent="VHS-Tape/VHSTape" index="0"]
+material_overlay = SubResource("ShaderMaterial_jah1p")
+
+[node name="TopLabel" type="Label3D" parent="VHS-Tape"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.30048, 0.8)
+modulate = Color(0, 0, 0, 1)
+text = "WEIRD VHS TAPE"
+font_size = 184
+outline_size = 0
+
+[node name="Sticker" type="Sprite3D" parent="VHS-Tape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57214, 6.61222)
+material_override = SubResource("StandardMaterial3D_ypvvd")
+transparent = false
+shaded = true
+double_sided = false
+texture = SubResource("PlaceholderTexture2D_jah1p")
+
+[node name="TopLabel2" type="Label3D" parent="VHS-Tape/Sticker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+modulate = Color(0, 0, 0, 1)
+text = "WEIRD VHS TAPE"
+font_size = 184
+outline_size = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0.0652279, 0)
+shape = SubResource("BoxShape3D_1rqtw")
+
+[editable path="VHS-Tape"]

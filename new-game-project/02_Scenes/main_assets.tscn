@@ -1,0 +1,334 @@
+[gd_scene load_steps=20 format=3 uid="uid://dvm1ppl7qjf8i"]
+
+[ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
+[ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="2_gug2t"]
+[ext_resource type="PackedScene" uid="uid://co2pw4brs5uip" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Pikachu/pikachu.gltf" id="3_o8lxf"]
+[ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
+[ext_resource type="PackedScene" uid="uid://cbf066344ow0t" path="res://02_Scenes/01_Objects/vhs_tape.tscn" id="5_llutj"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_xxmkq"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
+[ext_resource type="PackedScene" uid="uid://boks20315hogw" path="res://02_Scenes/main.tscn" id="10_o8lxf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3q361"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_docrm"]
+sky_material = SubResource("ProceduralSkyMaterial_3q361")
+
+[sub_resource type="Environment" id="Environment_1wxww"]
+background_mode = 2
+sky = SubResource("Sky_docrm")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+tonemap_white = 1.5
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_min_cell_size = 3.8
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_du1uk"]
+radius = 0.603894
+height = 2.96355
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_du1uk"]
+albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kd5td"]
+albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
+metallic = 0.72
+roughness = 0.5
+
+[sub_resource type="Resource" id="Resource_h6y3j"]
+script = ExtResource("8_jwi7y")
+duration = 0.5
+transition = 5
+ease = 1
+
+[sub_resource type="Resource" id="Resource_o8lxf"]
+script = ExtResource("9_gug2t")
+keep_aspect = 1
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 60.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8lxf"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "UI_INDICATOR_UP", "UI_INDICATOR_DOWN", "UI_INDICATOR_LEFT", "UI_INDICATOR_RIGHT")]
+script = ExtResource("1_llutj")
+PIKACHU_REAL = NodePath("CharacterBody3D")
+FLICKERING_LIGHT_OFF_TIMER_MAX = 0.2
+UI_INDICATOR_UP = NodePath("OverallUI/Control/UpUI")
+UI_INDICATOR_DOWN = NodePath("OverallUI/Control/DownUI")
+UI_INDICATOR_LEFT = NodePath("OverallUI/Control/LeftUI")
+UI_INDICATOR_RIGHT = NodePath("OverallUI/Control/RightUI")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1wxww")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 6.44177, 6.33241, 0)
+visible = false
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+visible = false
+script = ExtResource("2_gug2t")
+
+[node name="pikachu" parent="CharacterBody3D" instance=ExtResource("3_o8lxf")]
+transform = Transform3D(-4.24264, 0, 4.24264, 0, 6, 0, -4.24264, 0, -4.24264, -0.0403547, -2.5, -0.968527)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113979, -1.02348, -0.8691)
+shape = SubResource("CapsuleShape3D_du1uk")
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="Room" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.289001, 1.63922)
+material_override = SubResource("StandardMaterial3D_du1uk")
+use_collision = true
+size = Vector3(9, 6.578, 12.2784)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
+operation = 2
+size = Vector3(8, 6, 12.6)
+
+[node name="Room2nd" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 2.98023e-08, 7.16595e-15, 2.98023e-08, -1, 5.96047e-08, -1.71583e-15, -8.9407e-08, -1, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_du1uk")
+use_collision = true
+size = Vector3(9, 6.578, 12.2784)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Room2nd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
+operation = 2
+size = Vector3(8, 6, 12.6)
+
+[node name="Desktop" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+
+[node name="Table" type="CSGBox3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, -1, -3.15253)
+material_override = SubResource("StandardMaterial3D_kd5td")
+use_collision = true
+size = Vector3(6.5, 0.4, 1.6)
+
+[node name="Notes_Paper" type="Node3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60793, 0, 0)
+visible = false
+
+[node name="Paper" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
+transform = Transform3D(0.88179, 0, 0.471643, 0, 1, 0, -0.471643, 0, 0.88179, -0.833889, -0.790521, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="Paper2" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
+transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="TVs" type="Node3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TV" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, -0.787144, -3.15229)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SubViewport")
+
+[node name="TV2" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, -0.787144, -3.16082)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SubViewport")
+
+[node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
+
+[node name="VHS_Tape" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, -3.12405)
+
+[node name="VHS_Tape2" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, -2.88988)
+
+[node name="VHS_Tape3" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.995233, 0, -0.0975308, 0, 1, 0, 0.0975308, 0, 0.995233, -1.48219, -0.664432, -2.97545)
+
+[node name="Board" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 5.06033)
+visible = false
+size = Vector3(0.238052, 2.1, 3.5)
+
+[node name="RoomLight" type="SpotLight3D" parent="Environment"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.379763, 0.925084, 0, -0.925084, 0.379763, 0.272827, 2.62995, 5.83327)
+light_color = Color(1, 0.674683, 0.00465829, 1)
+light_energy = 2.0
+light_indirect_energy = 4.0
+light_volumetric_fog_energy = 4.0
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 6.2
+spot_attenuation = -0.61
+spot_angle = 50.46
+
+[node name="PresentLight" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47292, 3.8788)
+light_color = Color(1, 0.857303, 0.669312, 1)
+light_energy = 0.5
+light_indirect_energy = 8.0
+light_volumetric_fog_energy = 4.0
+omni_range = 6.0
+
+[node name="Cameras" type="Node" parent="."]
+
+[node name="CameraA" type="Camera3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.65192)
+current = true
+fov = 60.0
+
+[node name="PhantomCameraHost" type="Node" parent="Cameras/CameraA"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_xxmkq")
+
+[node name="RoomCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.65192)
+script = ExtResource("7_h7f80")
+priority = 1
+tween_resource = SubResource("Resource_h6y3j")
+camera_3d_resource = SubResource("Resource_o8lxf")
+
+[node name="CRTCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.995587, 0.0938477, 0, -0.0938477, 0.995587, 1.86416, 0.308583, 5.02023)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="Board" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 6.43164)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="TapesCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.99245, 0, 0.122649, -0.0268532, 0.975737, 0.217291, -0.119673, -0.218944, 0.968371, -1.02465, -0.0824798, 3.51403)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="UIMarkers" type="Node" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="UIMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+size = Vector2i(1000, 1000)
+
+[node name="Main" parent="SubViewport" instance=ExtResource("10_o8lxf")]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41469, 0, 5.48494)
+current = true
+
+[node name="OverallUI" type="CanvasLayer" parent="."]
+layer = 90
+
+[node name="Control" type="Control" parent="OverallUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpUI" type="PanelContainer" parent="OverallUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/UpUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="OverallUI/Control/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "UP"
+horizontal_alignment = 1
+
+[node name="DownUI" type="PanelContainer" parent="OverallUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/DownUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="OverallUI/Control/DownUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "DOWN"
+horizontal_alignment = 1
+
+[node name="LeftUI" type="PanelContainer" parent="OverallUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/LeftUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="OverallUI/Control/LeftUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "LEFT"
+horizontal_alignment = 1
+
+[node name="RightUI" type="PanelContainer" parent="OverallUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/RightUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="OverallUI/Control/RightUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "RIGHT"
+horizontal_alignment = 1

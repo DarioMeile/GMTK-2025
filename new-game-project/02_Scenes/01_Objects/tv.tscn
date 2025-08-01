@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://fcgvlypsriku"]
+
+[ext_resource type="Script" uid="uid://mxw4lnpgl0r8" path="res://03_Scripts/02_Objects/tv.gd" id="1_njjlx"]
+[ext_resource type="PackedScene" uid="uid://cwoc7bo52spta" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Blender/TV/TV.gltf" id="1_pb8d3"]
+[ext_resource type="PackedScene" uid="uid://bmf226dgypnur" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Blender/VHS/Player/VHS-Player.gltf" id="2_ldofb"]
+[ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="3_t340m"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ldofb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tj8v"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_t340m")
+shader_parameter/scale = 0.0
+shader_parameter/outline_spread = 0.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldofb"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_njjlx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t340m"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_njjlx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njjlx"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.0392157)
+metallic = 1.0
+roughness = 0.35
+emission_energy_multiplier = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vb1cq"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_t340m")
+shader_parameter/scale = 0.0
+shader_parameter/outline_spread = 0.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t340m"]
+size = Vector3(66.5391, 67.394, 47.3938)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t340m"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_t340m")
+shader_parameter/scale = 2.0
+shader_parameter/outline_spread = 2.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+
+[node name="TV" type="RigidBody3D" node_paths=PackedStringArray("OFF_SCREEN", "VIEWPORT_SCREEN", "TV_MESH", "VHS_MESH") groups=["TV"]]
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_ldofb")
+script = ExtResource("1_njjlx")
+OFF_SCREEN = NodePath("TV/OffScreen")
+VIEWPORT_SCREEN = NodePath("TV/ViewportScreen")
+TV_MESH = NodePath("TV/RootNode_001/TVCRT/TVCRT_M_TVCRT_0")
+VHS_MESH = NodePath("VHS-Player/RootNode/VHSPlayer/VHSPlayer_M_VHS_0")
+
+[node name="TV" parent="." instance=ExtResource("1_pb8d3")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, -0.610326, 0)
+
+[node name="TVCRT_M_TVCRT_0" parent="TV/RootNode_001/TVCRT" index="0"]
+material_overlay = SubResource("ShaderMaterial_5tj8v")
+
+[node name="OffScreen" type="CSGBox3D" parent="TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 18.9182)
+visible = false
+material_override = SubResource("StandardMaterial3D_ldofb")
+size = Vector3(52.4685, 37.9433, 1.82793)
+
+[node name="ViewportScreen" type="CSGBox3D" parent="TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 18.9182)
+material_override = SubResource("StandardMaterial3D_t340m")
+size = Vector3(52.4685, 37.9433, 1.82793)
+
+[node name="GlassScreen" type="CSGBox3D" parent="TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 20.0478)
+size = Vector3(52.469, 37.943, 0.2)
+material = SubResource("StandardMaterial3D_njjlx")
+
+[node name="VHS-Player" parent="." instance=ExtResource("2_ldofb")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, -1.01033, 0)
+
+[node name="VHSPlayer_M_VHS_0" parent="VHS-Player/RootNode/VHSPlayer" index="0"]
+material_overlay = SubResource("ShaderMaterial_vb1cq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+visible = false
+shape = SubResource("BoxShape3D_t340m")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0126724, 0.203426, -0.0450126)
+visible = false
+size = Vector3(1.82324, 1.62386, 1.36612)
+material = SubResource("ShaderMaterial_t340m")
+
+[editable path="TV"]
+[editable path="VHS-Player"]

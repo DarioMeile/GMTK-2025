@@ -1,0 +1,66 @@
+@tool
+class_name CRT_TV
+extends RigidBody3D
+
+@export_category("Debug")
+@export var FUNCTION_AS_TOOL: bool = false
+@export_category("Load Resources")
+@export_group("External")
+@export_subgroup("Viewports")
+@export var VIEWPORT: NodePath
+@export_group("Internal")
+@export var OFF_SCREEN: CSGBox3D
+@export var VIEWPORT_SCREEN: CSGBox3D
+@export_subgroup("Meshes")
+@export var TV_MESH: MeshInstance3D
+@export var VHS_MESH: MeshInstance3D
+
+@onready var tvIsOn: bool = false
+
+func _ready() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		if FUNCTION_AS_TOOL:
+			if Input.is_action_just_pressed("ui_accept") and Input.is_action_pressed("ui_filedialog_show_hidden"):
+				match tvIsOn:
+					true:
+						tvIsOn = false
+					false:
+						tvIsOn = true
+				_turn_screen(tvIsOn)
+		return
+
+func _set_viewport():
+	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", VIEWPORT)
+
+
+
+func _outline_meshes(_true: bool, _mesh: int = 0):
+	var _outlineSize: int = 2
+	if !_true:
+		_outlineSize = 0
+	match _mesh:
+		0:
+			TV_MESH.material_overlay.set("shader_parameter/scale", _outlineSize)
+			TV_MESH.material_overlay.set("shader_parameter/outline_spread", _outlineSize)
+			VHS_MESH.material_overlay.set("shader_parameter/scale", _outlineSize)
+			VHS_MESH.material_overlay.set("shader_parameter/outline_spread", _outlineSize)
+		1:
+			TV_MESH.material_overlay.set("shader_parameter/scale", _outlineSize)
+			TV_MESH.material_overlay.set("shader_parameter/outline_spread", _outlineSize)
+		2:
+			VHS_MESH.material_overlay.set("shader_parameter/scale", _outlineSize)
+			VHS_MESH.material_overlay.set("shader_parameter/outline_spread", _outlineSize)
+
+
+func _turn_screen(_on: bool = true):
+	match _on:
+		true:
+			OFF_SCREEN.hide()
+			VIEWPORT_SCREEN.show()
+			_set_viewport()
+		false:
+			OFF_SCREEN.show()
+			VIEWPORT_SCREEN.hide()
