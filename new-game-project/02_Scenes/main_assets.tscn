@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=22 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
 [ext_resource type="PackedScene" uid="uid://cbf066344ow0t" path="res://02_Scenes/01_Objects/vhs_tape.tscn" id="5_llutj"]
 [ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="6_l6366"]
+[ext_resource type="Shader" uid="uid://bw62ycuksluex" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_dither.gdshader" id="6_o8lxf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_xxmkq"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
@@ -50,6 +51,12 @@ shader_parameter/_DepthNormalThreshold = 0.4
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.0
 shader_parameter/_NormalThreshold = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6366"]
+shader = ExtResource("6_o8lxf")
+shader_parameter/gamma = 0.625
+shader_parameter/blend = 3.485
+shader_parameter/dither_spread = 0.5
 
 [sub_resource type="Resource" id="Resource_h6y3j"]
 script = ExtResource("8_jwi7y")
@@ -244,6 +251,20 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("6_xxmkq")
 
+[node name="Control" type="Control" parent="Cameras/CameraA"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Cameras/CameraA/Control"]
+material = SubResource("ShaderMaterial_l6366")
+layout_mode = 0
+offset_right = 706.0
+offset_bottom = 566.0
+mouse_filter = 1
+
 [node name="RoomCamera" type="Node3D" parent="Cameras"]
 transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
 script = ExtResource("7_h7f80")
@@ -280,6 +301,7 @@ metadata/_edit_lock_ = true
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
+visible = false
 
 [node name="BlackScreen" type="Panel" parent="OverallUI"]
 unique_name_in_owner = true
