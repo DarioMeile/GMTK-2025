@@ -42,6 +42,7 @@ folder_colors={
 
 TV="TV"
 VHS_Tapes=""
+ControllableEntity=""
 
 [input]
 

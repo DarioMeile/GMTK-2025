@@ -202,6 +202,7 @@ func _tv_perspective_control(delta: float):
 				else:
 					tvOn = true
 				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
+				get_tree().call_group("ControllableEntity", "_enable", tvOn)
 		tvState.controling:
 			pass
 

@@ -1,8 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=18 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
-[ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="2_gug2t"]
-[ext_resource type="PackedScene" uid="uid://co2pw4brs5uip" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Pikachu/pikachu.gltf" id="3_o8lxf"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
 [ext_resource type="PackedScene" uid="uid://cbf066344ow0t" path="res://02_Scenes/01_Objects/vhs_tape.tscn" id="5_llutj"]
 [ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="6_l6366"]
@@ -10,7 +8,7 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
-[ext_resource type="PackedScene" uid="uid://boks20315hogw" path="res://02_Scenes/main.tscn" id="10_o8lxf"]
+[ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3q361"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -30,10 +28,6 @@ ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_min_cell_size = 3.8
 glow_enabled = true
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_du1uk"]
-radius = 0.603894
-height = 2.96355
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_du1uk"]
 albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
@@ -75,12 +69,8 @@ near = 0.05
 far = 4000.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8lxf"]
-bg_color = Color(1, 1, 1, 0.607843)
-
-[node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "ROOM_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
 script = ExtResource("1_llutj")
-PIKACHU_REAL = NodePath("CharacterBody3D")
 ROOM_CAMERA = NodePath("Cameras/RoomCamera")
 TV_CAMERA = NodePath("Cameras/TVCamera")
 TAPES_CAMERA = NodePath("Cameras/TapesCamera")
@@ -97,17 +87,6 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 visible = false
 shadow_enabled = true
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-visible = false
-script = ExtResource("2_gug2t")
-
-[node name="pikachu" parent="CharacterBody3D" instance=ExtResource("3_o8lxf")]
-transform = Transform3D(-4.24264, 0, 4.24264, 0, 6, 0, -4.24264, 0, -4.24264, -0.0403547, -2.5, -0.968527)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113979, -1.02348, -0.8691)
-shape = SubResource("CapsuleShape3D_du1uk")
-
 [node name="Environment" type="Node" parent="."]
 
 [node name="Room" type="CSGBox3D" parent="Environment"]
@@ -121,13 +100,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506348, 0.736011)
 operation = 2
 size = Vector3(8, 7.86621, 12.6)
 
-[node name="Room2" type="CSGBox3D" parent="Environment/Room"]
+[node name="Ceiling" type="CSGBox3D" parent="Environment/Room"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
 size = Vector3(9, 8.02252, 12.2784)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Room2"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Ceiling"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.969727, 0.736011)
 operation = 2
 size = Vector3(8, 6.93945, 12.6)
@@ -153,49 +132,48 @@ size = Vector3(0.501495, 0.002, 0.720825)
 transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
 size = Vector3(0.501495, 0.002, 0.720825)
 
-[node name="TVs" type="Node3D" parent="Environment/Desktop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="TVs" type="Node" parent="Environment/Desktop"]
 
 [node name="TV_A" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-transform = Transform3D(0.998353, 7.8551e-11, 0.0573723, -7.8543e-11, 1, -2.39382e-12, -0.0573723, -2.11633e-12, 0.998353, 0.904419, 1.21286, -3.16082)
+transform = Transform3D(0.998353, 7.8551e-11, 0.0573723, -7.8543e-11, 1, -2.39382e-12, -0.0573723, -2.11633e-12, 0.998353, 0.904419, 2.21286, 1.33918)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SecondScene/TV_A")
+VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportA")
 
 [node name="TV_B" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 1.21286, -3.15229)
+transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 2.21286, 1.34771)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SecondScene/TV_B")
+VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportB")
 
 [node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, -0.787144, -3.16082)
+transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, 0.212856, 1.33918)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SecondScene")
+VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportC")
 
 [node name="TV_D" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, -0.787144, -3.15229)
+transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, 0.212856, 1.34771)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SecondScene")
+VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportD")
 
-[node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
+[node name="VHS-Tapes" type="Node" parent="Environment/Desktop"]
 unique_name_in_owner = true
 
 [node name="VHS_Tape_A" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.897097, 0, 0.441835, 0, 1, 0, -0.441835, 0, 0.897097, -1.48219, -0.526075, -3.07896)
+transform = Transform3D(0.897097, 0, 0.441835, 0, 1, 0, -0.441835, 0, 0.897097, -1.48219, -0.526075, 1.32104)
 TOP_STRING = "Camera A"
 SIDE_STRING = "Camera A"
 
 [node name="VHS_Tape_B" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.995233, 0, -0.0975308, 0, 1, 0, 0.0975308, 0, 0.995233, -1.48219, -0.664432, -2.97545)
+transform = Transform3D(0.995233, 0, -0.0975308, 0, 1, 0, 0.0975308, 0, 0.995233, -1.48219, -0.664432, 1.42455)
 TOP_STRING = "Camera B"
 SIDE_STRING = "Camera B"
 
 [node name="VHS_Tape_C" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, -2.88988)
+transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, 1.51012)
 TOP_STRING = "Camera C"
 SIDE_STRING = "Camera C"
 
 [node name="VHS_Tape_D" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, -3.12405)
+transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, 1.27595)
 TOP_STRING = "Camera D"
 SIDE_STRING = "Camera D"
 
@@ -269,69 +247,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
 own_world_3d = true
 size = Vector2i(1000, 1000)
 
-[node name="Main" parent="SecondScene" instance=ExtResource("10_o8lxf")]
-
-[node name="TV_A" type="SubViewport" parent="SecondScene"]
-
-[node name="Camera3D" type="Camera3D" parent="SecondScene/TV_A"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41469, 0, 5.48494)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="SecondScene/TV_A"]
-
-[node name="UpUI" type="PanelContainer" parent="SecondScene/TV_A/CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -185.0
-offset_right = 99.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="SecondScene/TV_A/CanvasLayer/UpUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="SecondScene/TV_A/CanvasLayer/UpUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 120
-text = "A"
-horizontal_alignment = 1
-
-[node name="TV_B" type="SubViewport" parent="SecondScene"]
-
-[node name="Camera3D" type="Camera3D" parent="SecondScene/TV_B"]
-transform = Transform3D(0.973638, -0.137336, 0.182118, -0.0159457, 0.755489, 0.654968, -0.227539, -0.640606, 0.733383, 0.363549, 3.24762, 6.10001)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="SecondScene/TV_B"]
-
-[node name="UpUI" type="PanelContainer" parent="SecondScene/TV_B/CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -185.0
-offset_right = 99.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="SecondScene/TV_B/CanvasLayer/UpUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="SecondScene/TV_B/CanvasLayer/UpUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 120
-text = "B"
-horizontal_alignment = 1
+[node name="TestScenario" parent="SecondScene" instance=ExtResource("11_l6366")]
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
+
+[editable path="SecondScene/TestScenario"]
