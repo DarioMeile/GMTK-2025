@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=19 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -18,7 +18,6 @@ ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 sky_material = SubResource("ProceduralSkyMaterial_3q361")
 
 [sub_resource type="Environment" id="Environment_1wxww"]
-background_mode = 2
 sky = SubResource("Sky_docrm")
 ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 3
@@ -31,6 +30,9 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_du1uk"]
 albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gug2t"]
+albedo_color = Color(0.575766, 0.473764, 0.416362, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kd5td"]
 albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
@@ -90,26 +92,41 @@ shadow_enabled = true
 [node name="Environment" type="Node" parent="."]
 
 [node name="Room" type="CSGBox3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01126, 1.63922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01126, 0.27842)
+use_collision = true
+size = Vector3(9, 8.02252, 15)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Substraction" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506348, 0.536011)
+operation = 2
+size = Vector3(8, 7.86621, 15)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Ceiling4thWall" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.76126, -0.0225979)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
-size = Vector3(9, 8.02252, 12.2784)
+size = Vector3(9, 0.5, 15)
+material = SubResource("StandardMaterial3D_du1uk")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506348, 0.736011)
-operation = 2
-size = Vector3(8, 7.86621, 12.6)
-
-[node name="Ceiling" type="CSGBox3D" parent="Environment/Room"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+[node name="4thWall" type="CSGBox3D" parent="Environment/Room/Ceiling4thWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, -7.25)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
-size = Vector3(9, 8.02252, 12.2784)
+size = Vector3(9, 8, 0.5)
+material = SubResource("StandardMaterial3D_du1uk")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Ceiling"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.969727, 0.736011)
+[node name="DoorFrame" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -6.8)
 operation = 2
-size = Vector3(8, 6.93945, 12.6)
+size = Vector3(2.4, 5, 3)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Door" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -7.5)
+size = Vector3(2.4, 5, 0.4)
+material = SubResource("StandardMaterial3D_gug2t")
 
 [node name="Desktop" type="Node3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
@@ -204,6 +221,14 @@ light_indirect_energy = 8.0
 light_volumetric_fog_energy = 4.0
 omni_range = 8.0
 
+[node name="PresentLight2" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27292, -3.1212)
+light_color = Color(1, 0.857303, 0.669312, 1)
+light_energy = 0.4
+light_indirect_energy = 8.0
+light_volumetric_fog_energy = 4.0
+omni_range = 8.0
+
 [node name="Cameras" type="Node" parent="."]
 
 [node name="CameraA" type="Camera3D" parent="Cameras"]
@@ -248,6 +273,7 @@ own_world_3d = true
 size = Vector2i(1000, 1000)
 
 [node name="TestScenario" parent="SecondScene" instance=ExtResource("11_l6366")]
+metadata/_edit_lock_ = true
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90

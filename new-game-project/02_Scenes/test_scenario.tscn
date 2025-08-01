@@ -82,7 +82,7 @@ material = SubResource("StandardMaterial3D_ycu1a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -2.5, -0.8)
 operation = 2
 size = Vector3(1.28931, 4, 2.6)
-material = SubResource("StandardMaterial3D_nmnme")
+material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Ceiling" type="CSGBox3D" parent="Environment/Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

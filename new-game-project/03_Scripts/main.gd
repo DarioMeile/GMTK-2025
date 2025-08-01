@@ -129,6 +129,7 @@ func _room_perspective_control(delta: float):
 						pass
 					interactuableObject.tv:
 						currentRoomPerspective  = roomPerspectives.tv
+						currentTvState = tvState.init
 						TV_CAMERA.priority = 2
 						get_tree().call_group("TV", "_outline_meshes", false, 0)
 						get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
@@ -188,6 +189,7 @@ func _tv_perspective_control(delta: float):
 	match currentTvState:
 		tvState.init:
 			currentTvState = tvState.selecting
+			get_tree().call_group("ControllableEntity", "_enable", tvOn)
 		tvState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
 				TV_CAMERA.priority = 0
@@ -195,6 +197,7 @@ func _tv_perspective_control(delta: float):
 				board.material_overlay.set("shader_parameter/outline_spread", 0)
 				get_tree().call_group("TV", "_outline_meshes", true, 0)
 				get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
+				get_tree().call_group("ControllableEntity", "_enable", false)
 				currentRoomPerspective = roomPerspectives.room
 			if Input.is_action_just_pressed("ui_accept"):
 				if tvOn:
@@ -202,7 +205,8 @@ func _tv_perspective_control(delta: float):
 				else:
 					tvOn = true
 				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
-				get_tree().call_group("ControllableEntity", "_enable", tvOn)
+				if tapesInserted:
+					get_tree().call_group("ControllableEntity", "_enable", tvOn)
 		tvState.controling:
 			pass
 
