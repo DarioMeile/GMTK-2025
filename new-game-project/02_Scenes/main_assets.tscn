@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=24 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://bw62ycuksluex" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_dither.gdshader" id="6_o8lxf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_xxmkq"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
+[ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="7_l6366"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
 [ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
@@ -54,9 +55,26 @@ shader_parameter/_NormalThreshold = 2.0
 shader_parameter/outline_brightness = 2.0
 shader_parameter/outline_size = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxmkq"]
+shader = ExtResource("7_l6366")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 5.0
+shader_parameter/noise_amount = 0.042
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 2.795
+shader_parameter/vignette_amount = 2.0
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 1.0
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.946
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l6366"]
 shader = ExtResource("6_o8lxf")
-shader_parameter/gamma = 0.71
+shader_parameter/gamma = 0.9
 shader_parameter/blend = 0.575
 shader_parameter/dither_spread = 0.5
 
@@ -255,6 +273,17 @@ script = ExtResource("6_xxmkq")
 
 [node name="Control" type="Control" parent="Cameras/CameraA"]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Cameras/CameraA/Control"]
+visible = false
+material = SubResource("ShaderMaterial_xxmkq")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
