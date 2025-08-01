@@ -22,12 +22,15 @@ extends Node3D
 @export_range(0.01,0.5,0.01, "suffix:s") var FLICKERING_LIGHT_OFF_TIMER_MAX: float = 0.01
 @export_range(0.1,3,0.1, "suffix:s") var FLICKERING_LIGHT_ON_TIMER_MIN: float = 2
 @export_range(0.1,6,0.1, "suffix:s") var FLICKERING_LIGHT_ON_TIMER_MAX: float = 4
+@export_group("Tweens")
+@export var FADE_TO_BLACK_TIMER: float = 0.25
 
 
 #Get nodes
 @onready var roomLight := %RoomLight
 @onready var tapeNodes := %"VHS-Tapes"
 @onready var board := %Board
+@onready var blackScreen := %BlackScreen
 
 var enabled: bool = true
 var lightTimer: float = 0.0
@@ -60,6 +63,8 @@ var currentBoardState = boardState.init
 
 
 func _ready() -> void:
+	blackScreen.show()
+	_fade_to_black(false)
 	get_tree().call_group("TV", "_turn_screen", false)
 
 func _process(delta: float) -> void:
@@ -224,6 +229,23 @@ func _board_perspective_control(delta: float):
 				currentRoomPerspective = roomPerspectives.room
 		boardState.controling:
 			pass
+
+
+##Tweens and Animations
+
+func _fade_to_black(_black: bool = true):
+	var _alpha: int = 0
+	if _black:
+		_alpha = 1
+	var _tween = create_tween()
+	_tween.set_ease(Tween.EASE_IN)
+	_tween.set_trans(Tween.TRANS_CUBIC)
+	blackScreen.show()
+	_tween.tween_property(blackScreen, "modulate", Color(1,1,1,_alpha), FADE_TO_BLACK_TIMER).from_current()
+	await _tween.finished
+	if !_black:
+		blackScreen.hide()
+
 
 func _flicker_light(delta: float):
 	if transitioningLight:

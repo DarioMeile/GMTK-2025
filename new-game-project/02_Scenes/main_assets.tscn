@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=20 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -70,6 +70,9 @@ frustum_offset = Vector2(0, 0)
 near = 0.05
 far = 4000.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gug2t"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
 script = ExtResource("1_llutj")
@@ -277,5 +280,14 @@ metadata/_edit_lock_ = true
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
+
+[node name="BlackScreen" type="Panel" parent="OverallUI"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gug2t")
 
 [editable path="SecondScene/TestScenario"]
