@@ -14,7 +14,7 @@ void fragment() {
     vec2 uv = FRAGCOORD.xy/iResolution.xy;
     vec4 col = texture(SCREEN_TEXTURE,uv);
     vec4 original = col;
-	
+
 	float scale = max(0.1, dither_spread);
 
     // gamma correction

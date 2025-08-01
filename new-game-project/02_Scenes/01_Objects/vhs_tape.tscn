@@ -10,13 +10,15 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jah1p"]
 render_priority = 0
 shader = ExtResource("2_ypvvd")
-shader_parameter/scale = 0.0
-shader_parameter/outline_spread = 0.0
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 60.0
 shader_parameter/_Color = Color(1, 1, 1, 1)
 shader_parameter/_DepthNormalThreshold = 0.1
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.5
 shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 2.5
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypvvd"]
 albedo_color = Color(0.728503, 0.706237, 0.610124, 1)

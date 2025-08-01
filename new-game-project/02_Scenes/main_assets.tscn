@@ -44,18 +44,20 @@ roughness = 0.5
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("6_l6366")
-shader_parameter/scale = 0.0
-shader_parameter/outline_spread = 0.0
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 60.0
 shader_parameter/_Color = Color(1, 1, 1, 1)
 shader_parameter/_DepthNormalThreshold = 0.4
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.0
 shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 2.0
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l6366"]
 shader = ExtResource("6_o8lxf")
-shader_parameter/gamma = 0.625
-shader_parameter/blend = 3.485
+shader_parameter/gamma = 0.71
+shader_parameter/blend = 0.575
 shader_parameter/dither_spread = 0.5
 
 [sub_resource type="Resource" id="Resource_h6y3j"]
@@ -253,16 +255,21 @@ script = ExtResource("6_xxmkq")
 
 [node name="Control" type="Control" parent="Cameras/CameraA"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="Cameras/CameraA/Control"]
 material = SubResource("ShaderMaterial_l6366")
-layout_mode = 0
-offset_right = 706.0
-offset_bottom = 566.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 
 [node name="RoomCamera" type="Node3D" parent="Cameras"]

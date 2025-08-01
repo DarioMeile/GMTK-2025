@@ -12,13 +12,15 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_t340m")
-shader_parameter/scale = 0.0
-shader_parameter/outline_spread = 0.0
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
 shader_parameter/_Color = Color(1, 1, 1, 1)
 shader_parameter/_DepthNormalThreshold = 0.1
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.5
 shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldofb"]
 albedo_color = Color(0, 0, 0, 1)
@@ -42,13 +44,15 @@ emission_energy_multiplier = 0.5
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_t340m")
-shader_parameter/scale = 0.0
-shader_parameter/outline_spread = 0.0
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
 shader_parameter/_Color = Color(1, 1, 1, 1)
 shader_parameter/_DepthNormalThreshold = 0.1
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.5
 shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tj8v"]
 albedo_color = Color(0.728503, 0.706237, 0.610124, 1)
@@ -74,6 +78,8 @@ shader_parameter/_DepthNormalThreshold = 0.1
 shader_parameter/_DepthNormalThresholdScale = 3.0
 shader_parameter/_DepthThreshold = 1.5
 shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 0.2
+shader_parameter/outline_size = 1.0
 
 [node name="TV" type="RigidBody3D" node_paths=PackedStringArray("OFF_SCREEN", "VIEWPORT_SCREEN", "TV_MESH", "VHS_MESH") groups=["TV"]]
 mass = 20.0
