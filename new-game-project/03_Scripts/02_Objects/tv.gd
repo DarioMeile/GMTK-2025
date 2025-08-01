@@ -14,8 +14,15 @@ extends RigidBody3D
 @export_subgroup("Meshes")
 @export var TV_MESH: MeshInstance3D
 @export var VHS_MESH: MeshInstance3D
+@export_category("Behavior & Information")
+@export_group("VHS Tape Information")
+@export var SIDE_STRING: String = "Placeholder"
 
 @onready var tvIsOn: bool = false
+
+##Get nodes
+@onready var sideLabel:= %SideLabel
+@onready var tvLight:= $TV/OmniLight3D
 
 func _ready() -> void:
 	pass
@@ -34,6 +41,14 @@ func _process(delta: float) -> void:
 
 func _set_viewport():
 	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", VIEWPORT)
+
+func _show_string(_show: bool = true, _string: String = SIDE_STRING):
+	match _show:
+		true:
+			sideLabel.show()
+			sideLabel.text = _string
+		false:
+			sideLabel.hide()
 
 
 
@@ -55,12 +70,17 @@ func _outline_meshes(_true: bool, _mesh: int = 0):
 			VHS_MESH.material_overlay.set("shader_parameter/outline_spread", _outlineSize)
 
 
-func _turn_screen(_on: bool = true):
+func _turn_screen(_on: bool = true, _tapeInside: bool = false):
 	match _on:
 		true:
 			OFF_SCREEN.hide()
-			VIEWPORT_SCREEN.show()
-			_set_viewport()
+			tvLight.show()
+			if _tapeInside:
+				_set_viewport()
+				VIEWPORT_SCREEN.show()
+				return
+			VIEWPORT_SCREEN.hide()
 		false:
+			tvLight.hide()
 			OFF_SCREEN.show()
 			VIEWPORT_SCREEN.hide()

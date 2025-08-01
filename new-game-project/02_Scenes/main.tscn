@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://boks20315hogw"]
+[gd_scene load_steps=10 format=3 uid="uid://boks20315hogw"]
 
-[ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_1wxww"]
 [ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="4_1wxww"]
 [ext_resource type="PackedScene" uid="uid://co2pw4brs5uip" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Pikachu/pikachu.gltf" id="4_bllc3"]
 [ext_resource type="PackedScene" uid="uid://c8jvnq2knbf3m" path="res://01_Assets/01_Visual_Assets/00_Placeholders/TV/TV.gltf" id="5_3q361"]
@@ -30,16 +29,14 @@ albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
 metallic = 0.72
 roughness = 0.5
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL")]
-script = ExtResource("1_1wxww")
-PIKACHU_REAL = NodePath("CharacterBody3D")
+[node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wxww")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0.47114, -0.539296, 0.697987, -0.167413, 0.72226, 0.671054, 2.55117, 4.71803, 0)
-light_energy = 2.0
+transform = Transform3D(-0.768325, -0.639593, 0.0244401, 0.47114, -0.539296, 0.697987, -0.433247, 0.547796, 0.715693, 2.55117, 4.71803, 0)
+light_energy = 3.0
 shadow_enabled = true
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]

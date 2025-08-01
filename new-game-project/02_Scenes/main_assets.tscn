@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=22 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="2_gug2t"]
 [ext_resource type="PackedScene" uid="uid://co2pw4brs5uip" path="res://01_Assets/01_Visual_Assets/00_Placeholders/Pikachu/pikachu.gltf" id="3_o8lxf"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
 [ext_resource type="PackedScene" uid="uid://cbf066344ow0t" path="res://02_Scenes/01_Objects/vhs_tape.tscn" id="5_llutj"]
+[ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="6_l6366"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_xxmkq"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
@@ -42,6 +43,18 @@ albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
 metallic = 0.72
 roughness = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrytx"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 0.0
+shader_parameter/outline_spread = 0.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.4
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.0
+shader_parameter/_NormalThreshold = 2.0
+
 [sub_resource type="Resource" id="Resource_h6y3j"]
 script = ExtResource("8_jwi7y")
 duration = 0.5
@@ -63,16 +76,18 @@ far = 4000.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8lxf"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(1, 1, 1, 0.607843)
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "UI_INDICATOR_UP", "UI_INDICATOR_DOWN", "UI_INDICATOR_LEFT", "UI_INDICATOR_RIGHT")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("PIKACHU_REAL", "ROOM_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
 script = ExtResource("1_llutj")
 PIKACHU_REAL = NodePath("CharacterBody3D")
+ROOM_CAMERA = NodePath("Cameras/RoomCamera")
+TV_CAMERA = NodePath("Cameras/TVCamera")
+TAPES_CAMERA = NodePath("Cameras/TapesCamera")
+BOARD_CAMERA = NodePath("Cameras/BoardCamera")
+TV_NODES = [NodePath("Environment/Desktop/TVs/TV_A"), NodePath("Environment/Desktop/TVs/TV_B"), NodePath("Environment/Desktop/TVs/TV_C"), NodePath("Environment/Desktop/TVs/TV_D")]
+TAPE_NODES = [NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_A"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_B"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_C"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_D")]
 FLICKERING_LIGHT_OFF_TIMER_MAX = 0.2
-UI_INDICATOR_UP = NodePath("OverallUI/Control/UpUI")
-UI_INDICATOR_DOWN = NodePath("OverallUI/Control/DownUI")
-UI_INDICATOR_LEFT = NodePath("OverallUI/Control/LeftUI")
-UI_INDICATOR_RIGHT = NodePath("OverallUI/Control/RightUI")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wxww")
@@ -96,27 +111,26 @@ shape = SubResource("CapsuleShape3D_du1uk")
 [node name="Environment" type="Node" parent="."]
 
 [node name="Room" type="CSGBox3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.289001, 1.63922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01126, 1.63922)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
-size = Vector3(9, 6.578, 12.2784)
+size = Vector3(9, 8.02252, 12.2784)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506348, 0.736011)
 operation = 2
-size = Vector3(8, 6, 12.6)
+size = Vector3(8, 7.86621, 12.6)
 
-[node name="Room2nd" type="CSGBox3D" parent="Environment/Room"]
-transform = Transform3D(1, 2.98023e-08, 7.16595e-15, 2.98023e-08, -1, 5.96047e-08, -1.71583e-15, -8.9407e-08, -1, 0, 0, 0)
-visible = false
+[node name="Room2" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
-size = Vector3(9, 6.578, 12.2784)
+size = Vector3(9, 8.02252, 12.2784)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Room2nd"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.736011)
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Room/Room2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.969727, 0.736011)
 operation = 2
-size = Vector3(8, 6, 12.6)
+size = Vector3(8, 6.93945, 12.6)
 
 [node name="Desktop" type="Node3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
@@ -142,57 +156,80 @@ size = Vector3(0.501495, 0.002, 0.720825)
 [node name="TVs" type="Node3D" parent="Environment/Desktop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="TV" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, -0.787144, -3.15229)
+[node name="TV_A" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.998353, 7.8551e-11, 0.0573723, -7.8543e-11, 1, -2.39382e-12, -0.0573723, -2.11633e-12, 0.998353, 0.904419, 1.21286, -3.16082)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SubViewport")
+VIEWPORT = NodePath("../../../../SecondScene/TV_A")
 
-[node name="TV2" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+[node name="TV_B" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 1.21286, -3.15229)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SecondScene/TV_B")
+
+[node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
 transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, -0.787144, -3.16082)
 FUNCTION_AS_TOOL = true
-VIEWPORT = NodePath("../../../../SubViewport")
+VIEWPORT = NodePath("../../../../SecondScene")
+
+[node name="TV_D" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, -0.787144, -3.15229)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SecondScene")
 
 [node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
+unique_name_in_owner = true
 
-[node name="VHS_Tape" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, -3.12405)
+[node name="VHS_Tape_A" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.897097, 0, 0.441835, 0, 1, 0, -0.441835, 0, 0.897097, -1.48219, -0.526075, -3.07896)
+TOP_STRING = "Camera A"
+SIDE_STRING = "Camera A"
 
-[node name="VHS_Tape2" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
-transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, -2.88988)
-
-[node name="VHS_Tape3" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+[node name="VHS_Tape_B" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
 transform = Transform3D(0.995233, 0, -0.0975308, 0, 1, 0, 0.0975308, 0, 0.995233, -1.48219, -0.664432, -2.97545)
+TOP_STRING = "Camera B"
+SIDE_STRING = "Camera B"
+
+[node name="VHS_Tape_C" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, -2.88988)
+TOP_STRING = "Camera C"
+SIDE_STRING = "Camera C"
+
+[node name="VHS_Tape_D" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, -3.12405)
+TOP_STRING = "Camera D"
+SIDE_STRING = "Camera D"
 
 [node name="Board" type="CSGBox3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 5.06033)
-visible = false
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 3.86665)
+material_overlay = SubResource("ShaderMaterial_qrytx")
 size = Vector3(0.238052, 2.1, 3.5)
 
 [node name="RoomLight" type="SpotLight3D" parent="Environment"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.379763, 0.925084, 0, -0.925084, 0.379763, 0.272827, 2.62995, 5.83327)
+transform = Transform3D(1, 0, 0, 0, 0.379763, 0.925084, 0, -0.925084, 0.379763, 0.272827, 4.32995, 5.83327)
 light_color = Color(1, 0.674683, 0.00465829, 1)
 light_energy = 2.0
 light_indirect_energy = 4.0
 light_volumetric_fog_energy = 4.0
 shadow_enabled = true
 distance_fade_enabled = true
-spot_range = 6.2
+spot_range = 6.4
 spot_attenuation = -0.61
 spot_angle = 50.46
 
 [node name="PresentLight" type="OmniLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47292, 3.8788)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27292, 3.8788)
 light_color = Color(1, 0.857303, 0.669312, 1)
-light_energy = 0.5
+light_energy = 0.4
 light_indirect_energy = 8.0
 light_volumetric_fog_energy = 4.0
-omni_range = 6.0
+omni_range = 8.0
 
 [node name="Cameras" type="Node" parent="."]
 
 [node name="CameraA" type="Camera3D" parent="Cameras"]
-transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.65192)
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
 current = true
 fov = 60.0
 
@@ -202,19 +239,19 @@ process_physics_priority = 300
 script = ExtResource("6_xxmkq")
 
 [node name="RoomCamera" type="Node3D" parent="Cameras"]
-transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.65192)
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
 script = ExtResource("7_h7f80")
 priority = 1
 tween_resource = SubResource("Resource_h6y3j")
 camera_3d_resource = SubResource("Resource_o8lxf")
 
-[node name="CRTCamera" type="Node3D" parent="Cameras"]
-transform = Transform3D(1, 0, 0, 0, 0.995587, 0.0938477, 0, -0.0938477, 0.995587, 1.86416, 0.308583, 5.02023)
+[node name="TVCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.987705, -0.156331, 0, 0.156331, 0.987705, 1.92337, 0.940416, 4.71945)
 script = ExtResource("7_h7f80")
 tween_resource = SubResource("Resource_h6y3j")
 
-[node name="Board" type="Node3D" parent="Cameras"]
-transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 6.43164)
+[node name="BoardCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 5.23796)
 script = ExtResource("7_h7f80")
 tween_resource = SubResource("Resource_h6y3j")
 
@@ -228,107 +265,73 @@ tween_resource = SubResource("Resource_h6y3j")
 [node name="Marker3D" type="Marker3D" parent="UIMarkers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SecondScene" type="SubViewport" parent="."]
 own_world_3d = true
 size = Vector2i(1000, 1000)
 
-[node name="Main" parent="SubViewport" instance=ExtResource("10_o8lxf")]
+[node name="Main" parent="SecondScene" instance=ExtResource("10_o8lxf")]
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+[node name="TV_A" type="SubViewport" parent="SecondScene"]
+
+[node name="Camera3D" type="Camera3D" parent="SecondScene/TV_A"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41469, 0, 5.48494)
-current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SecondScene/TV_A"]
+
+[node name="UpUI" type="PanelContainer" parent="SecondScene/TV_A/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -185.0
+offset_right = 99.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="SecondScene/TV_A/CanvasLayer/UpUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SecondScene/TV_A/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 120
+text = "A"
+horizontal_alignment = 1
+
+[node name="TV_B" type="SubViewport" parent="SecondScene"]
+
+[node name="Camera3D" type="Camera3D" parent="SecondScene/TV_B"]
+transform = Transform3D(0.973638, -0.137336, 0.182118, -0.0159457, 0.755489, 0.654968, -0.227539, -0.640606, 0.733383, 0.363549, 3.24762, 6.10001)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SecondScene/TV_B"]
+
+[node name="UpUI" type="PanelContainer" parent="SecondScene/TV_B/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -185.0
+offset_right = 99.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
+
+[node name="MarginContainer" type="MarginContainer" parent="SecondScene/TV_B/CanvasLayer/UpUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SecondScene/TV_B/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 120
+text = "B"
+horizontal_alignment = 1
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
-
-[node name="Control" type="Control" parent="OverallUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="UpUI" type="PanelContainer" parent="OverallUI/Control"]
-visible = false
-layout_mode = 0
-offset_right = 42.0
-offset_bottom = 43.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/UpUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="OverallUI/Control/UpUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "UP"
-horizontal_alignment = 1
-
-[node name="DownUI" type="PanelContainer" parent="OverallUI/Control"]
-visible = false
-layout_mode = 0
-offset_right = 73.0
-offset_bottom = 43.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/DownUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="OverallUI/Control/DownUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "DOWN"
-horizontal_alignment = 1
-
-[node name="LeftUI" type="PanelContainer" parent="OverallUI/Control"]
-visible = false
-layout_mode = 0
-offset_right = 73.0
-offset_bottom = 43.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/LeftUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="OverallUI/Control/LeftUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "LEFT"
-horizontal_alignment = 1
-
-[node name="RightUI" type="PanelContainer" parent="OverallUI/Control"]
-visible = false
-layout_mode = 0
-offset_right = 73.0
-offset_bottom = 43.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8lxf")
-
-[node name="MarginContainer" type="MarginContainer" parent="OverallUI/Control/RightUI"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="OverallUI/Control/RightUI/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "RIGHT"
-horizontal_alignment = 1
