@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=30 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="7_l6366"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
+[ext_resource type="AudioStream" uid="uid://bml4st7wu74vu" path="res://01_Assets/02_Audio_Assets/01_BGM/idea_mistery_3.wav" id="8_qrytx"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
 [ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
 
@@ -346,6 +347,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Cameras/CameraA"]
+stream = ExtResource("8_qrytx")
+autoplay = true
 
 [node name="RoomCamera" type="Node3D" parent="Cameras"]
 transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
