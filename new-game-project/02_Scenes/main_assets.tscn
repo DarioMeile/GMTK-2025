@@ -306,6 +306,14 @@ light_indirect_energy = 8.0
 light_volumetric_fog_energy = 4.0
 omni_range = 8.0
 
+[node name="AudioStreams" type="Node" parent="Environment"]
+
+[node name="BackgroundAudioStream" type="AudioStreamPlayer3D" parent="Environment/AudioStreams"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
+stream = ExtResource("8_qrytx")
+autoplay = true
+bus = &"BGM"
+
 [node name="Cameras" type="Node" parent="."]
 
 [node name="CameraA" type="Camera3D" parent="Cameras"]
@@ -347,10 +355,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Cameras/CameraA"]
-stream = ExtResource("8_qrytx")
-autoplay = true
 
 [node name="RoomCamera" type="Node3D" parent="Cameras"]
 transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
