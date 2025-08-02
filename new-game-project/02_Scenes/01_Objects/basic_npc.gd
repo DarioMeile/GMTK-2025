@@ -36,7 +36,6 @@ var currentTarget
 
 func _ready() -> void:
 	navigationAgent.velocity_computed.connect(Callable(_on_velocity_computed))
-	hide()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -49,6 +48,7 @@ func _physics_process(delta: float) -> void:
 			position.x = SPAWN_MARKER.global_position.x
 			position.z = SPAWN_MARKER.global_position.z
 			npcState.waiting
+			show()
 		npcState.startScene:
 			if APPEAR_AT_START:
 				currentNpcState = npcState.idle
@@ -74,7 +74,6 @@ func _physics_process(delta: float) -> void:
 				_index = locationIndex
 			var nextPathPosition: Vector3 = navigationAgent.get_next_path_position()
 			var newVelocity: Vector3 = global_position.direction_to(nextPathPosition).normalized() * MOVEMENT_SPEEDS[_index]
-			print("global_position: " + str(global_position) + " , nextPathPosition: " + str(nextPathPosition))
 			if navigationAgent.avoidance_enabled:
 				navigationAgent.set_velocity(newVelocity)
 			else:
@@ -93,6 +92,8 @@ func _physics_process(delta: float) -> void:
 		npcState.end:
 			velocity.x = 0
 			velocity.z = 0
+			get_tree().call_group("Main", "_npc_reached_final_destination", self)
+			currentNpcState = npcState.waiting
 		npcState.inactive:
 			velocity.x = 0
 			velocity.z = 0
@@ -106,6 +107,8 @@ func set_movement_target(movement_target: Vector3):
 func _on_velocity_computed(safe_velocity: Vector3):
 	velocity.x = safe_velocity.x
 	velocity.z = safe_velocity.z
+
+
 
 #Signals called externally
 

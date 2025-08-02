@@ -160,7 +160,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "DOOR_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "DOOR_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES") groups=["Main"]]
 script = ExtResource("1_llutj")
 ROOM_CAMERA = NodePath("Cameras/RoomCamera")
 DOOR_CAMERA = NodePath("Cameras/DoorCamera")
@@ -472,11 +472,12 @@ layout_mode = 2
 theme_override_constants/line_separation = 1
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[i][color=olive]...Hmmm,
-let me check the tapes first...[/color][/i]"
+text = "[i][color=olive]...This will not do...
+It has to be done one way or another...[/color][/i]"
 fit_content = true
 vertical_alignment = 2
-visible_characters = 40
+visible_characters = 22
+visible_ratio = 0.354839
 
 [node name="ItemLabels" type="Control" parent="OverallUI"]
 unique_name_in_owner = true
@@ -519,6 +520,7 @@ vertical_alignment = 1
 
 [node name="ButtonNotification" type="Control" parent="OverallUI"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

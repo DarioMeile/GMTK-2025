@@ -61,7 +61,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="TestScenario" type="Node3D"]
+[node name="TestScenario" type="Node3D" groups=["Scenario"]]
 script = ExtResource("1_y06yk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -159,7 +159,7 @@ visible = false
 
 [node name="NPC_1" type="Node" parent="."]
 
-[node name="NPC" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") groups=["NPC"] instance=ExtResource("3_ycu1a")]
+[node name="NPC" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("3_ycu1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.01321, -0.867945)
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2"), NodePath("../Location_3")]
@@ -179,7 +179,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
 
 [node name="NPC_2" type="Node" parent="."]
 
-[node name="NPC" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") groups=["NPC"] instance=ExtResource("3_ycu1a")]
+[node name="NPC" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("3_ycu1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.01321, -0.867945)
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2"), NodePath("../Location_3")]

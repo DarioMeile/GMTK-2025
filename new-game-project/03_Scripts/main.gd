@@ -69,10 +69,11 @@ var currentTapeState: int = tapeState.init
 var tapesInserted: bool = false
 
 ##TV control
-enum tvState {init, firstWatch, selecting, controlling, waitingForInput, watching, waiting}
+enum tvState {init, firstWatch, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting}
 var firstWatched: bool = false
 var currentTvState = tvState.init
 var tvOn: bool = false
+var entitySignals: Dictionary = {}
 
 ##Board control
 enum boardState {init, selecting, controling}
@@ -290,7 +291,6 @@ func _tv_perspective_control(delta: float):
 				return
 			currentTvState = tvState.selecting
 		tvState.firstWatch:
-			firstWatched = true
 			currentTvState = tvState.waiting
 			dialogueNode.show()
 			dialogueLabel.clear()
@@ -351,7 +351,34 @@ func _tv_perspective_control(delta: float):
 				await get_tree().create_timer(0.4).timeout
 				for _play in _plays:
 					_play.hide()
-				currentTvState = tvState.watching
+				currentTvState = tvState.watchingStart
+				get_tree().call_group("Scenario", "_startScene")
+		tvState.watchingStart:
+			var _entitiesToSimulate:= get_tree().get_nodes_in_group("NPC")
+			for _entity in _entitiesToSimulate:
+				entitySignals[_entity] = false
+			currentTvState = tvState.watching
+		tvState.watching:
+			for _entity in entitySignals:
+				if !entitySignals[_entity]: #WAITING FOR FINISHED SIGNAL
+					return
+			if !firstWatched:
+				currentTvState = tvState.finishedFirstWatching
+		tvState.finishedFirstWatching:
+			currentTvState = tvState.waiting
+			dialogueNode.show()
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[i][color=olive]...This will not do...\n")
+			dialogueLabel.append_text("It has to be done one way or another...[/color][/i]")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.set_parallel(false)
+			_tween.tween_property(dialogueLabel, "visible_characters", 22, 0.6).from(0)
+			_tween.tween_interval(1.5)
+			_tween.tween_property(dialogueLabel, "visible_characters", 62, 1.2).from(22)
+			await _tween.finished
 
 
 func _board_perspective_control(delta: float):
@@ -369,6 +396,13 @@ func _board_perspective_control(delta: float):
 		boardState.controling:
 			pass
 
+
+##Signals called externally
+
+func _npc_reached_final_destination(_npc):
+	if entitySignals.has(_npc):
+		entitySignals[_npc] = true
+	print("NPC FINISHED")
 
 ##Tweens and Animations
 

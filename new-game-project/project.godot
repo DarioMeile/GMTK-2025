@@ -49,6 +49,8 @@ ControllableEntity=""
 NPC=""
 Pause_Overlay=""
 Play_Overlay=""
+Scenario=""
+Main=""
 
 [input]
 

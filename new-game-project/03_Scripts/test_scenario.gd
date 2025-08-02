@@ -12,3 +12,6 @@ func _process(delta: float) -> void:
 		return
 	if Input.is_action_just_pressed("debug_key"):
 		get_tree().call_group("NPC", "_start_npc")
+
+func _startScene():
+	get_tree().call_group("NPC", "_start_npc")

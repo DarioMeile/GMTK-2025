@@ -60,7 +60,7 @@ albedo_color = Color(0.806807, 0.692388, 0, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yr50r"]
 height = 2.8
 
-[node name="NPC" type="CharacterBody3D"]
+[node name="NPC" type="CharacterBody3D" groups=["NPC"]]
 script = ExtResource("1_g18ix")
 
 [node name="Joker" parent="." instance=ExtResource("2_mhbvb")]
