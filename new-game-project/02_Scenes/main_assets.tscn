@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=29 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -35,6 +35,43 @@ albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gug2t"]
 albedo_color = Color(0.575766, 0.473764, 0.416362, 1)
+
+[sub_resource type="Curve" id="Curve_qrytx"]
+_data = [Vector2(0, 0), 0.0, 2.37109, 0, 0, Vector2(0.505703, 0.98965), -0.14327, -0.14327, 0, 0, Vector2(1, 0), -2.56509, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xxmkq"]
+curve = SubResource("Curve_qrytx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6366"]
+lifetime_randomness = 0.25
+emission_shape_scale = Vector3(4.37, 3.84, 7.165)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -262.7
+angle_max = -56.7
+direction = Vector3(0, -0.1, 0)
+spread = 17.903
+initial_velocity_min = 0.1
+initial_velocity_max = 0.2
+angular_velocity_min = -192.99
+angular_velocity_max = 111.34
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_xxmkq")
+turbulence_enabled = true
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6366"]
+albedo_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_jwi7y"]
+material = SubResource("StandardMaterial3D_l6366")
+size = Vector2(0.02, 0.02)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kd5td"]
 albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
@@ -157,6 +194,15 @@ material = SubResource("StandardMaterial3D_du1uk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -7.5)
 size = Vector3(2.4, 5, 0.4)
 material = SubResource("StandardMaterial3D_gug2t")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Environment/Room"]
+amount = 1000
+lifetime = 2.0
+preprocess = 1.0
+speed_scale = 1.1
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_l6366")
+draw_pass_1 = SubResource("QuadMesh_jwi7y")
 
 [node name="Desktop" type="Node3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
