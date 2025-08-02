@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=50 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -12,6 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://bml4st7wu74vu" path="res://01_Assets/02_Audio_Assets/01_BGM/idea_mistery_3.wav" id="8_qrytx"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
 [ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
+[ext_resource type="Shader" uid="uid://pae4uleqloaj" path="res://01_Assets/03_Misc_Assets/02_Shaders/simple_2d_shake.gdshader" id="13_h7f80"]
+[ext_resource type="Texture2D" uid="uid://coyao7kh7acs3" path="res://01_Assets/01_Visual_Assets/00_Placeholders/b84.png" id="14_jwi7y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3q361"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -153,12 +155,239 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gug2t"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oitkq"]
+shader = ExtResource("13_h7f80")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 2.0
+
+[sub_resource type="Animation" id="Animation_h7f80"]
+resource_name = "Appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(61, 367), Vector2(61, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jwi7y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(61, 367)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/shake_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="Animation" id="Animation_oitkq"]
+resource_name = "Shake"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/shake_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(61, 32)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%Animation/../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_show_totem_dialogue"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_6scgm"]
+resource_name = "Disappear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(61, 32), Vector2(61, 32), Vector2(61, 400)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_byvlv"]
+_data = {
+&"Appear": SubResource("Animation_h7f80"),
+&"Disappear": SubResource("Animation_6scgm"),
+&"RESET": SubResource("Animation_jwi7y"),
+&"Shake": SubResource("Animation_oitkq")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7f80"]
+animation = &"Appear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jwi7y"]
+animation = &"Disappear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oitkq"]
+animation = &"Shake"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6scgm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_byvlv"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mhxr6"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mhxr6"]
+states/Appear/node = SubResource("AnimationNodeAnimation_h7f80")
+states/Appear/position = Vector2(331, 104)
+states/Disappear/node = SubResource("AnimationNodeAnimation_jwi7y")
+states/Disappear/position = Vector2(631, 104)
+states/Shake/node = SubResource("AnimationNodeAnimation_oitkq")
+states/Shake/position = Vector2(470, 104)
+transitions = ["Start", "Appear", SubResource("AnimationNodeStateMachineTransition_6scgm"), "Appear", "Shake", SubResource("AnimationNodeStateMachineTransition_byvlv"), "Shake", "Disappear", SubResource("AnimationNodeStateMachineTransition_mhxr6")]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrytx"]
-bg_color = Color(0, 0, 0, 0.784314)
+bg_color = Color(0, 0, 0, 0.862745)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_qrytx"]
+resource_name = "Moving"
+length = 1.6154
+loop_mode = 2
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.230769, 1.38462, 1.61538),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(424, 37), Vector2(424, 37), Vector2(424, 29), Vector2(424, 29)]
+}
+
+[sub_resource type="Animation" id="Animation_xxmkq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(424, 37)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h7f80"]
+_data = {
+&"Moving": SubResource("Animation_qrytx"),
+&"RESET": SubResource("Animation_xxmkq")
+}
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "DOOR_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES") groups=["Main"]]
 script = ExtResource("1_llutj")
@@ -432,6 +661,44 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gug2t")
 
+[node name="Animation" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Arm" type="TextureRect" parent="OverallUI/Animation"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_oitkq")
+custom_minimum_size = Vector2(320, 400)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -179.0
+offset_top = 7.0
+offset_right = 150.745
+offset_bottom = 407.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_jwi7y")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OverallUI/Animation/Arm"]
+libraries = {
+&"": SubResource("AnimationLibrary_byvlv")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="OverallUI/Animation/Arm"]
+tree_root = SubResource("AnimationNodeStateMachine_mhxr6")
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="Dialogue" type="Control" parent="OverallUI"]
 unique_name_in_owner = true
 layout_mode = 3
@@ -470,14 +737,41 @@ theme_override_constants/margin_bottom = 10
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/line_separation = 1
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
 bbcode_enabled = true
-text = "[i][color=olive]...This will not do...
-It has to be done one way or another...[/color][/i]"
+text = "[shake rate=20.0 level=5 connected=1][i][b][color=olive]BADABIM, BADABOOM[/color][/b][/i][/shake]"
 fit_content = true
 vertical_alignment = 2
-visible_characters = 22
-visible_ratio = 0.354839
+visible_characters = 17
+
+[node name="DialoguePointer" type="Control" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ContinueDialoguePointer" type="Label" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox/DialoguePointer"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 37.0
+offset_right = 438.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 10
+text = "▼"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox/DialoguePointer"]
+root_node = NodePath("../ContinueDialoguePointer")
+libraries = {
+&"": SubResource("AnimationLibrary_h7f80")
+}
+autoplay = "Moving"
 
 [node name="ItemLabels" type="Control" parent="OverallUI"]
 unique_name_in_owner = true

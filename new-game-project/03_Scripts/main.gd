@@ -35,11 +35,17 @@ extends Node3D
 #Dialogue nodes
 @onready var dialogueNode:= %Dialogue
 @onready var dialogueLabel:= %DialogueTextLabel
+@onready var dialoguePointer:= %DialoguePointer
 #Notification nodes
 @onready var itemNotificationNode:= %ItemLabels
 @onready var itemNotificationLabel:= %ItemNotificationLabel
 @onready var buttonNotificationNode:= %ButtonNotification
 @onready var buttonNotificationLabel:= %ButtonLabel
+#Animation nodes
+@onready var animationNode:= %Animation
+@onready var animationArm:= %Arm
+@onready var armAnimationTree:= $OverallUI/Animation/Arm/AnimationTree
+var armAnimationTreeStateMachine
 
 var enabled: bool = true
 var lightTimer: float = 0.0
@@ -81,11 +87,15 @@ var currentBoardState = boardState.init
 
 
 func _ready() -> void:
+	#SET START OF SCENE CORRECTLY
 	blackScreen.show()
 	dialogueNode.hide()
 	tapeNodes.hide()
 	itemNotificationNode.hide()
 	buttonNotificationNode.hide()
+	dialoguePointer.hide()
+	animationNode.hide()
+	armAnimationTreeStateMachine = armAnimationTree["parameters/playback"]
 	dialogueLabel.text = ""
 	var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
 	for _pause in _pauses:
@@ -138,6 +148,7 @@ func _process(delta: float) -> void:
 			_tween.tween_property(dialogueLabel, "visible_characters", 102, 2).from(12)
 			await _tween.finished
 			tapeNodes.show()
+			dialoguePointer.show()
 			_showItemNotification("RECEIVED VHS TAPES")
 			currentState = state.waitingForInput
 		state.waitingForInput:
@@ -147,6 +158,7 @@ func _process(delta: float) -> void:
 				dialogueLabel.visible_characters = 0
 				dialogueLabel.text = ""
 				dialogueNode.hide()
+				dialoguePointer.hide()
 				DOOR_CAMERA.priority = 0
 		state.waiting:
 			pass
@@ -305,6 +317,7 @@ func _tv_perspective_control(delta: float):
 			_tween.tween_interval(1)
 			_tween.tween_property(dialogueLabel, "visible_characters", 40, 0.8).from(9)
 			await _tween.finished
+			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
 		tvState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
@@ -342,17 +355,26 @@ func _tv_perspective_control(delta: float):
 				dialogueLabel.visible_characters = 0
 				dialogueLabel.text = ""
 				dialogueNode.hide()
-				var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
-				for _pause in _pauses:
-					_pause.hide()
-				var _plays = get_tree().get_nodes_in_group("Play_Overlay")
-				for _play in _plays:
-					_play.show()
-				await get_tree().create_timer(0.4).timeout
-				for _play in _plays:
-					_play.hide()
-				currentTvState = tvState.watchingStart
-				get_tree().call_group("Scenario", "_startScene")
+				dialoguePointer.hide()
+				if !firstWatched:
+					var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+					for _pause in _pauses:
+						_pause.hide()
+					var _plays = get_tree().get_nodes_in_group("Play_Overlay")
+					for _play in _plays:
+						_play.show()
+					await get_tree().create_timer(0.4).timeout
+					for _play in _plays:
+						_play.hide()
+					currentTvState = tvState.watchingStart
+					get_tree().call_group("Scenario", "_startScene")
+					return
+				if !totemWatched:
+					animationNode.show()
+					animationArm.show()
+					armAnimationTreeStateMachine.travel("Appear")
+					return
+				armAnimationTreeStateMachine.travel("Disappear")
 		tvState.watchingStart:
 			var _entitiesToSimulate:= get_tree().get_nodes_in_group("NPC")
 			for _entity in _entitiesToSimulate:
@@ -379,6 +401,9 @@ func _tv_perspective_control(delta: float):
 			_tween.tween_interval(1.5)
 			_tween.tween_property(dialogueLabel, "visible_characters", 62, 1.2).from(22)
 			await _tween.finished
+			firstWatched = true
+			dialoguePointer.show()
+			currentTvState = tvState.waitingForInput
 
 
 func _board_perspective_control(delta: float):
@@ -405,6 +430,27 @@ func _npc_reached_final_destination(_npc):
 	print("NPC FINISHED")
 
 ##Tweens and Animations
+
+func _show_totem_dialogue():
+	dialogueNode.show()
+	dialogueLabel.clear()
+	dialogueLabel.visible_characters = 0
+	dialogueLabel.show()
+	dialogueLabel.append_text("[shake rate=20.0 level=5 connected=1][i][b][color=olive]BADABIM, BADABOOM[/color][/b][/i][/shake]")
+	var _tween = create_tween()
+	_tween.set_ease(Tween.EASE_IN)
+	_tween.set_parallel(false)
+	_tween.tween_property(dialogueLabel, "visible_characters", 7, 0.5).from(0)
+	_tween.tween_interval(1)
+	_tween.tween_property(dialogueLabel, "visible_characters", 17, 0.5).from(7)
+	await _tween.finished
+	dialoguePointer.show()
+	totemWatched = true
+	currentTvState = tvState.waitingForInput
+
+func _totem_disappeared():
+	animationNode.hide()
+	currentTvState = tvState.controlling
 
 func _fade_to_black(_black: bool = true):
 	var _alpha: int = 0
