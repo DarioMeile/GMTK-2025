@@ -8,6 +8,7 @@ extends Node3D
 @export var PIKACHU_CRT: CharacterBody3D
 @export_subgroup("Cameras")
 @export var ROOM_CAMERA: PhantomCamera3D
+@export var DOOR_CAMERA: PhantomCamera3D
 @export var TV_CAMERA: PhantomCamera3D
 @export var TAPES_CAMERA: PhantomCamera3D
 @export var BOARD_CAMERA: PhantomCamera3D
@@ -25,12 +26,20 @@ extends Node3D
 @export_group("Tweens")
 @export var FADE_TO_BLACK_TIMER: float = 0.25
 
-
 #Get nodes
 @onready var roomLight := %RoomLight
 @onready var tapeNodes := %"VHS-Tapes"
 @onready var board := %Board
 @onready var blackScreen := %BlackScreen
+
+#Dialogue nodes
+@onready var dialogueNode:= %Dialogue
+@onready var dialogueLabel:= %DialogueTextLabel
+#Notification nodes
+@onready var itemNotificationNode:= %ItemLabels
+@onready var itemNotificationLabel:= %ItemNotificationLabel
+@onready var buttonNotificationNode:= %ButtonNotification
+@onready var buttonNotificationLabel:= %ButtonLabel
 
 var enabled: bool = true
 var lightTimer: float = 0.0
@@ -38,22 +47,30 @@ var transitioningLight: bool = false
 var lightOn: bool = false
 
 ##Overall control
-enum state {init, selectingPerspective}
+enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting}
 var currentState: int = state.init
 
+##Introduction control
+var showingButtonTimer: float = 4.0
+var turnOnTVShowed: bool = false
+var doorDialoguePassed: bool = false
+var vhsFirstWatch: bool = false
+var totemWatched: bool = false
+
 ##Room control
-enum roomPerspectives {room, tapes, tv, rightWall}
+enum roomPerspectives {room, tapes, tv, rightWall, door}
 enum interactuableObject {nothing, tv, vhsTapes, board}
 var currentRoomPerspective: int = roomPerspectives.room
 var currentInteractuableObject: int = interactuableObject.nothing
 
 ##Tape control
-enum tapeState {init, selecting, viewing, selected}
+enum tapeState {init, selecting, viewing, selected, waiting}
 var currentTapeState: int = tapeState.init
 var tapesInserted: bool = false
 
 ##TV control
-enum tvState {init, selecting, controling}
+enum tvState {init, firstWatch, selecting, controlling, waitingForInput, watching, waiting}
+var firstWatched: bool = false
 var currentTvState = tvState.init
 var tvOn: bool = false
 
@@ -64,16 +81,74 @@ var currentBoardState = boardState.init
 
 func _ready() -> void:
 	blackScreen.show()
-	_fade_to_black(false)
+	dialogueNode.hide()
+	tapeNodes.hide()
+	itemNotificationNode.hide()
+	buttonNotificationNode.hide()
+	dialogueLabel.text = ""
+	var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+	for _pause in _pauses:
+		_pause.hide()
+	var _plays = get_tree().get_nodes_in_group("Play_Overlay")
+	for _play in _plays:
+		_play.hide()
 	get_tree().call_group("TV", "_turn_screen", false)
+	board.material_overlay.set("shader_parameter/scale", 0)
+	board.material_overlay.set("shader_parameter/outline_spread", 0)
+	get_tree().call_group("TV", "_outline_meshes", false, 0)
+	get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
+	await get_tree().create_timer(0.5).timeout
+	_fade_to_black(false)
 
 func _process(delta: float) -> void:
 	_flicker_light(delta)
 	match currentState:
 		state.init:
-			currentState = state.selectingPerspective
+			currentState = state.waiting
+			await get_tree().create_timer(1).timeout
+			currentState = state.introduction
 		state.selectingPerspective:
 			_room_perspective_control(delta)
+		state.introduction:
+			showingButtonTimer -= delta
+			if showingButtonTimer < 0 and showingButtonTimer > -100:
+				buttonNotificationLabel.text = "PRESS [ACCEPT] TO START"
+				buttonNotificationNode.show()
+				showingButtonTimer = -100
+			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
+				currentState = state.initialDialogue
+				buttonNotificationNode.hide()
+				DOOR_CAMERA.priority = 2
+		state.initialDialogue:
+			currentState = state.waiting
+			await get_tree().create_timer(0.1).timeout
+			dialogueNode.show()
+			await get_tree().create_timer(0.1).timeout
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]KNOCK KNOCK[/wave]\n")
+			dialogueLabel.append_text("We received the VHS tapes from the packing security cameras, see if you can find anything.")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.set_parallel(false)
+			_tween.tween_property(dialogueLabel, "visible_characters", 12, 0.4).from(0)
+			_tween.tween_interval(1)
+			_tween.tween_property(dialogueLabel, "visible_characters", 102, 2).from(12)
+			await _tween.finished
+			tapeNodes.show()
+			_showItemNotification("RECEIVED VHS TAPES")
+			currentState = state.waitingForInput
+		state.waitingForInput:
+			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
+				currentState = state.selectingPerspective
+				dialogueLabel.clear()
+				dialogueLabel.visible_characters = 0
+				dialogueLabel.text = ""
+				dialogueNode.hide()
+				DOOR_CAMERA.priority = 0
+		state.waiting:
+			pass
 
 
 
@@ -164,7 +239,13 @@ func _tapes_perspective_control(delta: float):
 	match currentTapeState:
 		tapeState.init:
 			currentTapeState = tapeState.selecting
+			showingButtonTimer = 4.0
 		tapeState.selecting:
+			showingButtonTimer -= delta
+			if showingButtonTimer < 0 and showingButtonTimer > -100:
+				buttonNotificationLabel.text = "PRESS [ACCEPT] TO INSERT TAPES"
+				buttonNotificationNode.show()
+				showingButtonTimer = -100
 			if Input.is_action_just_pressed("ui_cancel"):
 				TAPES_CAMERA.priority = 0
 				board.material_overlay.set("shader_parameter/scale", 0)
@@ -172,6 +253,7 @@ func _tapes_perspective_control(delta: float):
 				get_tree().call_group("TV", "_outline_meshes", false, 0)
 				get_tree().call_group("VHS_Tapes", "_outline_meshes", true)
 				currentRoomPerspective = roomPerspectives.room
+				buttonNotificationNode.hide()
 			if Input.is_action_just_pressed("ui_accept"): #Put tapes inside TV
 				for n in TAPE_NODES.size():
 					var _tape: VHS_Tape_Object = TAPE_NODES[n]
@@ -185,6 +267,12 @@ func _tapes_perspective_control(delta: float):
 				get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 				currentRoomPerspective = roomPerspectives.room
 				tapesInserted = true
+				buttonNotificationNode.hide()
+				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
+				var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+				for _pause in _pauses:
+					_pause.show()
+				_showItemNotification("INSERTED SECURITY TAPES")
 		tapeState.viewing:
 			pass
 		tapeState.selected:
@@ -193,10 +281,35 @@ func _tapes_perspective_control(delta: float):
 func _tv_perspective_control(delta: float):
 	match currentTvState:
 		tvState.init:
-			currentTvState = tvState.selecting
+			if !turnOnTVShowed:
+				buttonNotificationLabel.text = "PRESS [ACCEPT] TO TURN ON THE TVs"
+				buttonNotificationNode.show()
 			get_tree().call_group("ControllableEntity", "_enable", tvOn)
+			if tvOn and tapesInserted and !firstWatched:
+				currentTvState = tvState.firstWatch
+				return
+			currentTvState = tvState.selecting
+		tvState.firstWatch:
+			firstWatched = true
+			currentTvState = tvState.waiting
+			dialogueNode.show()
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[i][color=olive]...Hmmm,\n")
+			dialogueLabel.append_text("let me check the tapes first...[/color][/i]")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.set_parallel(false)
+			_tween.tween_property(dialogueLabel, "visible_characters", 9, 0.4).from(0)
+			_tween.tween_interval(1)
+			_tween.tween_property(dialogueLabel, "visible_characters", 40, 0.8).from(9)
+			await _tween.finished
+			currentTvState = tvState.waitingForInput
 		tvState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
+				if !turnOnTVShowed:
+					buttonNotificationNode.hide()
 				TV_CAMERA.priority = 0
 				board.material_overlay.set("shader_parameter/scale", 0)
 				board.material_overlay.set("shader_parameter/outline_spread", 0)
@@ -205,15 +318,41 @@ func _tv_perspective_control(delta: float):
 				get_tree().call_group("ControllableEntity", "_enable", false)
 				currentRoomPerspective = roomPerspectives.room
 			if Input.is_action_just_pressed("ui_accept"):
+				if !turnOnTVShowed:
+					turnOnTVShowed = true
+					buttonNotificationNode.hide()
 				if tvOn:
 					tvOn = false
 				else:
 					tvOn = true
 				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
 				if tapesInserted:
+					if !firstWatched:
+						currentTvState = tvState.firstWatch
+						return
 					get_tree().call_group("ControllableEntity", "_enable", tvOn)
-		tvState.controling:
+		tvState.controlling:
 			pass
+		tvState.waiting:
+			pass
+		tvState.waitingForInput:
+			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
+				currentTvState = tvState.waiting
+				dialogueLabel.clear()
+				dialogueLabel.visible_characters = 0
+				dialogueLabel.text = ""
+				dialogueNode.hide()
+				var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+				for _pause in _pauses:
+					_pause.hide()
+				var _plays = get_tree().get_nodes_in_group("Play_Overlay")
+				for _play in _plays:
+					_play.show()
+				await get_tree().create_timer(0.4).timeout
+				for _play in _plays:
+					_play.hide()
+				currentTvState = tvState.watching
+
 
 func _board_perspective_control(delta: float):
 	match currentBoardState:
@@ -246,6 +385,19 @@ func _fade_to_black(_black: bool = true):
 	if !_black:
 		blackScreen.hide()
 
+func _showItemNotification(_text: String):
+	itemNotificationLabel.text = _text
+	itemNotificationNode.modulate.a = 0
+	itemNotificationNode.show()
+	var _tween = create_tween()
+	_tween.set_ease(Tween.EASE_IN)
+	_tween.set_trans(Tween.TRANS_CUBIC)
+	_tween.set_parallel(false)
+	_tween.tween_property(itemNotificationNode, "modulate:a", 1, 0.1).from_current()
+	_tween.tween_interval(2)
+	_tween.tween_property(itemNotificationNode, "modulate:a", 0, 0.1).from(1)
+	await _tween.finished
+	itemNotificationNode.hide()
 
 func _flicker_light(delta: float):
 	if transitioningLight:

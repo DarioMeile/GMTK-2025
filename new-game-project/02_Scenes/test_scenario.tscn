@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://dammomljjhoxl"]
+[gd_scene load_steps=19 format=3 uid="uid://dammomljjhoxl"]
 
 [ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/joker.tscn" id="1_nmnme"]
 [ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_y06yk"]
 [ext_resource type="PackedScene" uid="uid://cx74e350xbqrt" path="res://02_Scenes/basic_npc.tscn" id="3_ycu1a"]
+[ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="4_arolk"]
+[ext_resource type="Texture2D" uid="uid://cin8xcnauynb1" path="res://01_Assets/01_Visual_Assets/00_Placeholders/playSymbol.png" id="5_yr50r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nmnme"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -53,7 +55,11 @@ size = Vector3(12, 10.9, 2)
 size = Vector3(2, 11, 22)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmnme"]
-bg_color = Color(1, 1, 1, 0.607843)
+bg_color = Color(1, 1, 1, 0.705882)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="TestScenario" type="Node3D"]
 script = ExtResource("1_y06yk")
@@ -83,9 +89,9 @@ size = Vector3(26, 1, 20)
 material = SubResource("StandardMaterial3D_y06yk")
 
 [node name="Substract" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 operation = 2
-size = Vector3(16, 11, 18)
+size = Vector3(13, 11, 18)
 material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Door" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
@@ -96,7 +102,6 @@ material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Ceiling" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-visible = false
 size = Vector3(15, 1, 20)
 material = SubResource("StandardMaterial3D_nmnme")
 
@@ -217,6 +222,7 @@ size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewportA/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -233,6 +239,39 @@ theme_override_font_sizes/font_size = 30
 text = "A"
 horizontal_alignment = 1
 
+[node name="PauseTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_arolk")
+expand_mode = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_yr50r")
+expand_mode = 1
+
 [node name="SubViewportB" type="SubViewport" parent="."]
 size = Vector2i(256, 256)
 
@@ -243,19 +282,23 @@ current = true
 fov = 60.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="SubViewportB"]
-visible = false
 
 [node name="UpUI" type="PanelContainer" parent="SubViewportB/CanvasLayer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -185.0
-offset_right = 99.0
+offset_top = -62.0
+offset_right = 40.0
 grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewportB/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -265,9 +308,42 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 120
+theme_override_font_sizes/font_size = 30
 text = "B"
 horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_arolk")
+expand_mode = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_yr50r")
+expand_mode = 1
 
 [node name="SubViewportC" type="SubViewport" parent="."]
 size = Vector2i(256, 256)
@@ -279,19 +355,23 @@ current = true
 fov = 60.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="SubViewportC"]
-visible = false
 
 [node name="UpUI" type="PanelContainer" parent="SubViewportC/CanvasLayer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -185.0
-offset_right = 99.0
+offset_top = -62.0
+offset_right = 40.0
 grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewportC/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -301,9 +381,42 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 120
+theme_override_font_sizes/font_size = 30
 text = "C"
 horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_arolk")
+expand_mode = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_yr50r")
+expand_mode = 1
 
 [node name="SubViewportD" type="SubViewport" parent="."]
 size = Vector2i(256, 256)
@@ -314,19 +427,23 @@ cull_mask = 17
 current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="SubViewportD"]
-visible = false
 
 [node name="UpUI" type="PanelContainer" parent="SubViewportD/CanvasLayer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -185.0
-offset_right = 99.0
+offset_top = -62.0
+offset_right = 40.0
 grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewportD/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -336,6 +453,39 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 120
+theme_override_font_sizes/font_size = 30
 text = "D"
 horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_arolk")
+expand_mode = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_yr50r")
+expand_mode = 1

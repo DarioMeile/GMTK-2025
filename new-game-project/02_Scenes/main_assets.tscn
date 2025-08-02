@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=32 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -136,12 +136,34 @@ near = 0.05
 far = 4000.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
+[sub_resource type="Resource" id="Resource_qrytx"]
+script = ExtResource("9_gug2t")
+keep_aspect = 1
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 60.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gug2t"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrytx"]
+bg_color = Color(0, 0, 0, 0.784314)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "DOOR_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES")]
 script = ExtResource("1_llutj")
 ROOM_CAMERA = NodePath("Cameras/RoomCamera")
+DOOR_CAMERA = NodePath("Cameras/DoorCamera")
 TV_CAMERA = NodePath("Cameras/TVCamera")
 TAPES_CAMERA = NodePath("Cameras/TapesCamera")
 BOARD_CAMERA = NodePath("Cameras/BoardCamera")
@@ -173,6 +195,7 @@ material = SubResource("StandardMaterial3D_du1uk")
 
 [node name="Ceiling4thWall" type="CSGBox3D" parent="Environment/Room"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.76126, -0.0225979)
+visible = false
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
 size = Vector3(9, 0.5, 15)
@@ -248,8 +271,9 @@ transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportD")
 
-[node name="VHS-Tapes" type="Node" parent="Environment/Desktop"]
+[node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
 
 [node name="VHS_Tape_A" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
 transform = Transform3D(0.897097, 0, 0.441835, 0, 1, 0, -0.441835, 0, 0.897097, -1.48219, -0.526075, 1.32104)
@@ -363,6 +387,12 @@ priority = 1
 tween_resource = SubResource("Resource_h6y3j")
 camera_3d_resource = SubResource("Resource_o8lxf")
 
+[node name="DoorCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.984808, -0.0422769, 0.168423, 0, 0.96991, 0.243463, -0.173648, -0.239764, 0.955175, -0.294317, 1.45061, 4.90729)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+camera_3d_resource = SubResource("Resource_qrytx")
+
 [node name="TVCamera" type="Node3D" parent="Cameras"]
 transform = Transform3D(1, 0, 0, 0, 0.987705, -0.156331, 0, 0.156331, 0.987705, 1.92337, 0.940416, 4.71945)
 script = ExtResource("7_h7f80")
@@ -392,7 +422,6 @@ metadata/_edit_lock_ = true
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
-visible = false
 
 [node name="BlackScreen" type="Panel" parent="OverallUI"]
 unique_name_in_owner = true
@@ -402,5 +431,121 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gug2t")
+
+[node name="Dialogue" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueMarginBox" type="MarginContainer" parent="OverallUI/Dialogue"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="DialoguePanelBox" type="PanelContainer" parent="OverallUI/Dialogue/DialogueMarginBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qrytx")
+
+[node name="TextMarginBox" type="MarginContainer" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="DialogueTextLabel" type="RichTextLabel" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/line_separation = 1
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[i][color=olive]...Hmmm,
+let me check the tapes first...[/color][/i]"
+fit_content = true
+vertical_alignment = 2
+visible_characters = 40
+
+[node name="ItemLabels" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/ItemLabels"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.5
+offset_right = 93.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 6
+
+[node name="NotificationPanelContainer" type="PanelContainer" parent="OverallUI/ItemLabels/MarginContainer"]
+layout_mode = 2
+
+[node name="NotificationMarginContainer" type="MarginContainer" parent="OverallUI/ItemLabels/MarginContainer/NotificationPanelContainer"]
+custom_minimum_size = Vector2(187, 21)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="ItemNotificationLabel" type="Label" parent="OverallUI/ItemLabels/MarginContainer/NotificationPanelContainer/NotificationMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "RECEIVED {n} VHS TAPES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonNotification" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/ButtonNotification"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -93.5
+offset_top = -27.0
+offset_right = 93.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 6
+
+[node name="ButtonLabel" type="Label" parent="OverallUI/ButtonNotification/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "PRESS [ACCEPT] TO INSERT TAPES"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="SecondScene/TestScenario"]

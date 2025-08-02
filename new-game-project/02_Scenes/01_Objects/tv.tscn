@@ -96,19 +96,24 @@ transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, -0.610326, 0)
 [node name="TVCRT_M_TVCRT_0" parent="TV/RootNode_001/TVCRT" index="0"]
 material_overlay = SubResource("ShaderMaterial_5tj8v")
 
+[node name="Label3D" type="Label3D" parent="TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 19.8542)
+pixel_size = 0.0835
+text = "NO SIGNAL"
+
 [node name="OffScreen" type="CSGBox3D" parent="TV"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 18.9182)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 19.3256)
 visible = false
 material_override = SubResource("StandardMaterial3D_ldofb")
 size = Vector3(52.4685, 37.9433, 1.82793)
 
 [node name="ViewportScreen" type="CSGBox3D" parent="TV"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, -1, 0, 8.74228e-08, 0, -1, 0, 30.373, 18.9182)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, -1, 0, 8.74228e-08, 0, -1, 0, 30.373, 19.3256)
 material_override = SubResource("StandardMaterial3D_t340m")
 size = Vector3(52.4685, 37.9433, 1.82793)
 
 [node name="GlassScreen" type="CSGBox3D" parent="TV"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 20.6439)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.373, 21.0513)
 size = Vector3(52.469, 37.943, 0.2)
 material = SubResource("StandardMaterial3D_njjlx")
 

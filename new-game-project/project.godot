@@ -22,8 +22,8 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=240
+window/size/viewport_width=480
+window/size/viewport_height=360
 window/size/window_width_override=640
 window/size/window_height_override=480
 window/stretch/mode="viewport"
@@ -47,6 +47,8 @@ TV="TV"
 VHS_Tapes=""
 ControllableEntity=""
 NPC=""
+Pause_Overlay=""
+Play_Overlay=""
 
 [input]
 
