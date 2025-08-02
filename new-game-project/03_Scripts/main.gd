@@ -75,8 +75,9 @@ var currentTapeState: int = tapeState.init
 var tapesInserted: bool = false
 
 ##TV control
-enum tvState {init, firstWatch, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting}
+enum tvState {init, firstWatch, firstRewind, rewinding, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting, finishedWatching}
 var firstWatched: bool = false
+var firstRewind: bool = false
 var currentTvState = tvState.init
 var tvOn: bool = false
 var entitySignals: Dictionary = {}
@@ -319,6 +320,8 @@ func _tv_perspective_control(delta: float):
 			await _tween.finished
 			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
+		tvState.rewinding:
+			pass
 		tvState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
 				if !turnOnTVShowed:
@@ -345,7 +348,31 @@ func _tv_perspective_control(delta: float):
 						return
 					get_tree().call_group("ControllableEntity", "_enable", tvOn)
 		tvState.controlling:
-			pass
+			if Input.is_action_just_pressed("ui_cancel"):
+				if !turnOnTVShowed:
+					buttonNotificationNode.hide()
+				TV_CAMERA.priority = 0
+				board.material_overlay.set("shader_parameter/scale", 0)
+				board.material_overlay.set("shader_parameter/outline_spread", 0)
+				get_tree().call_group("TV", "_outline_meshes", true, 0)
+				get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
+				get_tree().call_group("ControllableEntity", "_enable", false)
+				currentRoomPerspective = roomPerspectives.room
+			if Input.is_action_just_pressed("play_tapes"):
+				currentTvState = tvState.waiting
+				var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+				for _pause in _pauses:
+					_pause.hide()
+				var _plays = get_tree().get_nodes_in_group("Play_Overlay")
+				for _play in _plays:
+					_play.show()
+				await get_tree().create_timer(0.4).timeout
+				for _play in _plays:
+					_play.hide()
+				currentTvState = tvState.watchingStart
+				get_tree().call_group("Scenario", "_startScene")
+			if Input.is_action_just_pressed("ui_accept"):
+				return
 		tvState.waiting:
 			pass
 		tvState.waitingForInput:
@@ -370,6 +397,17 @@ func _tv_perspective_control(delta: float):
 					get_tree().call_group("Scenario", "_startScene")
 					return
 				if !totemWatched:
+					get_tree().call_group("Scenario", "_rewinding")
+					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
+					for _rewind in _rewinds:
+						_rewind.show()
+					await get_tree().create_timer(2).timeout
+					for _rewind in _rewinds:
+						_rewind.hide()
+					var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+					for _pause in _pauses:
+						_pause.show()
+					await get_tree().create_timer(0.5).timeout
 					animationNode.show()
 					animationArm.show()
 					armAnimationTreeStateMachine.travel("Appear")
@@ -386,6 +424,10 @@ func _tv_perspective_control(delta: float):
 					return
 			if !firstWatched:
 				currentTvState = tvState.finishedFirstWatching
+				return
+			currentTvState = tvState.finishedWatching
+		tvState.finishedWatching:
+			pass
 		tvState.finishedFirstWatching:
 			currentTvState = tvState.waiting
 			dialogueNode.show()

@@ -114,3 +114,7 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 func _start_npc():
 	currentNpcState = npcState.startScene
+
+func _rewind_npc():
+	currentNpcState = npcState.init
+	locationIndex = 0

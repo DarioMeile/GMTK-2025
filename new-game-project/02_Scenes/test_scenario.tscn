@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://dammomljjhoxl"]
+[gd_scene load_steps=20 format=3 uid="uid://dammomljjhoxl"]
 
 [ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/joker.tscn" id="1_nmnme"]
 [ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_y06yk"]
 [ext_resource type="PackedScene" uid="uid://cx74e350xbqrt" path="res://02_Scenes/basic_npc.tscn" id="3_ycu1a"]
 [ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="4_arolk"]
+[ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="5_mk0yy"]
 [ext_resource type="Texture2D" uid="uid://cin8xcnauynb1" path="res://01_Assets/01_Visual_Assets/00_Placeholders/playSymbol.png" id="5_yr50r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nmnme"]
@@ -241,6 +242,7 @@ text = "A"
 horizontal_alignment = 1
 
 [node name="PauseTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Pause_Overlay"]]
+visible = false
 custom_minimum_size = Vector2(120, 120)
 anchors_preset = 8
 anchor_left = 0.5
@@ -255,6 +257,41 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_arolk")
 expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Rewind_Overlay"]]
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mk0yy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportA/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -1.0
+offset_right = 64.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
@@ -329,6 +366,42 @@ grow_vertical = 2
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
+[node name="RewindTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mk0yy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportB/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -1.0
+offset_right = 64.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PlayTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
 custom_minimum_size = Vector2(120, 120)
@@ -402,6 +475,42 @@ grow_vertical = 2
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
+[node name="RewindTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mk0yy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportC/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -1.0
+offset_right = 64.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PlayTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
 custom_minimum_size = Vector2(120, 120)
@@ -473,6 +582,42 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_arolk")
 expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(120, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mk0yy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportD/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -1.0
+offset_right = 64.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Play_Overlay"]]
 visible = false

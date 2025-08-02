@@ -15,3 +15,6 @@ func _process(delta: float) -> void:
 
 func _startScene():
 	get_tree().call_group("NPC", "_start_npc")
+
+func _rewinding():
+	get_tree().call_group("NPC", "_rewind_npc")
