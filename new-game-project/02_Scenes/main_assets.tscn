@@ -195,7 +195,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -7.5)
 size = Vector3(2.4, 5, 0.4)
 material = SubResource("StandardMaterial3D_gug2t")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Environment/Room"]
+[node name="DustEffect" type="GPUParticles3D" parent="Environment/Room"]
 amount = 1000
 lifetime = 2.0
 preprocess = 1.0
