@@ -86,7 +86,10 @@ var entitySignals: Dictionary = {}
 enum boardState {init, selecting, controling}
 var currentBoardState = boardState.init
 
+##SFX Control
+enum soundEffects {startDialogue, endDialogue, userInput}
 
+#Calls only at the start of the scene
 func _ready() -> void:
 	#SET START OF SCENE CORRECTLY
 	blackScreen.show()
@@ -138,6 +141,7 @@ func _process(delta: float) -> void:
 			await get_tree().create_timer(0.1).timeout
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0
+			_play_sound(soundEffects.startDialogue)
 			dialogueLabel.show()
 			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]KNOCK KNOCK[/wave]\n")
 			dialogueLabel.append_text("We received the VHS tapes from the packing security cameras, see if you can find anything.")
@@ -154,6 +158,7 @@ func _process(delta: float) -> void:
 			currentState = state.waitingForInput
 		state.waitingForInput:
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
+				_play_sound(soundEffects.userInput)
 				currentState = state.selectingPerspective
 				dialogueLabel.clear()
 				dialogueLabel.visible_characters = 0
@@ -384,6 +389,9 @@ func _tv_perspective_control(delta: float):
 				dialogueNode.hide()
 				dialoguePointer.hide()
 				if !firstWatched:
+					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
+					for _rewind in _rewinds:
+						_rewind.hide()
 					var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
 					for _pause in _pauses:
 						_pause.hide()
@@ -461,6 +469,17 @@ func _board_perspective_control(delta: float):
 				get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 				currentRoomPerspective = roomPerspectives.room
 		boardState.controling:
+			pass
+
+##Sound effect control
+
+func _play_sound(_id: int = 0):
+	match _id:
+		soundEffects.userInput:
+			%SFXStream_Jingle.play()
+		soundEffects.startDialogue:
+			%SFXStream_Bell.play()
+		soundEffects.endDialogue:
 			pass
 
 
