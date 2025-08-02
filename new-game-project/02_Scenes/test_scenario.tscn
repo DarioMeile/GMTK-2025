@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://dammomljjhoxl"]
+[gd_scene load_steps=21 format=3 uid="uid://dammomljjhoxl"]
 
 [ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/joker.tscn" id="1_nmnme"]
 [ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_y06yk"]
+[ext_resource type="PackedScene" uid="uid://bguxhtuk2xai1" path="res://02_Scenes/01_Objects/interactuable_object.tscn" id="2_0xv55"]
 [ext_resource type="PackedScene" uid="uid://cx74e350xbqrt" path="res://02_Scenes/basic_npc.tscn" id="3_ycu1a"]
 [ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="4_arolk"]
 [ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="5_mk0yy"]
@@ -21,8 +22,8 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_arolk"]
-vertices = PackedVector3Array(3.75, 11.204, -7.25, 3.5, 11.454, -6.25, 4, 11.454, -6.75, 14.25, 11.454, -6.75, 15.25, 11.454, -7.25, 15.25, 11.454, 13.25, 14.75, 11.454, -6.25, 14.75, 11.454, 12.25, 14.25, 11.454, 12.75, 3.25, 11.454, 12.5, 3.75, 11.204, 13.25, 2.25, 1.454, 7.75, 0.75, 1.454, 7.75, 1, 1.454, 9, 2.25, 1.454, 10.5, -3, 1.454, 7.5, -3, 1.454, 6.5, -4, 1.454, 6, -7.25, 1.454, 6.5, -8.25, 1.454, 7.5, -6.5, 1.454, -0.75, -6.5, 1.454, 5.75, 0.25, 1.454, 9.75, -4, 1.454, 0.25, -2.75, 1.454, -0.25, -2.75, 1.454, -1.5, -6.75, 1.454, -1.5, -8.75, 1.454, 8, -9.75, 1.454, 6.5, -10.25, 1.454, -5, -10.25, 1.454, -0.75, -9.75, 1.454, -1.25, -10.25, 1.454, 6, -10.25, 1.454, 10.5, -8.75, 1.454, 9.25, -7, 1.454, -1.25, -7.25, 1.454, -2, -6.75, 1.454, -4.25, 2.25, 1.454, -4, 2.25, 1.454, -5, -8.25, 1.454, 9.75, -7.25, 1.454, -3.75, 5, 1.454, -5, 5, 1.454, 11.25, 13.25, 1.454, 11.25, 13.25, 1.454, -5, -1.75, 1.454, 0.25, 1.75, 1.454, -1.5, -1.75, 1.454, 5.75, 2.25, 1.454, -2, -8.75, 5.454, 0.25, -8.75, 5.454, 4.75, -8.25, 5.454, 4.75, -8.25, 5.454, 0.25)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(7, 6, 5), PackedInt32Array(5, 6, 4), PackedInt32Array(6, 3, 4), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 5), PackedInt32Array(5, 8, 7), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 18), PackedInt32Array(18, 15, 19), PackedInt32Array(21, 20, 17), PackedInt32Array(22, 13, 14), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 26), PackedInt32Array(28, 19, 27), PackedInt32Array(29, 31, 30), PackedInt32Array(28, 27, 32), PackedInt32Array(32, 27, 34), PackedInt32Array(32, 34, 33), PackedInt32Array(17, 18, 21), PackedInt32Array(35, 31, 29), PackedInt32Array(20, 35, 36), PackedInt32Array(36, 35, 29), PackedInt32Array(26, 23, 20), PackedInt32Array(20, 23, 17), PackedInt32Array(38, 37, 39), PackedInt32Array(39, 37, 29), PackedInt32Array(22, 14, 40), PackedInt32Array(40, 14, 33), PackedInt32Array(29, 37, 41), PackedInt32Array(29, 41, 36), PackedInt32Array(28, 18, 19), PackedInt32Array(20, 36, 26), PackedInt32Array(33, 34, 40), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(24, 25, 46), PackedInt32Array(46, 25, 47), PackedInt32Array(16, 48, 15), PackedInt32Array(15, 48, 12), PackedInt32Array(48, 46, 47), PackedInt32Array(12, 48, 11), PackedInt32Array(11, 48, 47), PackedInt32Array(11, 47, 49), PackedInt32Array(53, 52, 50), PackedInt32Array(50, 52, 51)]
+vertices = PackedVector3Array(3.75, 11.204, -7.25, 3.5, 11.454, -6.25, 4, 11.454, -6.75, 14.25, 11.454, -6.75, 15.25, 11.454, -7.25, 15.25, 11.454, 13.25, 14.75, 11.454, -6.25, 14.75, 11.454, 12.25, 14.25, 11.454, 12.75, 3.25, 11.454, 12.5, 3.75, 11.204, 13.25, -3, 1.454, 7.5, -3, 1.454, 6.5, -4, 1.454, 6, -7.25, 1.454, 6.5, -8.25, 1.454, 7.5, 2.25, 1.454, 10.5, 2.25, 1.454, 9.5, 0.75, 1.454, 9.25, 0.25, 1.454, 9.75, -8.75, 1.454, 8, -9, 1.454, 6.5, -4, 1.454, 0.25, -2.75, 1.454, -0.25, -2.75, 1.454, -1.5, -6.75, 1.454, -1.5, -9, 1.454, -5, -9, 1.454, -1.25, -7, 1.454, -1.25, -7.25, 1.454, -2, -6.5, 1.454, 5.75, -6.5, 1.454, -0.75, -6.75, 1.454, -4.25, 2.25, 1.454, -4, 2.25, 1.454, -5, -9, 1.454, 10.5, -8.25, 1.454, 9.75, -7.25, 1.454, -3.75, -8.75, 1.454, 9.25, 11.75, 1.454, -1.25, 12.25, 1.454, 0.25, 13.25, 1.454, 0.25, 13.25, 1.454, -5, 10, 1.454, -1.25, 5, 1.454, -5, 5, 1.454, 0.25, 9.5, 1.454, 0.25, -1.75, 1.454, 0.25, 1.75, 1.454, -1.5, -1.75, 1.454, 5.75, 0.25, 1.454, 7.5, 0.75, 1.454, 6.75, 2.25, 1.454, 6.75, 2.25, 1.454, -2, -8.75, 5.454, 0.25, -8.75, 5.454, 4.75, -8.25, 5.454, 4.75, -8.25, 5.454, 0.25, 11.75, 1.454, 1.5, 13.25, 1.454, 11.25, 10, 1.454, 1.5, 5, 1.454, 11.25)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(7, 6, 5), PackedInt32Array(5, 6, 4), PackedInt32Array(6, 3, 4), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 5), PackedInt32Array(5, 8, 7), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 15), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 16), PackedInt32Array(21, 15, 20), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(21, 14, 15), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 26), PackedInt32Array(13, 14, 30), PackedInt32Array(25, 22, 31), PackedInt32Array(31, 22, 13), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 26), PackedInt32Array(36, 19, 35), PackedInt32Array(35, 19, 16), PackedInt32Array(26, 32, 37), PackedInt32Array(26, 37, 29), PackedInt32Array(38, 35, 20), PackedInt32Array(20, 35, 21), PackedInt32Array(31, 28, 25), PackedInt32Array(25, 28, 29), PackedInt32Array(30, 31, 13), PackedInt32Array(35, 38, 36), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(45, 44, 43), PackedInt32Array(43, 44, 42), PackedInt32Array(42, 39, 43), PackedInt32Array(43, 46, 45), PackedInt32Array(23, 24, 47), PackedInt32Array(47, 24, 48), PackedInt32Array(12, 49, 11), PackedInt32Array(11, 49, 50), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(52, 49, 47), PackedInt32Array(52, 47, 48), PackedInt32Array(48, 53, 52), PackedInt32Array(57, 56, 54), PackedInt32Array(54, 56, 55), PackedInt32Array(40, 41, 58), PackedInt32Array(58, 41, 59), PackedInt32Array(46, 60, 45), PackedInt32Array(45, 60, 61), PackedInt32Array(61, 60, 59), PackedInt32Array(60, 58, 59)]
 agent_height = 4.0
 agent_radius = 0.75
 
@@ -62,8 +63,9 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="TestScenario" type="Node3D" groups=["Scenario"]]
+[node name="TestScenario" type="Node3D" node_paths=PackedStringArray("CONTROLLABLE_ENTITY") groups=["Scenario"]]
 script = ExtResource("1_y06yk")
+CONTROLLABLE_ENTITY = NodePath("Joker")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ycu1a")
@@ -103,6 +105,7 @@ material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Ceiling" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+visible = false
 size = Vector3(15, 1, 20)
 material = SubResource("StandardMaterial3D_nmnme")
 
@@ -154,14 +157,29 @@ shape = SubResource("BoxShape3D_y06yk")
 [node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57142, 9.46629, -4.22112)
 
-[node name="Joker" parent="." instance=ExtResource("1_nmnme")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.7822, 1.42568, 0)
+[node name="InteractuableObject" parent="NavigationRegion3D/Environment" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("2_0xv55")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8935, 1.37011, 0)
+SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_1")
+OBJECT_NAME = "parking object"
+
+[node name="InteractuableObject2" parent="NavigationRegion3D/Environment" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("2_0xv55")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58077, 1.37011, 8.06917)
+SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_2")
+OBJECT_NAME = "store object"
+
+[node name="Joker" parent="." node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("1_nmnme")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77941, 3.44181, 6.85011)
 visible = false
+SPAWN_MARKER = NodePath("../PLAYER_SPAWN")
+
+[node name="PLAYER_SPAWN" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91921, 3.08175, 8)
 
 [node name="NPC_1" type="Node" parent="."]
 
 [node name="NPC" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("3_ycu1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.01321, -0.867945)
+visible = false
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1")]
 TIMER_BETWEEN_LOCATIONS = Array[float]([3.0, 6.0, 6.0])
@@ -182,6 +200,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
 
 [node name="NPC" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("3_ycu1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.01321, -0.867945)
+visible = false
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2")]
 TIMER_BETWEEN_LOCATIONS = Array[float]([3.0, 1.0])
@@ -199,12 +218,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
 [node name="Location_3" type="Marker3D" parent="NPC_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 3)
 
+[node name="ObjectMarkers" type="Node" parent="."]
+
+[node name="Marker3D_1" type="Marker3D" parent="ObjectMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8935, 1.37011, 0)
+
+[node name="Marker3D_2" type="Marker3D" parent="ObjectMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58077, 1.37011, 8.06917)
+
 [node name="DebugCamera" type="Camera3D" parent="."]
 transform = Transform3D(-4.04074e-08, -0.992182, 0.124796, -1.66712e-08, 0.124796, 0.992182, -1, 3.8011e-08, -2.15836e-08, 1.61997, 29.3236, 3.1171)
 current = true
 
 [node name="SubViewportA" type="SubViewport" parent="."]
-size = Vector2i(256, 256)
+size = Vector2i(480, 360)
 
 [node name="CameraA" type="Camera3D" parent="SubViewportA"]
 transform = Transform3D(0.859165, -0.0174536, -0.5114, 0.184704, 0.942616, 0.278137, 0.477199, -0.333423, 0.813087, 5, 7.7, 13)
@@ -242,35 +269,17 @@ text = "A"
 horizontal_alignment = 1
 
 [node name="PauseTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Pause_Overlay"]]
-visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
 [node name="RewindTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Rewind_Overlay"]]
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_mk0yy")
 expand_mode = 1
 
@@ -281,10 +290,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.5
-offset_top = -1.0
-offset_right = 64.5
-offset_bottom = 27.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 10
@@ -295,23 +304,14 @@ vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_yr50r")
 expand_mode = 1
 
 [node name="SubViewportB" type="SubViewport" parent="."]
-size = Vector2i(256, 256)
+size = Vector2i(480, 360)
 
 [node name="CameraB" type="Camera3D" parent="SubViewportB"]
 transform = Transform3D(-1, 1.83688e-15, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 5.7, -6)
@@ -351,35 +351,17 @@ text = "B"
 horizontal_alignment = 1
 
 [node name="PauseTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Pause_Overlay"]]
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
 [node name="RewindTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Rewind_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_mk0yy")
 expand_mode = 1
 
@@ -390,10 +372,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.5
-offset_top = -1.0
-offset_right = 64.5
-offset_bottom = 27.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 10
@@ -404,23 +386,14 @@ vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_yr50r")
 expand_mode = 1
 
 [node name="SubViewportC" type="SubViewport" parent="."]
-size = Vector2i(256, 256)
+size = Vector2i(480, 360)
 
 [node name="CameraC" type="Camera3D" parent="SubViewportC"]
 transform = Transform3D(0.258819, -0.482963, 0.836516, 4.37114e-08, 0.866025, 0.5, -0.965926, -0.12941, 0.224144, 4, 6.7, -2)
@@ -460,35 +433,17 @@ text = "C"
 horizontal_alignment = 1
 
 [node name="PauseTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Pause_Overlay"]]
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
 [node name="RewindTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Rewind_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_mk0yy")
 expand_mode = 1
 
@@ -499,10 +454,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.5
-offset_top = -1.0
-offset_right = 64.5
-offset_bottom = 27.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 10
@@ -513,23 +468,14 @@ vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_yr50r")
 expand_mode = 1
 
 [node name="SubViewportD" type="SubViewport" parent="."]
-size = Vector2i(256, 256)
+size = Vector2i(480, 360)
 
 [node name="CameraD" type="Camera3D" parent="SubViewportD"]
 transform = Transform3D(0.25, 0.69065, -0.678603, -0.0669872, 0.711516, 0.699469, 0.965926, -0.12941, 0.224144, -9.9, 7.7, 10)
@@ -568,35 +514,17 @@ text = "D"
 horizontal_alignment = 1
 
 [node name="PauseTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Pause_Overlay"]]
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("4_arolk")
 expand_mode = 1
 
 [node name="RewindTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Rewind_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_mk0yy")
 expand_mode = 1
 
@@ -607,10 +535,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.5
-offset_top = -1.0
-offset_right = 64.5
-offset_bottom = 27.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 10
@@ -621,17 +549,8 @@ vertical_alignment = 1
 
 [node name="PlayTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Play_Overlay"]]
 visible = false
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 texture = ExtResource("5_yr50r")
 expand_mode = 1

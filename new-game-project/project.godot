@@ -52,6 +52,7 @@ Play_Overlay=""
 Scenario=""
 Main=""
 Rewind_Overlay=""
+Interactuable_Object=""
 
 [input]
 

@@ -81,6 +81,10 @@ var firstRewind: bool = false
 var currentTvState = tvState.init
 var tvOn: bool = false
 var entitySignals: Dictionary = {}
+##CREATURE CONTROL
+var creatureTutorial: bool = false
+var creatureInteractTutorial: bool = false
+var playTutorial: bool = false
 
 ##Board control
 enum boardState {init, selecting, controling}
@@ -130,6 +134,18 @@ func _process(delta: float) -> void:
 				buttonNotificationLabel.text = "PRESS [ACCEPT] TO START"
 				buttonNotificationNode.show()
 				showingButtonTimer = -100
+			if Input.is_action_just_pressed("debug_key"):
+				tapesInserted = true
+				firstWatched = true
+				currentState = state.selectingPerspective
+				currentRoomPerspective = roomPerspectives.tv
+				currentTvState = tvState.waiting
+				totemWatched = true
+				TV_CAMERA.priority = 2
+				tvOn = true
+				get_tree().call_group("ControllableEntity", "_start_of_scene")
+				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
+				_totem_disappeared()
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
 				currentState = state.initialDialogue
 				buttonNotificationNode.hide()
@@ -168,7 +184,6 @@ func _process(delta: float) -> void:
 				DOOR_CAMERA.priority = 0
 		state.waiting:
 			pass
-
 
 
 func _room_perspective_control(delta: float):
@@ -353,7 +368,20 @@ func _tv_perspective_control(delta: float):
 						return
 					get_tree().call_group("ControllableEntity", "_enable", tvOn)
 		tvState.controlling:
+			#TUTORIAL EXCLUSIVE
+			if !creatureTutorial:
+				if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
+					creatureTutorial = true
+					buttonNotificationLabel.text = "PRESS [ACCEPT] TO INTERACT WITH THE ENVIRONMENT"
+				return
+			if !creatureInteractTutorial:
+				if Input.is_action_just_pressed("ui_accept"):
+					creatureInteractTutorial = true
+					buttonNotificationLabel.text = "PRESS [PLAY] WHEN READY TO PLAY THE TAPES AGAIN"
+				return
+			#END OF TUTORIAL EXCLUSIVE
 			if Input.is_action_just_pressed("ui_cancel"):
+				return
 				if !turnOnTVShowed:
 					buttonNotificationNode.hide()
 				TV_CAMERA.priority = 0
@@ -363,8 +391,9 @@ func _tv_perspective_control(delta: float):
 				get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 				get_tree().call_group("ControllableEntity", "_enable", false)
 				currentRoomPerspective = roomPerspectives.room
-			if Input.is_action_just_pressed("play_tapes"):
+			if Input.is_action_just_pressed("play_tapes") and creatureInteractTutorial:
 				currentTvState = tvState.waiting
+				buttonNotificationNode.hide()
 				var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
 				for _pause in _pauses:
 					_pause.hide()
@@ -376,8 +405,6 @@ func _tv_perspective_control(delta: float):
 					_play.hide()
 				currentTvState = tvState.watchingStart
 				get_tree().call_group("Scenario", "_startScene")
-			if Input.is_action_just_pressed("ui_accept"):
-				return
 		tvState.waiting:
 			pass
 		tvState.waitingForInput:
@@ -420,8 +447,8 @@ func _tv_perspective_control(delta: float):
 					animationArm.show()
 					armAnimationTreeStateMachine.travel("Appear")
 					return
-				armAnimationTreeStateMachine.travel("Disappear")
 		tvState.watchingStart:
+			entitySignals.clear()
 			var _entitiesToSimulate:= get_tree().get_nodes_in_group("NPC")
 			for _entity in _entitiesToSimulate:
 				entitySignals[_entity] = false
@@ -435,7 +462,27 @@ func _tv_perspective_control(delta: float):
 				return
 			currentTvState = tvState.finishedWatching
 		tvState.finishedWatching:
-			pass
+			if !firstRewind:
+				buttonNotificationNode.show()
+				buttonNotificationLabel.text = "PRESS [REWIND] TO REWIND THE TAPES"
+				firstRewind = true
+			if Input.is_action_just_pressed("rewind_tapes"):
+					buttonNotificationNode.hide()
+					currentTvState = tvState.waiting
+					get_tree().call_group("Scenario", "_rewinding")
+					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
+					for _rewind in _rewinds:
+						_rewind.show()
+					await get_tree().create_timer(2).timeout
+					for _rewind in _rewinds:
+						_rewind.hide()
+					var _pauses = get_tree().get_nodes_in_group("Pause_Overlay")
+					for _pause in _pauses:
+						_pause.show()
+					await get_tree().create_timer(0.5).timeout
+					currentTvState = tvState.controlling
+					get_tree().call_group("Scenario", "_player_controlling_scene")
+					return
 		tvState.finishedFirstWatching:
 			currentTvState = tvState.waiting
 			dialogueNode.show()
@@ -512,6 +559,9 @@ func _show_totem_dialogue():
 func _totem_disappeared():
 	animationNode.hide()
 	currentTvState = tvState.controlling
+	get_tree().call_group("Scenario", "_player_controlling_scene")
+	buttonNotificationNode.show()
+	buttonNotificationLabel.text = "PRESS [ARROW KEYS] TO MOVE THE ENTITY"
 
 func _fade_to_black(_black: bool = true):
 	var _alpha: int = 0

@@ -1,8 +1,27 @@
+class_name Controllable_Entity
 extends CharacterBody3D
+
+
+@export_category("Load Resources")
+@export_group("External")
+@export_subgroup("Perspective Textures")
+@export var PERSPECTIVE_TEXTURE_A: Resource
+@export var PERSPECTIVE_TEXTURE_B: Resource
+@export var PERSPECTIVE_TEXTURE_C: Resource
+@export var PERSPECTIVE_TEXTURE_D: Resource
+@export_subgroup("Location Markers")
+@export var SPAWN_MARKER: Marker3D
+@export_category("Behavior and General Information")
+@export var MOVEMENT_SPEED: float = 4 #Will follow movement MOVEMENT_SPEED determined by the spawn marker, if less than the total, will remain at the last one.
+
+
+var liftingSomething: bool = false
+var liftingObject: Interactuable_Object
 
 var enabled: bool = false
 
-const SPEED = 5.0
+func _process(delta: float) -> void:
+	pass
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -14,16 +33,28 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_up", "ui_down", "ui_right", "ui_left")
+	var input_dir := Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * MOVEMENT_SPEED
+		velocity.z = direction.z * MOVEMENT_SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, MOVEMENT_SPEED)
+		velocity.z = move_toward(velocity.z, 0, MOVEMENT_SPEED)
 
 	move_and_slide()
+
+
+func _start_of_scene():
+	enabled = false
+	liftingSomething = false
+	position.x = SPAWN_MARKER.global_position.x
+	position.z = SPAWN_MARKER.global_position.z
+	hide()
+
+func _start_controlling():
+	enabled = true
+	show()
 
 func _enable(_enable: bool = false):
 	if !_enable:
