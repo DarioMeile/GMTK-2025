@@ -159,7 +159,7 @@ func _process(delta: float) -> void:
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
 			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
-			dialogueLabel.append_text("We received the VHS tapes from the packing security cameras, see if you can find anything.")
+			dialogueLabel.append_text("We received the VHS tapes from the parking security cameras, see if you can find anything.")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
@@ -352,13 +352,13 @@ func _tv_perspective_control(delta: float):
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
 			dialogueLabel.append_text("[i][color=olive]...Hmmm,\n")
-			dialogueLabel.append_text("let me check the tapes first...[/color][/i]")
+			dialogueLabel.append_text("Well, let's see...[/color][/i]")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.set_parallel(false)
 			_tween.tween_property(dialogueLabel, "visible_characters", 9, 0.4).from(0)
 			_tween.tween_interval(1)
-			_tween.tween_property(dialogueLabel, "visible_characters", 40, 0.8).from(9)
+			_tween.tween_property(dialogueLabel, "visible_characters", 27, 0.8).from(9)
 			await _tween.finished
 			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
@@ -516,14 +516,14 @@ func _tv_perspective_control(delta: float):
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
-			dialogueLabel.append_text("[i][color=olive]...This will not do...\n")
-			dialogueLabel.append_text("It has to be done one way or another...[/color][/i]")
+			dialogueLabel.append_text("[i][color=olive]...These tapes are useless...\n")
+			dialogueLabel.append_text("I'll have to do it again[/color][/i]")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.set_parallel(false)
-			_tween.tween_property(dialogueLabel, "visible_characters", 22, 0.6).from(0)
+			_tween.tween_property(dialogueLabel, "visible_characters", 30, 0.6).from(0)
 			_tween.tween_interval(1.5)
-			_tween.tween_property(dialogueLabel, "visible_characters", 62, 1.2).from(22)
+			_tween.tween_property(dialogueLabel, "visible_characters", 54, 1.2).from(30)
 			await _tween.finished
 			firstWatched = true
 			dialoguePointer.show()
@@ -576,13 +576,13 @@ func _show_totem_dialogue():
 	dialogueLabel.clear()
 	dialogueLabel.visible_characters = 0
 	dialogueLabel.show()
-	dialogueLabel.append_text("[shake rate=20.0 level=5 connected=1][i][b][color=olive]BADABIM, BADABOOM[/color][/b][/i][/shake]")
+	dialogueLabel.append_text("[shake rate=20.0 level=5 connected=1][i][b][color=olive]BABABUI, BABABUI[/color][/b][/i][/shake]")
 	var _tween = create_tween()
 	_tween.set_ease(Tween.EASE_IN)
 	_tween.set_parallel(false)
 	_tween.tween_property(dialogueLabel, "visible_characters", 7, 0.5).from(0)
 	_tween.tween_interval(1)
-	_tween.tween_property(dialogueLabel, "visible_characters", 17, 0.5).from(7)
+	_tween.tween_property(dialogueLabel, "visible_characters", 16, 0.5).from(7)
 	await _tween.finished
 	dialoguePointer.show()
 	totemWatched = true
