@@ -11,8 +11,8 @@ height = 2.6
 script = ExtResource("1_qmj6f")
 
 [node name="PerspectiveA" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
-pixel_size = 0.0022
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+pixel_size = 0.0042
 billboard = 1
 texture = ExtResource("2_qmj6f")
 

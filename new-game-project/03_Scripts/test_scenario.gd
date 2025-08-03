@@ -14,6 +14,7 @@ extends Node3D
 @onready var storeLadyNPC:= $NPC_2/StoreLady
 @onready var criminalNPC:= $NPC_3/StoreCriminal
 
+
 var wetSignInPlace: bool = false #FALSE IS OK
 var fanInPlace: bool = false #TRUE IS OK
 
@@ -30,11 +31,16 @@ func _process(delta: float) -> void:
 			pass
 		scenarioState.startingScene:
 			currentScenarioState = scenarioState.waiting
+			print("fanInplace: " + str(fanInPlace))
+			print("wetSignInPlace: " + str(wetSignInPlace))
 			if fanInPlace:
 				fishermanNPC._found_solution()
 			if !wetSignInPlace:
 				storeLadyNPC._found_solution()
 				criminalNPC._found_solution()
+			if fanInPlace and !wetSignInPlace:
+				criminalNPC.hatFlyOff = true
+				_both_solutions()
 		scenarioState.rewinding:
 			fanInPlace = false
 			wetSignInPlace = true
@@ -76,3 +82,6 @@ func _player_controlling_scene():
 	currentScenarioState = scenarioState.playerControlling
 	CONTROLLABLE_ENTITY._start_controlling()
 	get_tree().call_group("Interactuable_Object", "_enable_entity", true)
+
+func _both_solutions():
+	get_tree().call_group("Main", "_both_solutions")

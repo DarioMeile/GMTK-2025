@@ -207,11 +207,7 @@ SPAWN_MARKER = NodePath("../PLAYER_SPAWN")
 
 [node name="FrontPerspective" parent="ControllableEntity/Sprites" index="0"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.13595, 1.27081, -1.07618)
-visible = true
 layers = 1
-
-[node name="FrontPerspectiveLifting" parent="ControllableEntity/Sprites" index="1"]
-visible = false
 
 [node name="PLAYER_SPAWN" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.994158, 3.08175, 6.6959)

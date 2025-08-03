@@ -52,8 +52,10 @@ var transitioningLight: bool = false
 var lightOn: bool = false
 
 ##Overall control
-enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting, talking}
+enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting, talking, puzzleSolved, endDialogue}
 var currentState: int = state.init
+
+var puzzleSolvedDialogue:bool = false
 
 ##Introduction control
 var showingButtonTimer: float = 4.0
@@ -92,6 +94,14 @@ var currentBoardState = boardState.init
 ##SFX Control
 var n_visible_chars: int = 0;
 var sfx_load_ok: bool = false;
+
+var puzzleSolved: bool = false
+
+
+#Clue nodes
+@onready var clue_1:= %Clue1
+@onready var clue_2:= %Clue2
+@onready var clue_3:= %Clue3
 
 #Calls only at the start of the scene
 func _ready() -> void:
@@ -134,6 +144,18 @@ func _process(delta: float) -> void:
 				buttonNotificationLabel.text = "PRESS [ANY KEY] TO START"
 				buttonNotificationNode.show()
 				showingButtonTimer = -100
+			if Input.is_action_just_pressed("debug_key"):
+				tapesInserted = true
+				firstWatched = true
+				currentState = state.selectingPerspective
+				currentRoomPerspective = roomPerspectives.tv
+				currentTvState = tvState.waiting
+				totemWatched = true
+				TV_CAMERA.priority = 2
+				tvOn = true
+				get_tree().call_group("Scenario", "_rewinding")
+				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
+				_totem_disappeared()
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
 				currentState = state.initialDialogue
 				buttonNotificationNode.hide()
@@ -175,6 +197,29 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
 				_load_sound_fx("bell")
 				_play_sound_fx()
+				if puzzleSolved:
+					currentState = state.waiting
+					dialogueLabel.text = ""
+					dialogueLabel.clear()
+					dialogueLabel.visible_characters = 0
+					dialogueLabel.show()
+					dialogueLabel.append_text("A gang tattoo? ...Hmmm...\n")
+					dialogueLabel.append_text("I'll look into it.")
+					var _tween = create_tween()
+					_tween.set_ease(Tween.EASE_IN)
+					_tween.tween_property(dialogueLabel, "visible_characters", 25, 1.1).from(0)
+					n_visible_chars = 0;
+					currentState = state.waiting
+					await _tween.finished
+					await get_tree().create_timer(0.5).timeout
+					_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+					_tween.tween_property(dialogueLabel, "visible_characters", 43, 0.8).from(25)
+					_load_sound_fx("talk")
+					currentState = state.talking
+					await _tween.finished
+					n_visible_chars = 0 # reset the visible chars for next talking dialogue
+					await get_tree().create_timer(3)
+					currentState = state.endDialogue
 				currentState = state.selectingPerspective
 				dialogueLabel.clear()
 				dialogueLabel.visible_characters = 0
@@ -188,6 +233,32 @@ func _process(delta: float) -> void:
 				n_visible_chars = dialogueLabel.get_visible_characters()
 		state.waiting:
 			pass
+		state.puzzleSolved:
+			dialogueLabel.text = ""
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+			dialogueLabel.append_text("Is there an ID on the bastard?")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
+			n_visible_chars = 0;
+			currentState = state.waiting
+			_load_sound_fx("door_knock")
+			_play_sound_fx()
+			await _tween.finished
+			await get_tree().create_timer(0.5).timeout
+			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+			_tween.tween_property(dialogueLabel, "visible_characters", 44, 0.8).from(14)
+			_load_sound_fx("talk")
+			currentState = state.talking
+			await _tween.finished
+			n_visible_chars = 0 # reset the visible chars for next talking dialogue
+			dialoguePointer.show()
+			currentState = state.waitingForInput
+		state.endDialogue:
+			get_tree().change_scene_to_file("res://02_Scenes/school_investigation.tscn")
 
 
 func _room_perspective_control(delta: float):
@@ -433,6 +504,9 @@ func _tv_perspective_control(delta: float):
 				dialogueLabel.text = ""
 				dialogueNode.hide()
 				dialoguePointer.hide()
+				if puzzleSolved:
+					currentState = state.puzzleSolved
+					DOOR_CAMERA.priority = 3
 				if !firstWatched:
 					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
 					for _rewind in _rewinds:
@@ -479,6 +553,24 @@ func _tv_perspective_control(delta: float):
 			if !firstWatched:
 				currentTvState = tvState.finishedFirstWatching
 				return
+			if puzzleSolved:
+					currentTvState = tvState.waiting
+					dialogueNode.show()
+					dialogueLabel.clear()
+					dialogueLabel.visible_characters = 0
+					dialogueLabel.show()
+					dialogueLabel.append_text("[i][color=olive]I see the face,\n")
+					dialogueLabel.append_text("Such an specific tattoo...[/color][/i]")
+					var _tween = create_tween()
+					_tween.set_ease(Tween.EASE_IN)
+					_tween.set_parallel(false)
+					_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.5).from(0)
+					_tween.tween_interval(1.5)
+					_tween.tween_property(dialogueLabel, "visible_characters", 40, 1.2).from(14)
+					await _tween.finished
+					dialoguePointer.show()
+					currentTvState = tvState.waitingForInput
+					return
 			currentTvState = tvState.finishedWatching
 		tvState.finishedWatching:
 			if !firstRewind:
@@ -510,6 +602,10 @@ func _tv_perspective_control(delta: float):
 			dialogueLabel.show()
 			dialogueLabel.append_text("[i][color=olive]...These tapes are useless...\n")
 			dialogueLabel.append_text("I'll have to do it again[/color][/i]")
+			_showItemNotification("Added new information to your board.")
+			clue_1.show()
+			clue_2.show()
+			clue_3.show()
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.set_parallel(false)
@@ -684,3 +780,6 @@ func _flicker_light(delta: float):
 				lightTimer = _rng.randf_range(FLICKERING_LIGHT_ON_TIMER_MIN, FLICKERING_LIGHT_ON_TIMER_MAX)
 				lightOn = true
 				transitioningLight = false
+
+func _both_solutions():
+	puzzleSolved = true

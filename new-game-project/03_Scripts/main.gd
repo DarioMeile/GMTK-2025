@@ -560,9 +560,6 @@ func _tv_perspective_control(delta: float):
 					dialogueLabel.show()
 					dialogueLabel.append_text("[i][color=olive]Got it!\n")
 					dialogueLabel.append_text("The license plate is AG6G6.[/color][/i]")
-					clue_1.show()
-					clue_2.show()
-					clue_3.show()
 					var _tween = create_tween()
 					_tween.set_ease(Tween.EASE_IN)
 					_tween.set_parallel(false)
@@ -572,6 +569,8 @@ func _tv_perspective_control(delta: float):
 					await _tween.finished
 					dialoguePointer.show()
 					currentTvState = tvState.waitingForInput
+					return
+			currentTvState = tvState.finishedWatching
 		tvState.finishedWatching:
 			if !firstRewind:
 				buttonNotificationNode.show()

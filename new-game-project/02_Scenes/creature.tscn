@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://1kjxovnemijv"]
 
-[ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="1_gl3xl"]
+[ext_resource type="Script" uid="uid://cdl04rmilvcxj" path="res://03_Scripts/03_NPCs/creature_store.gd" id="1_krvvt"]
 [ext_resource type="Texture2D" uid="uid://ddx5dx1rsp638" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/4.PNG" id="2_krvvt"]
 [ext_resource type="Texture2D" uid="uid://irh26jp2gnhd" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/1.png" id="3_6dswh"]
 [ext_resource type="Texture2D" uid="uid://gx1avylgd6x8" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/2.png" id="3_8n383"]
@@ -54,21 +54,21 @@ _data = {
 [node name="ControllableEntity" type="CharacterBody3D" groups=["ControllableEntity"]]
 collision_layer = 3
 collision_mask = 5
-script = ExtResource("1_gl3xl")
+script = ExtResource("1_krvvt")
 
 [node name="Sprites" type="Node3D" parent="."]
 
 [node name="FrontPerspective" type="Sprite3D" parent="Sprites"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.13595, 1.27081, 0)
-visible = false
-layers = 0
-pixel_size = 0.0085
+layers = 22
+pixel_size = 0.012
 billboard = 1
 texture = ExtResource("2_krvvt")
 
 [node name="FrontPerspectiveLifting" type="Sprite3D" parent="Sprites"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.19377, 1.93744, 0)
-pixel_size = 0.006
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.19377, 2.03744, 0)
+visible = false
+pixel_size = 0.0089
 billboard = 1
 texture = ExtResource("3_8n383")
 
@@ -77,10 +77,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
 
 [node name="SidePerspective" type="Sprite3D" parent="Sprites"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.811464, 1.4, 0)
-visible = false
-layers = 0
-pixel_size = 0.0082
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 1.11146, 1.6, 0)
+layers = 8
+pixel_size = 0.012
 billboard = 1
 texture = ExtResource("3_6dswh")
 
