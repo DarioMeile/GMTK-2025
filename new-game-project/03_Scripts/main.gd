@@ -559,7 +559,7 @@ func _load_sound_fx(_id: String):
 		print("[ERR] Cannot load resource! File: %s" % sfx_hashmap[_id])
 		sfx_load_ok = false
 
-func _play_sound_fx(_id: int = 0):
+func _play_sound_fx():
 	if sfx_load_ok:
 		%SFXStream.play()
 
