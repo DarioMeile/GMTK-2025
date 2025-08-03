@@ -15,6 +15,7 @@ extends RigidBody3D
 @export var TV_MESH: MeshInstance3D
 @export var VHS_MESH: MeshInstance3D
 @export_category("Behavior & Information")
+@export var DISABLED: bool = false
 @export_group("VHS Tape Information")
 @export var SIDE_STRING: String = "Placeholder"
 
@@ -24,7 +25,13 @@ extends RigidBody3D
 @onready var sideLabel:= %SideLabel
 
 func _ready() -> void:
-	pass
+	if DISABLED:
+		OFF_SCREEN.show()
+		VIEWPORT_SCREEN.hide()
+		TV_MESH.material_overlay.set("shader_parameter/scale", 0)
+		TV_MESH.material_overlay.set("shader_parameter/outline_spread", 0)
+		VHS_MESH.material_overlay.set("shader_parameter/scale", 0)
+		VHS_MESH.material_overlay.set("shader_parameter/outline_spread", 0)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -39,9 +46,13 @@ func _process(delta: float) -> void:
 		return
 
 func _set_viewport():
+	if DISABLED:
+		return
 	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", VIEWPORT)
 
 func _show_string(_show: bool = true, _string: String = SIDE_STRING):
+	if DISABLED:
+		return
 	match _show:
 		true:
 			sideLabel.show()
@@ -52,6 +63,8 @@ func _show_string(_show: bool = true, _string: String = SIDE_STRING):
 
 
 func _outline_meshes(_true: bool, _mesh: int = 0):
+	if DISABLED:
+		return
 	var _outlineSize: int = 2
 	if !_true:
 		_outlineSize = 0
@@ -70,6 +83,8 @@ func _outline_meshes(_true: bool, _mesh: int = 0):
 
 
 func _turn_screen(_on: bool = true, _tapeInside: bool = false):
+	if DISABLED:
+		return
 	match _on:
 		true:
 			OFF_SCREEN.hide()

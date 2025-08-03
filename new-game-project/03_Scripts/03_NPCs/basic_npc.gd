@@ -3,11 +3,6 @@ extends CharacterBody3D
 
 @export_category("Load Resources")
 @export_group("External")
-@export_subgroup("Perspective Textures")
-@export var PERSPECTIVE_TEXTURE_A: Resource
-@export var PERSPECTIVE_TEXTURE_B: Resource
-@export var PERSPECTIVE_TEXTURE_C: Resource
-@export var PERSPECTIVE_TEXTURE_D: Resource
 @export_subgroup("Location Markers")
 @export var SPAWN_MARKER: Marker3D
 @export var LOCATION_MARKERS: Array[Marker3D] #Will follow the array in order, will remain idle at the last location marker

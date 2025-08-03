@@ -1,4 +1,4 @@
-class_name Main_Scene
+class_name Main_Scene_Parking
 extends Node3D
 
 @export_category("Load Resources")
@@ -46,14 +46,21 @@ extends Node3D
 @onready var armAnimationTree:= $OverallUI/Animation/Arm/AnimationTree
 var armAnimationTreeStateMachine
 
+#Clue nodes
+@onready var clue_1:= %Clue1
+@onready var clue_2:= %Clue2
+@onready var clue_3:= %Clue3
+
 var enabled: bool = true
 var lightTimer: float = 0.0
 var transitioningLight: bool = false
 var lightOn: bool = false
 
 ##Overall control
-enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting, talking}
+enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting, talking, puzzleSolved, endDialogue}
 var currentState: int = state.init
+
+var puzzleSolvedDialogue:bool = false
 
 ##Introduction control
 var showingButtonTimer: float = 4.0
@@ -80,6 +87,7 @@ var firstRewind: bool = false
 var currentTvState = tvState.init
 var tvOn: bool = false
 var entitySignals: Dictionary = {}
+var leftDuringControlling: bool = false
 ##CREATURE CONTROL
 var creatureTutorial: bool = false
 var creatureInteractTutorial: bool = false
@@ -92,6 +100,9 @@ var currentBoardState = boardState.init
 ##SFX Control
 var n_visible_chars: int = 0;
 var sfx_load_ok: bool = false;
+
+
+var puzzleSolved: bool = false
 
 #Calls only at the start of the scene
 func _ready() -> void:
@@ -344,6 +355,9 @@ func _tv_perspective_control(delta: float):
 			if tvOn and tapesInserted and !firstWatched:
 				currentTvState = tvState.firstWatch
 				return
+			if leftDuringControlling:
+				currentTvState = tvState.controlling
+				return
 			currentTvState = tvState.selecting
 		tvState.firstWatch:
 			currentTvState = tvState.waiting
@@ -407,7 +421,7 @@ func _tv_perspective_control(delta: float):
 				return
 			#END OF TUTORIAL EXCLUSIVE
 			if Input.is_action_just_pressed("ui_cancel"):
-				return
+				leftDuringControlling = true
 				if !turnOnTVShowed:
 					buttonNotificationNode.hide()
 				TV_CAMERA.priority = 0
@@ -441,6 +455,8 @@ func _tv_perspective_control(delta: float):
 				dialogueLabel.text = ""
 				dialogueNode.hide()
 				dialoguePointer.hide()
+				if puzzleSolved:
+					pass
 				if !firstWatched:
 					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
 					for _rewind in _rewinds:
@@ -487,7 +503,27 @@ func _tv_perspective_control(delta: float):
 			if !firstWatched:
 				currentTvState = tvState.finishedFirstWatching
 				return
-			currentTvState = tvState.finishedWatching
+			if puzzleSolved:
+					currentTvState = tvState.waiting
+					dialogueNode.show()
+					dialogueLabel.clear()
+					dialogueLabel.visible_characters = 0
+					dialogueLabel.show()
+					dialogueLabel.append_text("[i][color=olive]...These tapes are useless...\n")
+					dialogueLabel.append_text("I need to see the car license plates.[/color][/i]")
+					_showItemNotification("Added new information to your board.")
+					clue_1.show()
+					clue_2.show()
+					clue_3.show()
+					var _tween = create_tween()
+					_tween.set_ease(Tween.EASE_IN)
+					_tween.set_parallel(false)
+					_tween.tween_property(dialogueLabel, "visible_characters", 25, 0.3).from(0)
+					_tween.tween_interval(1.5)
+					_tween.tween_property(dialogueLabel, "visible_characters", 54, 0.3).from(25)
+					await _tween.finished
+					dialoguePointer.show()
+					currentTvState = tvState.waitingForInput
 		tvState.finishedWatching:
 			if !firstRewind:
 				buttonNotificationNode.show()
@@ -517,13 +553,17 @@ func _tv_perspective_control(delta: float):
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
 			dialogueLabel.append_text("[i][color=olive]...These tapes are useless...\n")
-			dialogueLabel.append_text("I'll have to do it again[/color][/i]")
+			dialogueLabel.append_text("I need to see the car license plates.[/color][/i]")
+			_showItemNotification("Added new information to your board.")
+			clue_1.show()
+			clue_2.show()
+			clue_3.show()
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.set_parallel(false)
 			_tween.tween_property(dialogueLabel, "visible_characters", 30, 0.6).from(0)
 			_tween.tween_interval(1.5)
-			_tween.tween_property(dialogueLabel, "visible_characters", 54, 1.2).from(30)
+			_tween.tween_property(dialogueLabel, "visible_characters", 67, 1.2).from(30)
 			await _tween.finished
 			firstWatched = true
 			dialoguePointer.show()
@@ -649,3 +689,6 @@ func _flicker_light(delta: float):
 				lightTimer = _rng.randf_range(FLICKERING_LIGHT_ON_TIMER_MIN, FLICKERING_LIGHT_ON_TIMER_MAX)
 				lightOn = true
 				transitioningLight = false
+
+func _both_solutions():
+	puzzleSolved = true

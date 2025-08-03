@@ -89,6 +89,7 @@ OFF_SCREEN = NodePath("TV/OffScreen")
 VIEWPORT_SCREEN = NodePath("TV/ViewportScreen")
 TV_MESH = NodePath("TV/RootNode_001/TVCRT/TVCRT_M_TVCRT_0")
 VHS_MESH = NodePath("VHS-Player/RootNode/VHSPlayer/VHSPlayer_M_VHS_0")
+DISABLED = null
 
 [node name="TV" parent="." instance=ExtResource("1_pb8d3")]
 transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, -0.610326, 0)

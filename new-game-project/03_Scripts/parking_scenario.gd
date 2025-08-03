@@ -3,21 +3,19 @@ extends Node3D
 
 @export_category("Load Resources")
 @export var CONTROLLABLE_ENTITY: Controllable_Entity
-@export var CAR_MARKERS: Array[Marker3D]
+@export var CAR_MARKER_SOLUTION: Array[Marker3D]
 @export var CAR_INTERACTUABLES: Array[Interactuable_Object]
 
-
 #Trigger areas
-@onready var wetSignNotArea:= %WetSignNotHereArea
-@onready var fanArea:= %FanHereArea
-
+@onready var lightArea:= %LightArea
+var LInPlace: bool = false
+var solutionOne: bool = false
 #NPCs
-@onready var fishermanNPC:= $NPC_1/Fisherman
-@onready var storeLadyNPC:= $NPC_2/StoreLady
-@onready var criminalNPC:= $NPC_3/StoreCriminal
+@onready var criminalCar:= $NPC_1/CriminalCar
+@onready var criminalNPC:= $NPC_2/ParkingCriminal
 
-var wetSignInPlace: bool = false #FALSE IS OK
-var fanInPlace: bool = false #TRUE IS OK
+var parkingSlotOpen: bool = false #true IS OK
+var parkingMarkerOpen: Marker3D
 
 enum scenarioState {init, startingScene, rewinding, playerControlling, waiting}
 var currentScenarioState = scenarioState.init
@@ -32,40 +30,41 @@ func _process(delta: float) -> void:
 			pass
 		scenarioState.startingScene:
 			currentScenarioState = scenarioState.waiting
-			if fanInPlace:
-				fishermanNPC._found_solution()
-			if !wetSignInPlace:
-				storeLadyNPC._found_solution()
-				criminalNPC._found_solution()
+			if LInPlace:
+				pass
 		scenarioState.rewinding:
-			fanInPlace = false
-			wetSignInPlace = true
+			parkingSlotOpen = false
+			LInPlace = false
+			solutionOne = false
 		scenarioState.playerControlling:
-			#GET AREAS3D
-			var _wetInPlace: bool = false
-			for _area in wetSignNotArea.get_overlapping_areas():
-				if _area.get_parent() is Interactuable_Object:
-					if _area.get_parent().OBJECT_NAME == "Wet Floor Sign":
-						_wetInPlace = true
-						break
-			wetSignInPlace = _wetInPlace
-			var _fanInPlace: bool = false
-			for _area in fanArea.get_overlapping_areas():
+			var _LInPlace: bool = false
+			for _area in lightArea.get_overlapping_areas():
 				if _area.get_parent() is Interactuable_Object:
 					if _area.get_parent().OBJECT_NAME == "Store Fan":
-						_fanInPlace = true
+						_LInPlace = true
 						break
-			fanInPlace = _fanInPlace
+			LInPlace = _LInPlace
 		scenarioState.waiting:
 			pass
 
 	if get_parent() is SubViewport: #is not main scene
 		return
-	if Input.is_action_just_pressed("debug_key"):
-		get_tree().call_group("NPC", "_start_npc")
+
+func _space_open(_marker: int):
+	parkingSlotOpen = true
+
+func _space_occupied(_marker: int):
+	if parkingMarkerOpen == null:
+		return
 
 func _startScene():
 	currentScenarioState = scenarioState.startingScene
+	for n in CAR_MARKER_SOLUTION.size():
+		if !CAR_MARKER_SOLUTION[n].HAS_CAR:
+			criminalCar._found_solution_id(n)
+			criminalNPC._found_solution_id(n)
+			break
+			solutionOne = true
 	get_tree().call_group("NPC", "_start_npc")
 	CONTROLLABLE_ENTITY._start_of_scene()
 	get_tree().call_group("Interactuable_Object", "_start_of_scene")

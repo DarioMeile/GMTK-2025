@@ -33,4 +33,3 @@ shape = SubResource("CapsuleShape3D_yr50r")
 unique_name_in_owner = true
 target_desired_distance = 1.2
 simplify_path = true
-debug_enabled = true

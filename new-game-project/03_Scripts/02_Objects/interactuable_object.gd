@@ -28,7 +28,6 @@ var currentState: int = state.init
 var character: Controllable_Entity
 var enabled: bool = false
 var nodeMarker: Node3D
-var downPosition
 var initialYPosition: float = 0.0
 
 func _process(_delta: float):
