@@ -38,6 +38,11 @@ ambient_light_sky_contribution = 0.1
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caua3"]
+albedo_texture = ExtResource("2_6w6vn")
+uv1_scale = Vector3(-2, -1.8, -2)
+uv2_offset = Vector3(400, 400, 0)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2avq3"]
 resource_name = "Asphalt.001"
 cull_mode = 2
@@ -172,11 +177,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_a0rai")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caua3"]
-albedo_texture = ExtResource("2_6w6vn")
-uv1_scale = Vector3(-2, -1.8, -2)
-uv2_offset = Vector3(400, 400, 0)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fx5jd"]
 resource_name = "Material.001"
 cull_mode = 2
@@ -280,6 +280,15 @@ sky_mode = 1
 
 [node name="Static Objects" parent="Objects" instance=ExtResource("1_3r6uq")]
 
+[node name="Cube_005" parent="Objects/Static Objects" index="5"]
+visible = false
+
+[node name="Cube_034" parent="Objects/Static Objects" index="11"]
+visible = false
+
+[node name="Cube_014" parent="Objects/Static Objects" index="19"]
+surface_material_override/0 = SubResource("StandardMaterial3D_caua3")
+
 [node name="Cube3" type="MeshInstance3D" parent="Objects/Static Objects"]
 transform = Transform3D(11.1111, 0, 0, 0, 0.0584164, 0, 0, 0, 16.2069, 0, 0.0972794, 15.453)
 mesh = SubResource("ArrayMesh_k6pto")
@@ -305,9 +314,6 @@ transform = Transform3D(11.1553, 0, 0, 0, 0.049468, 0, 0, 0, 2.07082, -22.2816, 
 mesh = SubResource("ArrayMesh_648td")
 skeleton = NodePath("")
 
-[node name="Cube_005" parent="Objects/Static Objects" index="10"]
-visible = false
-
 [node name="Cube_020" type="MeshInstance3D" parent="Objects/Static Objects"]
 transform = Transform3D(0.0787316, 0, 0, 0, 0.0160759, 0, 0, 0, 1.18837, -18.3917, 0.21061, -3.92847)
 mesh = SubResource("ArrayMesh_ec1q2")
@@ -317,12 +323,6 @@ skeleton = NodePath("")
 transform = Transform3D(0.0787316, 0, 0, 0, 0.0160759, 0, 0, 0, 1.18837, -32.3917, 0.21061, -3.92847)
 mesh = SubResource("ArrayMesh_ec1q2")
 skeleton = NodePath("")
-
-[node name="Cube_034" parent="Objects/Static Objects" index="18"]
-visible = false
-
-[node name="Cube_014" parent="Objects/Static Objects" index="26"]
-surface_material_override/0 = SubResource("StandardMaterial3D_caua3")
 
 [node name="Cube_015" type="MeshInstance3D" parent="Objects/Static Objects"]
 transform = Transform3D(11.1105, 0, 0, 0, 4.54437e-05, -4.66291, 0, 0.0678006, 0.00312534, -21.6307, 3.90211, -11.9372)
