@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://pnsq7mhwfyxv"]
+[gd_scene load_steps=18 format=3 uid="uid://pnsq7mhwfyxv"]
 
 [ext_resource type="PackedScene" uid="uid://cpwpncriwbw24" path="res://01_Assets/01_Visual_Assets/02_3D_Models/02_School/school_v3.glb" id="1_6wfur"]
 [ext_resource type="Texture2D" uid="uid://u1qmcbvsgpd6" path="res://01_Assets/01_Visual_Assets/01_Objects/trashCan.png" id="2_mub7d"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="3_mub7d"]
 [ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="4_gmqx0"]
 [ext_resource type="Texture2D" uid="uid://cin8xcnauynb1" path="res://01_Assets/01_Visual_Assets/00_Placeholders/playSymbol.png" id="5_dt08l"]
+[ext_resource type="PackedScene" uid="uid://3f5vt27qel4p" path="res://02_Scenes/02_NPCs/Scenario_3/kraustro.tscn" id="8_dt08l"]
 
 [sub_resource type="Environment" id="Environment_6wfur"]
 
@@ -462,3 +463,6 @@ offset_right = 80.0
 offset_bottom = 80.0
 texture = ExtResource("5_dt08l")
 expand_mode = 1
+
+[node name="Kraustro" parent="." instance=ExtResource("8_dt08l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61033, 0, -11.899)
