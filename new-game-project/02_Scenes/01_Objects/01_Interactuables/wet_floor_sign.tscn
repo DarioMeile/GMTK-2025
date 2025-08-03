@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbx2q6rs8w650"]
+
+[ext_resource type="Script" uid="uid://gicncwgw50hh" path="res://03_Scripts/02_Objects/interactuable_object.gd" id="1_vgx3j"]
+[ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="2_rpelu"]
+[ext_resource type="Texture2D" uid="uid://cy837mtqds0t" path="res://01_Assets/01_Visual_Assets/01_Objects/WetFloor.png" id="3_rpelu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cin5r"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_rpelu")
+shader_parameter/scale = 0.0
+shader_parameter/outline_spread = 1.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 2.74
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 2.5
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rd31t"]
+radius = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rd31t"]
+size = Vector3(1.1, 1.7, 1)
+
+[node name="InteractuableObject" type="RigidBody3D" groups=["Interactuable_Object"]]
+mass = 10.0
+lock_rotation = true
+freeze = true
+script = ExtResource("1_vgx3j")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+material_overlay = SubResource("ShaderMaterial_cin5r")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_rd31t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("BoxShape3D_rd31t")
+
+[node name="PerspectiveA" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 2
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource("3_rpelu")
+
+[node name="PerspectiveB" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 4
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource("3_rpelu")
+
+[node name="PerspectiveC" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 8
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource("3_rpelu")
+
+[node name="PerspectiveD" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 16
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource("3_rpelu")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

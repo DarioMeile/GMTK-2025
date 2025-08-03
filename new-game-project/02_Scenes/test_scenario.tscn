@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dammomljjhoxl"]
+[gd_scene load_steps=22 format=3 uid="uid://dammomljjhoxl"]
 
 [ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/joker.tscn" id="1_nmnme"]
 [ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_y06yk"]
-[ext_resource type="PackedScene" uid="uid://bguxhtuk2xai1" path="res://02_Scenes/01_Objects/interactuable_object.tscn" id="2_0xv55"]
+[ext_resource type="PackedScene" uid="uid://bguxhtuk2xai1" path="res://02_Scenes/01_Objects/01_Interactuables/interactuable_object.tscn" id="2_0xv55"]
+[ext_resource type="PackedScene" uid="uid://cbx2q6rs8w650" path="res://02_Scenes/01_Objects/01_Interactuables/wet_floor_sign.tscn" id="3_flp7v"]
 [ext_resource type="PackedScene" uid="uid://cx74e350xbqrt" path="res://02_Scenes/basic_npc.tscn" id="3_ycu1a"]
 [ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="4_arolk"]
 [ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="5_mk0yy"]
@@ -162,10 +163,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8935, 1.37011, 0)
 SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_1")
 OBJECT_NAME = "parking object"
 
-[node name="InteractuableObject2" parent="NavigationRegion3D/Environment" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("2_0xv55")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58077, 1.37011, 8.06917)
-SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_2")
-OBJECT_NAME = "store object"
+[node name="InteractuableObject2" parent="NavigationRegion3D/Environment" instance=ExtResource("3_flp7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 1.2, 4)
 
 [node name="Joker" parent="." node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("1_nmnme")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77941, 3.44181, 6.85011)
