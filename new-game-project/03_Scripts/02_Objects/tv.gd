@@ -1,4 +1,3 @@
-@tool
 class_name CRT_TV
 extends RigidBody3D
 
@@ -21,6 +20,7 @@ extends RigidBody3D
 
 @onready var tvIsOn: bool = false
 
+var viewport
 ##Get nodes
 @onready var sideLabel:= %SideLabel
 
@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 func _set_viewport():
 	if DISABLED:
 		return
-	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", VIEWPORT)
+	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", viewport.get_path())
 
 func _set_viewport_path(_viewport):
 	VIEWPORT = _viewport

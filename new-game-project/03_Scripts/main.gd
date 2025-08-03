@@ -133,6 +133,8 @@ func _ready() -> void:
 	get_tree().call_group("TV", "_outline_meshes", false, 0)
 	get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 	await get_tree().create_timer(0.5).timeout
+	var _instance = load("res://02_Scenes/03_Scenarios/parking_scenario.tscn").instantiate()
+	$SecondScene.add_child(_instance)
 	_fade_to_black(false)
 
 func _process(delta: float) -> void:
@@ -811,5 +813,5 @@ func _both_solutions():
 
 
 func _subviewports(A, B):
-	$Environment/Desktop/TVs/TV_A.VIEWPORT = A
-	$Environment/Desktop/TVs/TV_B.VIEWPORT = B
+	$Environment/Desktop/TVs/TV_A.viewport = A
+	$Environment/Desktop/TVs/TV_B.viewport = B
