@@ -3,11 +3,6 @@ extends RigidBody3D
 
 @export_category("Load Resources")
 @export_group("External")
-@export_subgroup("Perspective Textures")
-@export var PERSPECTIVE_TEXTURE_A: Resource
-@export var PERSPECTIVE_TEXTURE_B: Resource
-@export var PERSPECTIVE_TEXTURE_C: Resource
-@export var PERSPECTIVE_TEXTURE_D: Resource
 @export_subgroup("Location Markers")
 @export var SPAWN_MARKER: Marker3D
 @export_category("Behavior and Information")
@@ -32,22 +27,14 @@ var currentState: int = state.init
 
 var character: Controllable_Entity
 var enabled: bool = false
+var nodeMarker: Node3D
 var downPosition
 var initialYPosition: float = 0.0
 
 func _process(_delta: float):
 	match currentState:
 		state.init:
-			if textureA.texture == null:
-				textureA.texture = PERSPECTIVE_TEXTURE_A
-				textureB.texture = PERSPECTIVE_TEXTURE_B
-				textureC.texture = PERSPECTIVE_TEXTURE_C
-				textureD.texture = PERSPECTIVE_TEXTURE_D
-			if TEXTURE_A_PIXEL_SIZE > 0.0:
-				textureA.pixel_size = TEXTURE_A_PIXEL_SIZE
-				textureB.pixel_size = TEXTURE_B_PIXEL_SIZE
-				textureC.pixel_size = TEXTURE_C_PIXEL_SIZE
-				textureD.pixel_size = TEXTURE_D_PIXEL_SIZE
+			pass
 		state.canBeInteracted:
 			if Input.is_action_just_pressed("ui_accept") and character.liftingPossibilities.size() > 0:
 				if character.liftingPossibilities[0] != self:
@@ -57,7 +44,8 @@ func _process(_delta: float):
 				character._lifting()
 				_show_outline(false)
 		state.isLifted:
-			global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
+			#global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
+			global_position = nodeMarker.global_position
 			if Input.is_action_just_pressed("ui_accept"):
 				currentState = state.waiting
 				global_position.y = initialYPosition
@@ -95,6 +83,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		if !body.liftingPossibilities.has(self):
 			body.liftingPossibilities.append(self)
 		character = body
+		nodeMarker = character.objectTransform
 		initialYPosition = global_position.y
 		currentState = state.canBeInteracted
 		_show_outline(true)

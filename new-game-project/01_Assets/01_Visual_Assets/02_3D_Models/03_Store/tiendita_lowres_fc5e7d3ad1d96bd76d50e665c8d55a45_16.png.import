@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://xy71vhsqabsm"
+path.s3tc="res://.godot/imported/tiendita_lowres_fc5e7d3ad1d96bd76d50e665c8d55a45_16.png-73f57abb7361f207644a90f4b7cef350.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "7f5573b0913bf5781e6ce15c5a45d8a4"
+}
+
+[deps]
+
+source_file="res://01_Assets/01_Visual_Assets/02_3D_Models/03_Store/tiendita_lowres_fc5e7d3ad1d96bd76d50e665c8d55a45_16.png"
+dest_files=["res://.godot/imported/tiendita_lowres_fc5e7d3ad1d96bd76d50e665c8d55a45_16.png-73f57abb7361f207644a90f4b7cef350.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

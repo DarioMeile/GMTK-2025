@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://ye87d5lvjm7v"]
 
 [ext_resource type="Script" uid="uid://gicncwgw50hh" path="res://03_Scripts/02_Objects/interactuable_object.gd" id="1_pj6hq"]
-[ext_resource type="Texture2D" uid="uid://cy837mtqds0t" path="res://01_Assets/01_Visual_Assets/01_Objects/WetFloor.png" id="3_c3i5s"]
+[ext_resource type="Texture2D" uid="uid://bnqvuw2a7xywy" path="res://01_Assets/01_Visual_Assets/01_Objects/fan.png" id="2_x47tu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rd31t"]
-radius = 2.0
+radius = 2.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rd31t"]
 size = Vector3(1.1, 1.7, 1)
@@ -18,51 +18,48 @@ script = ExtResource("1_pj6hq")
 OBJECT_NAME = "Store Fan"
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("SphereShape3D_rd31t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
 shape = SubResource("BoxShape3D_rd31t")
 disabled = true
 
 [node name="PerspectiveA" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 layers = 2
-modulate = Color(0, 0.338042, 0.303268, 1)
-pixel_size = 0.001
+pixel_size = 0.0011
 billboard = 1
-texture = ExtResource("3_c3i5s")
+texture = ExtResource("2_x47tu")
 
 [node name="PerspectiveB" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 layers = 4
-modulate = Color(0, 0.338042, 0.303268, 1)
-pixel_size = 0.001
+pixel_size = 0.0011
 billboard = 1
-texture = ExtResource("3_c3i5s")
+texture = ExtResource("2_x47tu")
 
 [node name="PerspectiveC" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 layers = 8
-modulate = Color(0, 0.338042, 0.303268, 1)
-pixel_size = 0.001
+pixel_size = 0.0011
 billboard = 1
-texture = ExtResource("3_c3i5s")
+texture = ExtResource("2_x47tu")
 
 [node name="PerspectiveD" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 layers = 16
-modulate = Color(0, 0.338042, 0.303268, 1)
-pixel_size = 0.001
+pixel_size = 0.0011
 billboard = 1
-texture = ExtResource("3_c3i5s")
+texture = ExtResource("2_x47tu")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

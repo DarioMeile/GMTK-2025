@@ -1,4 +1,4 @@
-class_name Case_Scenario
+class_name Case_Scenario_2
 extends Node3D
 
 @export_category("Load Resources")
@@ -8,6 +8,11 @@ extends Node3D
 #Trigger areas
 @onready var wetSignNotArea:= %WetSignNotHereArea
 @onready var fanArea:= %FanHereArea
+
+#NPCs
+@onready var fishermanNPC:= $NPC_1/Fisherman
+@onready var storeLadyNPC:= $NPC_2/StoreLady
+@onready var criminalNPC:= $NPC_3/StoreCriminal
 
 var wetSignInPlace: bool = false #FALSE IS OK
 var fanInPlace: bool = false #TRUE IS OK
@@ -25,8 +30,11 @@ func _process(delta: float) -> void:
 			pass
 		scenarioState.startingScene:
 			currentScenarioState = scenarioState.waiting
-			print("Fan in correct place? = " + str(fanInPlace))
-			print("WetSign still in spawn area? = " + str(wetSignInPlace))
+			if fanInPlace:
+				fishermanNPC._found_solution()
+			if !wetSignInPlace:
+				storeLadyNPC._found_solution()
+				criminalNPC._found_solution()
 		scenarioState.rewinding:
 			fanInPlace = false
 			wetSignInPlace = true

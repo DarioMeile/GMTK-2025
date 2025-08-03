@@ -1,0 +1,107 @@
+[gd_scene load_steps=11 format=3 uid="uid://1kjxovnemijv"]
+
+[ext_resource type="Script" uid="uid://dwy7w4nr4rtbf" path="res://03_Scripts/character_body_3d.gd" id="1_gl3xl"]
+[ext_resource type="Texture2D" uid="uid://ddx5dx1rsp638" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/4.PNG" id="2_krvvt"]
+[ext_resource type="Texture2D" uid="uid://irh26jp2gnhd" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/1.png" id="3_6dswh"]
+[ext_resource type="Texture2D" uid="uid://gx1avylgd6x8" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/2.png" id="3_8n383"]
+[ext_resource type="Texture2D" uid="uid://004l57hdwtju" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/02_Creature/3.png" id="4_8n383"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4or1"]
+radius = 0.666362
+height = 3.34392
+
+[sub_resource type="Animation" id="Animation_8n383"]
+resource_name = "Idle"
+length = 2.00001
+loop_mode = 2
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 1.75, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.376812, 0), Vector3(0, -0.376812, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_krvvt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qtb38"]
+_data = {
+&"Idle": SubResource("Animation_8n383"),
+&"RESET": SubResource("Animation_krvvt")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gh8ei"]
+
+[node name="ControllableEntity" type="CharacterBody3D" groups=["ControllableEntity"]]
+collision_layer = 3
+collision_mask = 5
+script = ExtResource("1_gl3xl")
+
+[node name="Sprites" type="Node3D" parent="."]
+
+[node name="FrontPerspective" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.13595, 1.27081, 0)
+visible = false
+layers = 0
+pixel_size = 0.0085
+billboard = 1
+texture = ExtResource("2_krvvt")
+
+[node name="FrontPerspectiveLifting" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.19377, 1.93744, 0)
+pixel_size = 0.006
+billboard = 1
+texture = ExtResource("3_8n383")
+
+[node name="Object" type="Node3D" parent="Sprites/FrontPerspectiveLifting"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
+
+[node name="SidePerspective" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.811464, 1.4, 0)
+visible = false
+layers = 0
+pixel_size = 0.0082
+billboard = 1
+texture = ExtResource("3_6dswh")
+
+[node name="BackPerspective" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.0691457, 1.27538, 0)
+visible = false
+layers = 0
+pixel_size = 0.0085
+billboard = 1
+texture = ExtResource("4_8n383")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10766, 1.68758, 0)
+shape = SubResource("CapsuleShape3D_t4or1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qtb38")
+}
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_gh8ei")
+anim_player = NodePath("../AnimationPlayer")

@@ -1,6 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://dammomljjhoxl"]
+[gd_scene load_steps=29 format=3 uid="uid://dammomljjhoxl"]
 
-[ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/joker.tscn" id="1_nmnme"]
+[ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/creature.tscn" id="1_nmnme"]
 [ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_y06yk"]
 [ext_resource type="PackedScene" uid="uid://cbx2q6rs8w650" path="res://02_Scenes/01_Objects/01_Interactuables/wet_floor_sign.tscn" id="3_flp7v"]
 [ext_resource type="PackedScene" uid="uid://qsf7hi3jjtpc" path="res://02_Scenes/02_NPCs/Scenario_2/fisherman.tscn" id="3_gaap2"]
@@ -26,8 +26,8 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_arolk"]
-vertices = PackedVector3Array(8.75, 8.204, -9.24835, 8.75, 8.204, -4.74835, 9.25, 8.204, -4.74835, 9.25, 8.204, -9.24835, 14.75, 11.454, -7.49835, 14.75, 11.454, 13.2516, 15.25, 11.454, 13.2516, 15.25, 11.454, -7.49835, 5, 1.454, 12.2516, 7.25, 1.454, 12.2516, 7.25, 1.454, 9.75165, 5.5, 1.454, -0.748352, 10.75, 1.454, 9.75165, 10.75, 1.454, 12.2516, 13.25, 1.454, 12.2516, 7.25, 1.454, -3.74835, 7.25, 1.454, -6.49835, 5, 1.454, -6.49835, 5, 1.454, -0.998352, 13.25, 1.454, -6.49835, 10.75, 1.454, -3.74835, 10.25, 1.454, -3.24835, 7.75, 1.454, -3.24835, 10.75, 1.454, -6.49835, 10.25, 1.454, 9.25165, 7.75, 1.454, 9.25165, 2.25, 1.454, 7.50165, 0.75, 1.454, 7.50165, 1, 1.454, 9.00165, 2.25, 1.454, 10.2516, -8.25, 1.454, 9.50165, -8.75, 1.454, 9.00165, -9, 1.454, 10.2516, 0.5, 1.454, 9.50165, -8.25, 1.454, 7.25165, -2.75, 1.454, 7.25165, -2.75, 1.454, 6.25165, -4, 1.454, 5.75165, -7.5, 1.454, 5.75165, -9, 1.454, 6.25165, -4, 1.454, 0.00164795, -2.75, 1.454, -0.498352, -2.75, 1.454, -1.74835, -6.75, 1.454, -1.74835, -8.75, 1.454, 7.75165, -9, 1.454, -5.24835, -9, 1.454, -0.498352, -7.5, 1.454, 0.00164795, -7.25, 1.454, -2.24835, -7.25, 1.454, -3.99835, -6.75, 1.454, -4.49835, 2.25, 1.454, -4.24835, 2.25, 1.454, -5.24835, -1.75, 1.454, 5.75165, -1.75, 1.454, 0.00164795, 2.25, 1.454, -1.99835, 8.75, 8.204, 10.7516, 8.75, 8.204, 15.2516, 9.25, 8.204, 15.2516, 9.25, 8.204, 10.7516)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(14, 13, 12), PackedInt32Array(11, 18, 15), PackedInt32Array(15, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(12, 20, 14), PackedInt32Array(14, 20, 19), PackedInt32Array(20, 12, 21), PackedInt32Array(11, 15, 22), PackedInt32Array(20, 23, 19), PackedInt32Array(22, 21, 11), PackedInt32Array(11, 21, 24), PackedInt32Array(24, 21, 12), PackedInt32Array(24, 25, 11), PackedInt32Array(25, 10, 11), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(32, 31, 30), PackedInt32Array(33, 28, 29), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(38, 35, 34), PackedInt32Array(38, 34, 39), PackedInt32Array(41, 40, 42), PackedInt32Array(42, 40, 43), PackedInt32Array(39, 34, 44), PackedInt32Array(31, 32, 44), PackedInt32Array(44, 32, 39), PackedInt32Array(47, 46, 48), PackedInt32Array(48, 46, 49), PackedInt32Array(49, 46, 45), PackedInt32Array(43, 40, 37), PackedInt32Array(48, 43, 47), PackedInt32Array(47, 43, 38), PackedInt32Array(38, 43, 37), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 45), PackedInt32Array(30, 33, 32), PackedInt32Array(32, 33, 29), PackedInt32Array(45, 50, 49), PackedInt32Array(36, 53, 35), PackedInt32Array(35, 53, 27), PackedInt32Array(41, 42, 54), PackedInt32Array(54, 42, 55), PackedInt32Array(27, 53, 26), PackedInt32Array(26, 53, 54), PackedInt32Array(26, 54, 55), PackedInt32Array(59, 58, 56), PackedInt32Array(56, 58, 57)]
+vertices = PackedVector3Array(3.75, 1.454, -0.75, 3.75, 1.454, 5, 5, 1.454, 5.5, 5, 1.454, -1.25, 14.25, 1.454, 6.75, 14.25, 1.454, -6.25, 5, 1.454, 7, 5, 1.454, -6.25, 2.25, 1.454, 7.75, 0.75, 1.454, 7.75, 1, 1.454, 9, 2.25, 1.454, 10.5, -8.25, 1.454, 7.5, -3, 1.454, 7.5, -3, 1.454, 6.5, -4, 1.454, 6, -7.5, 1.454, 6, -9, 1.454, 6.5, -8.75, 1.454, 8, -9, 1.454, 10.5, -8.75, 1.454, 9.25, 0.25, 1.454, 9.75, -4, 1.454, 0.25, -2.75, 1.454, -0.25, -2.75, 1.454, -1.5, -6.75, 1.454, -1.5, -8.25, 1.454, 9.75, -9, 1.454, -5, -9, 1.454, -0.5, -7.5, 1.454, 0, -7.25, 1.454, -2, -7.25, 1.454, -3.75, -6.75, 1.454, -4.25, 2.25, 1.454, -4, 2.25, 1.454, -5, 2.75, 1.454, -0.75, 2.25, 1.454, -2, 1.75, 1.454, -1.5, -1.75, 1.454, 0.25, -1.75, 1.454, 5.75, 2.25, 1.454, 5.5, 5, 1.454, 12.25, 14.25, 1.454, 12.25)
+polygons = [PackedInt32Array(0, 3, 1), PackedInt32Array(1, 3, 2), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 5), PackedInt32Array(4, 6, 2), PackedInt32Array(3, 7, 5), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 16), PackedInt32Array(16, 13, 12), PackedInt32Array(16, 12, 17), PackedInt32Array(20, 19, 18), PackedInt32Array(18, 19, 17), PackedInt32Array(21, 10, 11), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(17, 12, 18), PackedInt32Array(19, 20, 26), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(31, 28, 27), PackedInt32Array(25, 22, 15), PackedInt32Array(30, 25, 29), PackedInt32Array(29, 25, 16), PackedInt32Array(16, 25, 15), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 27), PackedInt32Array(26, 21, 19), PackedInt32Array(19, 21, 11), PackedInt32Array(27, 32, 31), PackedInt32Array(35, 37, 36), PackedInt32Array(23, 24, 38), PackedInt32Array(38, 24, 37), PackedInt32Array(38, 37, 35), PackedInt32Array(14, 39, 13), PackedInt32Array(13, 39, 9), PackedInt32Array(9, 39, 8), PackedInt32Array(8, 39, 40), PackedInt32Array(40, 39, 1), PackedInt32Array(1, 39, 38), PackedInt32Array(1, 38, 35), PackedInt32Array(1, 35, 0), PackedInt32Array(41, 6, 42), PackedInt32Array(42, 6, 4)]
 agent_height = 4.0
 agent_radius = 0.75
 
@@ -55,10 +55,13 @@ backlight_enabled = true
 backlight = Color(0, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nmnme"]
-size = Vector3(1.7124, 4.76006, 5.9967)
+size = Vector3(10, 7, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y06yk"]
 size = Vector3(2, 11, 22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ito4j"]
+size = Vector3(1.7124, 7.19595, 9.02759)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_flp7v"]
 radius = 1.5
@@ -111,6 +114,7 @@ navigation_mesh = SubResource("NavigationMesh_arolk")
 [node name="Building" type="CSGBox3D" parent="NavigationRegion3D/Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 5.454, 3)
 use_collision = true
+collision_mask = 3
 size = Vector3(15, 11, 20)
 material = SubResource("StandardMaterial3D_nmnme")
 
@@ -126,9 +130,9 @@ size = Vector3(13, 11, 18)
 material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Door" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -2.5, -0.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -1.51752, -0.8)
 operation = 2
-size = Vector3(1.28931, 4, 2.6)
+size = Vector3(1.28931, 5.96497, 7.40039)
 material = SubResource("StandardMaterial3D_ycu1a")
 
 [node name="Ceiling" type="CSGBox3D" parent="NavigationRegion3D/Environment/Building"]
@@ -168,66 +172,89 @@ use_collision = true
 size = Vector3(13, 5, 2)
 material = SubResource("StandardMaterial3D_mk0yy")
 
-[node name="InvisibleWalls" type="StaticBody3D" parent="NavigationRegion3D/Environment"]
+[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57142, 9.46629, -4.22112)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Environment/InvisibleWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.5, 13)
+[node name="InvisibleWalls" type="StaticBody3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4.38003, 13.4984)
 shape = SubResource("BoxShape3D_nmnme")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="NavigationRegion3D/Environment/InvisibleWalls"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="InvisibleWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.5, -7)
 shape = SubResource("BoxShape3D_nmnme")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/Environment/InvisibleWalls"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InvisibleWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 5.5, 3)
 shape = SubResource("BoxShape3D_y06yk")
 
-[node name="PlayerOnlyInvisibleWall" type="StaticBody3D" parent="NavigationRegion3D/Environment"]
+[node name="PlayerOnlyInvisibleWall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8562, 2.43003, 2.69761)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 5
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="NavigationRegion3D/Environment/PlayerOnlyInvisibleWall"]
-shape = SubResource("BoxShape3D_nmnme")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57142, 9.46629, -4.22112)
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="PlayerOnlyInvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21794, 0)
+shape = SubResource("BoxShape3D_ito4j")
 
 [node name="ControllableEntity" parent="." node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("1_nmnme")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20794, 3.44181, 6.85011)
 visible = false
 SPAWN_MARKER = NodePath("../PLAYER_SPAWN")
 
+[node name="FrontPerspective" parent="ControllableEntity/Sprites" index="0"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.13595, 1.27081, -1.07618)
+visible = true
+layers = 1
+
+[node name="FrontPerspectiveLifting" parent="ControllableEntity/Sprites" index="1"]
+visible = false
+
 [node name="PLAYER_SPAWN" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.994158, 3.08175, 6.6959)
 
+[node name="DebugCamera" type="Camera3D" parent="PLAYER_SPAWN"]
+transform = Transform3D(-4.04074e-08, -0.992182, 0.124796, -1.66712e-08, 0.124796, 0.992182, -1, 3.8011e-08, -2.15836e-08, 2.61413, 26.2419, -3.5788)
+current = true
+
 [node name="NPC_1" type="Node" parent="."]
 
-[node name="Fisherman" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("3_gaap2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 1, 2.3)
+[node name="Fisherman" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("3_gaap2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.806984, 1, 8.8813)
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2")]
-TIMER_BETWEEN_LOCATIONS = Array[float]([3.0])
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_1_Solution"), NodePath("../Location_2")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([2.0, 4.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([2.0, 4.0])
+MOVEMENT_SPEEDS = Array[float]([4.0, 2.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([4.0, 2.0])
 
 [node name="SpawnMarker" type="Marker3D" parent="NPC_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40698, 3, 9.5813)
 
 [node name="Location_1" type="Marker3D" parent="NPC_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 10)
-
-[node name="Location_2" type="Marker3D" parent="NPC_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 10)
 
-[node name="Location_2_Solution" type="Marker3D" parent="NPC_1"]
+[node name="Location_2" type="Marker3D" parent="NPC_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 10)
+
+[node name="Location_1_Solution" type="Marker3D" parent="NPC_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, 10)
 
 [node name="NPC_2" type="Node" parent="."]
 
-[node name="StoreLady" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("4_gaap2")]
+[node name="StoreLady" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("4_gaap2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 1.1, 6)
 SPAWN_MARKER = NodePath("../SpawnMarker")
 LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2"), NodePath("../Location_3")]
-TIMER_BETWEEN_LOCATIONS = Array[float]([3.0])
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_2_Solution")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([8.0, 1.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([8.0])
+MOVEMENT_SPEEDS = Array[float]([2.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([2.0])
 
 [node name="SpawnMarker" type="Marker3D" parent="NPC_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 6)
@@ -236,22 +263,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 3)
 
 [node name="Location_2" type="Marker3D" parent="NPC_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 7)
 
 [node name="Location_3" type="Marker3D" parent="NPC_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.3)
 
 [node name="Location_2_Solution" type="Marker3D" parent="NPC_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -0.5)
 
 [node name="NPC_3" type="Node" parent="."]
 
-[node name="StoreCriminal" parent="NPC_3" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS") instance=ExtResource("5_ito4j")]
+[node name="StoreCriminal" parent="NPC_3" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("5_ito4j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 10.4094)
 SPAWN_MARKER = NodePath("../SpawnMarker")
-LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2"), NodePath("../Location_3")]
-TIMER_BETWEEN_LOCATIONS = Array[float]([1.0])
+LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2")]
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_1"), NodePath("../Location_2")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([15.0, 2.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([15.0, 2.0])
 MOVEMENT_SPEEDS = Array[float]([6.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([6.0])
 
 [node name="SpawnMarker" type="Marker3D" parent="NPC_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 10)
@@ -261,9 +291,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.52598)
 
 [node name="Location_2" type="Marker3D" parent="NPC_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -1)
-
-[node name="Location_3" type="Marker3D" parent="NPC_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 10)
 
 [node name="Location_2_Solution" type="Marker3D" parent="NPC_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1.1)
@@ -277,10 +304,10 @@ SPAWN_MARKER = NodePath("../FanSpawn")
 SPAWN_MARKER = NodePath("../SignSpawn")
 
 [node name="FanSpawn" type="Marker3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1065, 2.0806, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1065, 1.30874, 10)
 
 [node name="SignSpawn" type="Marker3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.41923, 1.37011, -0.93083)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41923, 1.04834, -0.93083)
 
 [node name="TriggerNodeAreas" type="Node" parent="."]
 
@@ -303,10 +330,6 @@ monitorable = false
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3, 0.7, -0.4)
 shape = SubResource("CapsuleShape3D_flp7v")
 debug_color = Color(0.219868, 0.44551, 1, 0.847059)
-
-[node name="DebugCamera" type="Camera3D" parent="."]
-transform = Transform3D(-4.04074e-08, -0.992182, 0.124796, -1.66712e-08, 0.124796, 0.992182, -1, 3.8011e-08, -2.15836e-08, 1.61997, 29.3236, 3.1171)
-current = true
 
 [node name="SubViewportA" type="SubViewport" parent="."]
 size = Vector2i(480, 360)
@@ -708,3 +731,10 @@ offset_right = 80.0
 offset_bottom = 80.0
 texture = ExtResource("5_yr50r")
 expand_mode = 1
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.7, 2)
+start_position = Vector3(5.19974, -1.24545, 0.66347)
+end_position = Vector3(0.666349, -1.07992, 0.869645)
+
+[editable path="ControllableEntity"]

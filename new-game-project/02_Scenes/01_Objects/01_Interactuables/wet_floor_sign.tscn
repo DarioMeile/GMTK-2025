@@ -18,19 +18,19 @@ script = ExtResource("1_vgx3j")
 OBJECT_NAME = "Wet Floor Sign"
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_rd31t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("BoxShape3D_rd31t")
 disabled = true
 
 [node name="PerspectiveA" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 layers = 2
 pixel_size = 0.001
 billboard = 1
@@ -38,7 +38,7 @@ texture = ExtResource("3_rpelu")
 
 [node name="PerspectiveB" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 layers = 4
 pixel_size = 0.001
 billboard = 1
@@ -46,7 +46,7 @@ texture = ExtResource("3_rpelu")
 
 [node name="PerspectiveC" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 layers = 8
 pixel_size = 0.001
 billboard = 1
@@ -54,7 +54,7 @@ texture = ExtResource("3_rpelu")
 
 [node name="PerspectiveD" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 layers = 16
 pixel_size = 0.001
 billboard = 1

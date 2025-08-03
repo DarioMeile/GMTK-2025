@@ -879,3 +879,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [editable path="SecondScene/TestScenario"]
+[editable path="SecondScene/TestScenario/ControllableEntity"]

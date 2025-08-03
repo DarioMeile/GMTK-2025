@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm2tw40b3nxiw"]
+
+[ext_resource type="Script" uid="uid://gicncwgw50hh" path="res://03_Scripts/02_Objects/interactuable_object.gd" id="1_mxmmy"]
+[ext_resource type="Texture2D" uid="uid://c7yp4n7x1of6r" path="res://01_Assets/01_Visual_Assets/01_Objects/plant.png" id="2_eglow"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rd31t"]
+radius = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rd31t"]
+
+[node name="Plant" type="RigidBody3D" groups=["Interactuable_Object"]]
+mass = 10.0
+lock_rotation = true
+freeze = true
+script = ExtResource("1_mxmmy")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_rd31t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_rd31t")
+disabled = true
+
+[node name="PerspectiveA" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0.6, 0)
+layers = 2
+pixel_size = 0.002
+shaded = true
+texture = ExtResource("2_eglow")
+
+[node name="PerspectiveB" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.6, 0)
+layers = 4
+pixel_size = 0.002
+shaded = true
+texture = ExtResource("2_eglow")
+
+[node name="PerspectiveC" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 8
+pixel_size = 0.002
+shaded = true
+texture = ExtResource("2_eglow")
+
+[node name="PerspectiveD" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+layers = 16
+pixel_size = 0.002
+shaded = true
+texture = ExtResource("2_eglow")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

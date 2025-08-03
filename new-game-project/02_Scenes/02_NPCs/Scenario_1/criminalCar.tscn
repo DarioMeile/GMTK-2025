@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqy5hd1i8caf8"]
+
+[ext_resource type="Script" uid="uid://b6f2ytkdw1onq" path="res://03_Scripts/03_NPCs/Scenario_2/fisherman.gd" id="1_17yf2"]
+[ext_resource type="Texture2D" uid="uid://cnh880yreefu8" path="res://01_Assets/01_Visual_Assets/01_Objects/Car/GrayCar_1.png" id="2_e2swt"]
+[ext_resource type="Texture2D" uid="uid://d3skaikqsilc7" path="res://01_Assets/01_Visual_Assets/01_Objects/Car/GrayCar_2.png" id="3_e2swt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yr50r"]
+radius = 0.349145
+height = 2.43323
+
+[node name="CriminalCar" type="CharacterBody3D" groups=["NPC"]]
+collision_layer = 2
+script = ExtResource("1_17yf2")
+
+[node name="PerspectiveA" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+layers = 2
+flip_h = true
+flip_v = true
+pixel_size = 0.0015
+billboard = 1
+shaded = true
+texture = ExtResource("2_e2swt")
+
+[node name="PerspectiveB" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.6)
+layers = 4
+pixel_size = 0.0011
+shaded = true
+texture = ExtResource("3_e2swt")
+
+[node name="Label3D" type="Label3D" parent="PerspectiveB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028, -0.08, -0.000766754)
+shaded = true
+render_priority = 1
+modulate = Color(0, 0, 0, 1)
+text = "A324"
+font_size = 24
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25503, 0)
+shape = SubResource("CapsuleShape3D_yr50r")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+target_desired_distance = 1.2
+simplify_path = true
+debug_enabled = true
