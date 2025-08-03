@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uv60oqfvci2"
-path.s3tc="res://.godot/imported/OrangeCar_2.png-e94716d534fde2f033698dbbfb0afebc.s3tc.ctex"
+uid="uid://doc577i57rib4"
+path.s3tc="res://.godot/imported/tree_wall_text.jpg-1d82a3f29170ea62c26be468d59d2e35.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "db2fa6aa809d6c61a49f42f6fb190f17"
+}
 
 [deps]
 
-source_file="res://01_Assets/01_Visual_Assets/01_Objects/Car/OrangeCar_2.png"
-dest_files=["res://.godot/imported/OrangeCar_2.png-e94716d534fde2f033698dbbfb0afebc.s3tc.ctex"]
+source_file="res://01_Assets/01_Visual_Assets/02_3D_Models/01_Parking/tree_wall_text.jpg"
+dest_files=["res://.godot/imported/tree_wall_text.jpg-1d82a3f29170ea62c26be468d59d2e35.s3tc.ctex"]
 
 [params]
 
