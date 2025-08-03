@@ -163,8 +163,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8935, 1.37011, 0)
 SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_1")
 OBJECT_NAME = "parking object"
 
-[node name="InteractuableObject2" parent="NavigationRegion3D/Environment" instance=ExtResource("3_flp7v")]
+[node name="InteractuableObject2" parent="NavigationRegion3D/Environment" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("3_flp7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 1.2, 4)
+SPAWN_MARKER = NodePath("../../../ObjectMarkers/Marker3D_2")
+OBJECT_NAME = "Wet Floor Sign"
 
 [node name="Joker" parent="." node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("1_nmnme")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77941, 3.44181, 6.85011)

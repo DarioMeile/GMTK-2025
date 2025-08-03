@@ -32,9 +32,8 @@ var currentState: int = state.init
 
 var character: Controllable_Entity
 var enabled: bool = false
-var canBePutDown: bool = false
 var downPosition
-
+var initialYPosition: float = 0.0
 
 func _process(_delta: float):
 	match currentState:
@@ -56,12 +55,11 @@ func _process(_delta: float):
 				_show_outline(false)
 		state.isLifted:
 			global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
-			if Input.is_action_just_pressed("ui_accept") and canBePutDown:
+			if Input.is_action_just_pressed("ui_accept"):
 				currentState = state.waiting
-				global_position = downPosition
+				global_position.y = initialYPosition
 				character.liftingSomething = false
 				currentState = state.canBeInteracted
-				canBePutDown = false
 				_show_outline(true)
 		state.restart:
 			pass
@@ -77,7 +75,6 @@ func _show_outline(_show: bool = false):
 
 func _start_of_scene():
 	enabled = false
-	canBePutDown = false
 	currentState = state.init
 	position = SPAWN_MARKER.global_position
 
@@ -92,6 +89,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		if body.liftingSomething: #Already lifting something
 			return
 		character = body
+		initialYPosition = global_position.y
 		currentState = state.canBeInteracted
 		_show_outline(true)
 		print("Player is IN range to interact with " + OBJECT_NAME)

@@ -26,6 +26,7 @@ size = Vector3(1.1, 1.7, 1)
 
 [node name="InteractuableObject" type="RigidBody3D" groups=["Interactuable_Object"]]
 mass = 10.0
+gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 script = ExtResource("1_vgx3j")
@@ -44,6 +45,7 @@ shape = SubResource("SphereShape3D_rd31t")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 shape = SubResource("BoxShape3D_rd31t")
+disabled = true
 
 [node name="PerspectiveA" type="Sprite3D" parent="."]
 unique_name_in_owner = true

@@ -3,9 +3,6 @@ extends Node3D
 
 @export_category("Load Resources")
 @export_group("Internal")
-@export_subgroup("Pikachus")
-@export var PIKACHU_REAL: CharacterBody3D
-@export var PIKACHU_CRT: CharacterBody3D
 @export_subgroup("Cameras")
 @export var ROOM_CAMERA: PhantomCamera3D
 @export var DOOR_CAMERA: PhantomCamera3D
@@ -476,6 +473,7 @@ func _tv_perspective_control(delta: float):
 					animationArm.show()
 					armAnimationTreeStateMachine.travel("Appear")
 					return
+				armAnimationTreeStateMachine.travel("Disappear")
 		tvState.watchingStart:
 			entitySignals.clear()
 			var _entitiesToSimulate:= get_tree().get_nodes_in_group("NPC")
