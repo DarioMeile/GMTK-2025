@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwgg7oodiif4q"]
+
+[ext_resource type="Script" uid="uid://b6f2ytkdw1onq" path="res://03_Scripts/03_NPCs/Scenario_2/fisherman.gd" id="1_kcg0k"]
+[ext_resource type="Texture2D" uid="uid://cniwouy50e34d" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/01_Characters/CriminalFront.png" id="2_kcg0k"]
+[ext_resource type="Texture2D" uid="uid://cu7ukgq2wogfm" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/01_Characters/CriminalHat.png" id="3_kcg0k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yr50r"]
+radius = 0.349145
+height = 2.43323
+
+[node name="ParkingCriminal" type="CharacterBody3D" groups=["NPC"]]
+collision_layer = 2
+script = ExtResource("1_kcg0k")
+
+[node name="PerspectiveA" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1.1, 0)
+pixel_size = 0.0015
+shaded = true
+texture = ExtResource("2_kcg0k")
+
+[node name="Hat" type="Sprite3D" parent="PerspectiveA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.0015
+render_priority = 1
+texture = ExtResource("3_kcg0k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25503, 0)
+shape = SubResource("CapsuleShape3D_yr50r")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+target_desired_distance = 1.2
+simplify_path = true
+debug_enabled = true

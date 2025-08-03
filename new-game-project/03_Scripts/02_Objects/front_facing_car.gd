@@ -1,0 +1,2 @@
+class_name Interactuable_Car
+extends Interactuable_Object
