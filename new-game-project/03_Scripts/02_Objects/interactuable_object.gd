@@ -49,9 +49,12 @@ func _process(_delta: float):
 				textureC.pixel_size = TEXTURE_C_PIXEL_SIZE
 				textureD.pixel_size = TEXTURE_D_PIXEL_SIZE
 		state.canBeInteracted:
-			if Input.is_action_just_pressed("ui_accept"):
+			if Input.is_action_just_pressed("ui_accept") and character.liftingPossibilities.size() > 0:
+				if character.liftingPossibilities[0] != self:
+					return
 				currentState = state.isLifted
 				character.liftingSomething = true
+				character._lifting()
 				_show_outline(false)
 		state.isLifted:
 			global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
@@ -59,6 +62,7 @@ func _process(_delta: float):
 				currentState = state.waiting
 				global_position.y = initialYPosition
 				character.liftingSomething = false
+				character._putDown()
 				currentState = state.canBeInteracted
 				_show_outline(true)
 		state.restart:
@@ -70,12 +74,12 @@ func _show_outline(_show: bool = false):
 	var _scale: float = 0.0
 	if _show:
 		_scale = OUTLINE_SCALE
-	$CSGBox3D.material_overlay.set("shader_parameter/scale", _scale)
-	$CSGBox3D.material_overlay.set("shader_parameter/outline_spread", _scale)
 
 func _start_of_scene():
 	enabled = false
 	currentState = state.init
+
+func _rewind_object():
 	position = SPAWN_MARKER.global_position
 
 func _enable_entity(_enable: bool = false):
@@ -88,6 +92,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Controllable_Entity and currentState != state.isLifted:
 		if body.liftingSomething: #Already lifting something
 			return
+		if !body.liftingPossibilities.has(self):
+			body.liftingPossibilities.append(self)
 		character = body
 		initialYPosition = global_position.y
 		currentState = state.canBeInteracted
@@ -105,6 +111,8 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if !enabled:
 		return
 	if body is Controllable_Entity and currentState != state.isLifted:
+		if body.liftingPossibilities.has(self):
+			body.liftingPossibilities.erase(self)
 		currentState = state.waiting
 		_show_outline(false)
 		print("Player is OUT of range to interact with " + OBJECT_NAME)

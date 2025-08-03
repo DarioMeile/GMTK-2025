@@ -143,7 +143,7 @@ func _process(delta: float) -> void:
 				totemWatched = true
 				TV_CAMERA.priority = 2
 				tvOn = true
-				get_tree().call_group("ControllableEntity", "_start_of_scene")
+				get_tree().call_group("Scenario", "_rewinding")
 				get_tree().call_group("TV", "_turn_screen", tvOn, tapesInserted)
 				_totem_disappeared()
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):

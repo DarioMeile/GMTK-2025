@@ -1,0 +1,1 @@
+extends Interactuable_Object
