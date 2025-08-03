@@ -14,6 +14,7 @@ config/name="GMTK 2025 Prototype"
 config/version="0.1.0"
 run/main_scene="uid://dvm1ppl7qjf8i"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/image="uid://damci6jsn5u5d"
 config/icon="res://icon.svg"
 
 [autoload]

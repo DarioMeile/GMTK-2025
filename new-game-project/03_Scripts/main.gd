@@ -147,7 +147,7 @@ func _process(delta: float) -> void:
 		state.introduction:
 			showingButtonTimer -= delta
 			if showingButtonTimer < 0 and showingButtonTimer > -100:
-				buttonNotificationLabel.text = "PRESS [ACCEPT] TO START"
+				buttonNotificationLabel.text = "PRESS [ENTER] TO START"
 				buttonNotificationNode.show()
 				showingButtonTimer = -100
 			if Input.is_action_just_pressed("debug_key"):
@@ -359,7 +359,7 @@ func _tapes_perspective_control(delta: float):
 		tapeState.selecting:
 			showingButtonTimer -= delta
 			if showingButtonTimer < 0 and showingButtonTimer > -100:
-				buttonNotificationLabel.text = "PRESS [ACCEPT] TO INSERT TAPES"
+				buttonNotificationLabel.text = "PRESS [ENTER] TO INSERT TAPES"
 				buttonNotificationNode.show()
 				showingButtonTimer = -100
 			if Input.is_action_just_pressed("ui_cancel"):
@@ -402,7 +402,7 @@ func _tv_perspective_control(delta: float):
 	match currentTvState:
 		tvState.init:
 			if !turnOnTVShowed:
-				buttonNotificationLabel.text = "PRESS [ACCEPT] TO TURN ON THE TVs"
+				buttonNotificationLabel.text = "PRESS [ENTER] TO TURN ON THE TVs"
 				buttonNotificationNode.show()
 			get_tree().call_group("ControllableEntity", "_enable", tvOn)
 			if tvOn and tapesInserted and !firstWatched:
@@ -465,12 +465,12 @@ func _tv_perspective_control(delta: float):
 			if !creatureTutorial:
 				if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
 					creatureTutorial = true
-					buttonNotificationLabel.text = "PRESS [ACCEPT] TO INTERACT WITH THE ENVIRONMENT"
+					buttonNotificationLabel.text = "PRESS [ENTER] TO INTERACT WITH THE ENVIRONMENT"
 				return
 			if !creatureInteractTutorial:
 				if Input.is_action_just_pressed("ui_accept"):
 					creatureInteractTutorial = true
-					buttonNotificationLabel.text = "PRESS [PLAY] WHEN READY TO PLAY THE TAPES AGAIN"
+					buttonNotificationLabel.text = "PRESS [A] WHEN READY TO PLAY THE TAPES AGAIN"
 				return
 			#END OF TUTORIAL EXCLUSIVE
 			if Input.is_action_just_pressed("ui_cancel"):
@@ -579,7 +579,7 @@ func _tv_perspective_control(delta: float):
 		tvState.finishedWatching:
 			if !firstRewind:
 				buttonNotificationNode.show()
-				buttonNotificationLabel.text = "PRESS [REWIND] TO REWIND THE TAPES"
+				buttonNotificationLabel.text = "PRESS [S] TO REWIND THE TAPES"
 				firstRewind = true
 			if Input.is_action_just_pressed("rewind_tapes"):
 					buttonNotificationNode.hide()
@@ -736,6 +736,8 @@ func _showItemNotification(_text: String):
 
 
 func _show_puzzle_completed_dialogue():
+	%Animation.show()
+	%Arm.hide()
 	DOOR_CAMERA.priority = 2
 	dialogueNode.show()
 	dialogueLabel.clear()

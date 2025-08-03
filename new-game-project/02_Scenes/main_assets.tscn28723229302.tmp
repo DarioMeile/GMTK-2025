@@ -1,0 +1,995 @@
+[gd_scene load_steps=53 format=3 uid="uid://dvm1ppl7qjf8i"]
+
+[ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
+[ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
+[ext_resource type="PackedScene" uid="uid://cbf066344ow0t" path="res://02_Scenes/01_Objects/vhs_tape.tscn" id="5_llutj"]
+[ext_resource type="Shader" uid="uid://b68s68kpk3o16" path="res://01_Assets/03_Misc_Assets/02_Shaders/outline.gdshader" id="6_l6366"]
+[ext_resource type="Shader" uid="uid://bw62ycuksluex" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_dither.gdshader" id="6_o8lxf"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_xxmkq"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
+[ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="7_l6366"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
+[ext_resource type="AudioStream" uid="uid://b1v3c2k20qh1" path="res://01_Assets/02_Audio_Assets/02_SFX/bullet-recoil.mp3" id="11_6scgm"]
+[ext_resource type="AudioStream" uid="uid://c556b4hrvmdve" path="res://01_Assets/02_Audio_Assets/01_BGM/strings-bgm.mp3" id="11_h7f80"]
+[ext_resource type="PackedScene" uid="uid://dr7wufbwjfef4" path="res://02_Scenes/03_Scenarios/parking_scenario.tscn" id="12_h7f80"]
+[ext_resource type="Shader" uid="uid://pae4uleqloaj" path="res://01_Assets/03_Misc_Assets/02_Shaders/simple_2d_shake.gdshader" id="13_h7f80"]
+[ext_resource type="Texture2D" uid="uid://50eptmiuj1wx" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/Mano.PNG" id="14_h7f80"]
+[ext_resource type="Texture2D" uid="uid://boxqvejw8ou3r" path="res://01_Assets/01_Visual_Assets/closeup-1-01.png" id="15_jwi7y"]
+[ext_resource type="Texture2D" uid="uid://d05vni72sx7gn" path="res://01_Assets/01_Visual_Assets/closeup2-01.png" id="16_oitkq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3q361"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_docrm"]
+sky_material = SubResource("ProceduralSkyMaterial_3q361")
+
+[sub_resource type="Environment" id="Environment_1wxww"]
+sky = SubResource("Sky_docrm")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+tonemap_white = 1.5
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_min_cell_size = 3.8
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_du1uk"]
+albedo_color = Color(0.354441, 0.388975, 0.40099, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gug2t"]
+albedo_color = Color(0.575766, 0.473764, 0.416362, 1)
+
+[sub_resource type="Curve" id="Curve_qrytx"]
+_data = [Vector2(0, 0), 0.0, 2.37109, 0, 0, Vector2(0.505703, 0.98965), -0.14327, -0.14327, 0, 0, Vector2(1, 0), -2.56509, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xxmkq"]
+curve = SubResource("Curve_qrytx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6366"]
+lifetime_randomness = 0.25
+emission_shape_scale = Vector3(4.37, 3.84, 7.165)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -262.7
+angle_max = -56.7
+direction = Vector3(0, -0.1, 0)
+spread = 17.903
+initial_velocity_min = 0.1
+initial_velocity_max = 0.2
+angular_velocity_min = -192.99
+angular_velocity_max = 111.34
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_xxmkq")
+turbulence_enabled = true
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6366"]
+albedo_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_jwi7y"]
+material = SubResource("StandardMaterial3D_l6366")
+size = Vector2(0.02, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kd5td"]
+albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
+metallic = 0.72
+roughness = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrytx"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 60.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.4
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.0
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 2.0
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxmkq"]
+shader = ExtResource("7_l6366")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 5.0
+shader_parameter/noise_amount = 0.042
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 2.795
+shader_parameter/vignette_amount = 2.0
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 1.0
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.946
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6366"]
+shader = ExtResource("6_o8lxf")
+shader_parameter/gamma = 0.9
+shader_parameter/blend = 0.575
+shader_parameter/dither_spread = 0.5
+
+[sub_resource type="Resource" id="Resource_h6y3j"]
+script = ExtResource("8_jwi7y")
+duration = 0.5
+transition = 5
+ease = 1
+
+[sub_resource type="Resource" id="Resource_o8lxf"]
+script = ExtResource("9_gug2t")
+keep_aspect = 1
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 60.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_qrytx"]
+script = ExtResource("9_gug2t")
+keep_aspect = 1
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 60.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gug2t"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oitkq"]
+shader = ExtResource("13_h7f80")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 2.0
+
+[sub_resource type="Animation" id="Animation_h7f80"]
+resource_name = "Appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(61, 367), Vector2(61, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6scgm"]
+resource_name = "Disappear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(61, 32), Vector2(61, 32), Vector2(61, 400)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Animation/../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.96667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_totem_disappeared"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_jwi7y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(61, 367)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/shake_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="Animation" id="Animation_oitkq"]
+resource_name = "Shake"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/shake_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(61, 32)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%Animation/../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_show_totem_dialogue"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_byvlv"]
+_data = {
+&"Appear": SubResource("Animation_h7f80"),
+&"Disappear": SubResource("Animation_6scgm"),
+&"RESET": SubResource("Animation_jwi7y"),
+&"Shake": SubResource("Animation_oitkq")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7f80"]
+animation = &"Appear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jwi7y"]
+animation = &"Disappear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oitkq"]
+animation = &"Shake"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6scgm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_byvlv"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mhxr6"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mhxr6"]
+states/Appear/node = SubResource("AnimationNodeAnimation_h7f80")
+states/Appear/position = Vector2(331, 104)
+states/Disappear/node = SubResource("AnimationNodeAnimation_jwi7y")
+states/Disappear/position = Vector2(631, 104)
+states/Shake/node = SubResource("AnimationNodeAnimation_oitkq")
+states/Shake/position = Vector2(470, 104)
+transitions = ["Start", "Appear", SubResource("AnimationNodeStateMachineTransition_6scgm"), "Appear", "Shake", SubResource("AnimationNodeStateMachineTransition_byvlv"), "Shake", "Disappear", SubResource("AnimationNodeStateMachineTransition_mhxr6")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrytx"]
+bg_color = Color(0, 0, 0, 0.862745)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_qrytx"]
+resource_name = "Moving"
+length = 1.6154
+loop_mode = 2
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.230769, 1.38462, 1.61538),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(424, 37), Vector2(424, 37), Vector2(424, 29), Vector2(424, 29)]
+}
+
+[sub_resource type="Animation" id="Animation_xxmkq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(424, 37)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h7f80"]
+_data = {
+&"Moving": SubResource("Animation_qrytx"),
+&"RESET": SubResource("Animation_xxmkq")
+}
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("ROOM_CAMERA", "DOOR_CAMERA", "TV_CAMERA", "TAPES_CAMERA", "BOARD_CAMERA", "TV_NODES", "TAPE_NODES") groups=["Main"]]
+script = ExtResource("1_llutj")
+ROOM_CAMERA = NodePath("Cameras/RoomCamera")
+DOOR_CAMERA = NodePath("Cameras/DoorCamera")
+TV_CAMERA = NodePath("Cameras/TVCamera")
+TAPES_CAMERA = NodePath("Cameras/TapesCamera")
+BOARD_CAMERA = NodePath("Cameras/BoardCamera")
+TV_NODES = [NodePath("Environment/Desktop/TVs/TV_A"), NodePath("Environment/Desktop/TVs/TV_B")]
+TAPE_NODES = [NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_A"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_B")]
+FLICKERING_LIGHT_OFF_TIMER_MAX = 0.2
+sfx_hashmap = {
+"bell": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/bell.mp3",
+"door_knock": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/door-knock.mp3",
+"navigate_room": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/wind-movement.mp3",
+"talk": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/text-low.mp3",
+"tape_insert": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/tape-insert.mp3",
+"tv_switch": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/tv-switch.mp3"
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1wxww")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 6.44177, 6.33241, 0)
+visible = false
+shadow_enabled = true
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="Room" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01126, 0.27842)
+use_collision = true
+size = Vector3(9, 8.02252, 15)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Substraction" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506348, 0.536011)
+operation = 2
+size = Vector3(8, 7.86621, 15)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Ceiling4thWall" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.76126, -0.0225979)
+material_override = SubResource("StandardMaterial3D_du1uk")
+use_collision = true
+size = Vector3(9, 0.5, 15)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="4thWall" type="CSGBox3D" parent="Environment/Room/Ceiling4thWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, -7.25)
+material_override = SubResource("StandardMaterial3D_du1uk")
+use_collision = true
+size = Vector3(9, 8, 0.5)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="DoorFrame" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -6.8)
+operation = 2
+size = Vector3(2.4, 5, 3)
+material = SubResource("StandardMaterial3D_du1uk")
+
+[node name="Door" type="CSGBox3D" parent="Environment/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, -0.908652, -7.5)
+size = Vector3(2.4, 5, 0.4)
+material = SubResource("StandardMaterial3D_gug2t")
+
+[node name="DustEffect" type="GPUParticles3D" parent="Environment/Room"]
+amount = 1000
+lifetime = 2.0
+preprocess = 1.0
+speed_scale = 1.1
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_l6366")
+draw_pass_1 = SubResource("QuadMesh_jwi7y")
+
+[node name="Desktop" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+
+[node name="Table" type="CSGBox3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, -1, -3.15253)
+material_override = SubResource("StandardMaterial3D_kd5td")
+use_collision = true
+size = Vector3(6.5, 0.4, 1.6)
+
+[node name="Notes_Paper" type="Node3D" parent="Environment/Desktop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60793, 0, 0)
+visible = false
+
+[node name="Paper" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
+transform = Transform3D(0.88179, 0, 0.471643, 0, 1, 0, -0.471643, 0, 0.88179, -0.833889, -0.790521, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="Paper2" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
+transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
+size = Vector3(0.501495, 0.002, 0.720825)
+
+[node name="TVs" type="Node" parent="Environment/Desktop"]
+
+[node name="TV_A" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.998353, 7.8551e-11, 0.0573723, -7.8543e-11, 1, -2.39382e-12, -0.0573723, -2.11633e-12, 0.998353, 0.904419, 2.21286, 1.33918)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SecondScene/ParkingScenario/SubViewportA")
+DISABLED = false
+
+[node name="TV_B" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 2.21286, 1.34771)
+FUNCTION_AS_TOOL = true
+VIEWPORT = NodePath("../../../../SecondScene/ParkingScenario/SubViewportB")
+DISABLED = false
+
+[node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, 0.212856, 1.33918)
+FUNCTION_AS_TOOL = true
+DISABLED = true
+
+[node name="TV_D" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
+transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, 0.212856, 1.34771)
+FUNCTION_AS_TOOL = true
+DISABLED = true
+
+[node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+
+[node name="VHS_Tape_A" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.75769, 0, -0.652614, 0, 1, 0, 0.652614, 0, 0.75769, -0.901627, -0.798601, 1.51012)
+TOP_STRING = "Camera C"
+SIDE_STRING = "Camera C"
+
+[node name="VHS_Tape_B" parent="Environment/Desktop/VHS-Tapes" instance=ExtResource("5_llutj")]
+transform = Transform3D(0.882825, 0, 0.469703, 0, 1, 0, -0.469703, 0, 0.882825, -1.89106, -0.798601, 1.27595)
+TOP_STRING = "Camera D"
+SIDE_STRING = "Camera D"
+
+[node name="Board" type="CSGBox3D" parent="Environment"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09212, 1.5681, 3.86665)
+material_overlay = SubResource("ShaderMaterial_qrytx")
+size = Vector3(0.238052, 2.1, 3.5)
+
+[node name="Clue1" type="Label3D" parent="Environment/Board"]
+unique_name_in_owner = true
+transform = Transform3D(0.00420624, 0, -0.999991, 0, 1, 0, 0.999991, 0, 0.00420624, -0.132688, 0.695892, -0.397935)
+visible = false
+render_priority = 1
+text = "1. I need to see the license plates"
+outline_size = 30
+
+[node name="Clue2" type="Label3D" parent="Environment/Board"]
+unique_name_in_owner = true
+transform = Transform3D(0.0077708, 0.0036866, -0.999963, 0.262668, 0.96487, 0.00559844, 0.964855, -0.262702, 0.00652946, -0.132688, 0.232598, 0.221162)
+visible = false
+render_priority = 1
+text = "2. Need to obstruct the parking slot..."
+
+[node name="Clue3" type="Label3D" parent="Environment/Board"]
+unique_name_in_owner = true
+transform = Transform3D(-0.00564427, -0.00229871, -0.999981, -0.0849629, 0.996383, -0.00181087, 0.996368, 0.0849512, -0.00581915, -0.132688, -0.577376, -0.00564098)
+visible = false
+render_priority = 1
+text = "3. Illuminate the closests parking slots..."
+
+[node name="RoomLight" type="SpotLight3D" parent="Environment"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.379763, 0.925084, 0, -0.925084, 0.379763, 0.272827, 4.32995, 5.83327)
+light_color = Color(1, 0.674683, 0.00465829, 1)
+light_energy = 2.0
+light_indirect_energy = 4.0
+light_volumetric_fog_energy = 4.0
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 6.4
+spot_attenuation = -0.61
+spot_angle = 50.46
+
+[node name="PresentLight" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27292, 3.8788)
+light_color = Color(1, 0.857303, 0.669312, 1)
+light_energy = 0.988
+light_indirect_energy = 8.0
+light_volumetric_fog_energy = 4.0
+omni_range = 8.0
+
+[node name="PresentLight2" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27292, -3.1212)
+light_color = Color(1, 0.857303, 0.669312, 1)
+light_energy = 0.4
+light_indirect_energy = 8.0
+light_volumetric_fog_energy = 4.0
+omni_range = 8.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment"]
+transform = Transform3D(0.982071, 0.0655961, -0.176732, 4.44089e-16, 0.937507, 0.347967, 0.188513, -0.341728, 0.920698, 2.05249, 2.91684, 6.90801)
+light_color = Color(0.66, 0.4224, 0.264, 1)
+light_energy = 14.0
+spot_range = 6.13076
+spot_angle = 40.3705
+
+[node name="Cameras" type="Node" parent="."]
+
+[node name="CameraA" type="Camera3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
+current = true
+fov = 60.0
+
+[node name="PhantomCameraHost" type="Node" parent="Cameras/CameraA"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_xxmkq")
+
+[node name="Control" type="Control" parent="Cameras/CameraA"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Cameras/CameraA/Control"]
+visible = false
+material = SubResource("ShaderMaterial_xxmkq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Cameras/CameraA/Control"]
+material = SubResource("ShaderMaterial_l6366")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="RoomCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
+script = ExtResource("7_h7f80")
+priority = 1
+tween_resource = SubResource("Resource_h6y3j")
+camera_3d_resource = SubResource("Resource_o8lxf")
+
+[node name="DoorCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.984808, -0.0422769, 0.168423, 0, 0.96991, 0.243463, -0.173648, -0.239764, 0.955175, -0.294317, 1.45061, 4.90729)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+camera_3d_resource = SubResource("Resource_qrytx")
+
+[node name="TVCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.987705, -0.156331, 0, 0.156331, 0.987705, 1.92337, 0.940416, 4.71945)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="BoardCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.294379, -0.242884, -0.92431, 0.073874, 0.970056, -0.231377, 0.952829, -0.000170131, 0.303506, 0.705683, 0.455603, 5.23796)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="TapesCamera" type="Node3D" parent="Cameras"]
+transform = Transform3D(0.99245, 0, 0.122649, -0.0268532, 0.975737, 0.217291, -0.119673, -0.218944, 0.968371, -1.02465, -0.0824798, 3.51403)
+script = ExtResource("7_h7f80")
+tween_resource = SubResource("Resource_h6y3j")
+
+[node name="UIMarkers" type="Node" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="UIMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
+
+[node name="SFXStreams" type="Node" parent="."]
+
+[node name="SFXStream" type="AudioStreamPlayer3D" parent="SFXStreams"]
+unique_name_in_owner = true
+bus = &"SFX"
+
+[node name="SFXStream2" type="AudioStreamPlayer3D" parent="SFXStreams"]
+unique_name_in_owner = true
+stream = ExtResource("11_6scgm")
+bus = &"SFX"
+
+[node name="BGMStream" type="Node" parent="."]
+
+[node name="BackgroundAudioStream" type="AudioStreamPlayer3D" parent="BGMStream"]
+transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
+stream = ExtResource("11_h7f80")
+autoplay = true
+panning_strength = 0.0
+bus = &"BGM"
+
+[node name="SecondScene" type="SubViewport" parent="."]
+own_world_3d = true
+size = Vector2i(1000, 1000)
+
+[node name="ParkingScenario" parent="SecondScene" instance=ExtResource("12_h7f80")]
+
+[node name="Cube_015" parent="SecondScene/ParkingScenario/NavigationRegion3D/Scenario" index="27"]
+surface_material_override/0 = null
+
+[node name="CollisionShape3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58301, 0)
+
+[node name="SpotLight3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, 2.16815, 0)
+
+[node name="SpotLight3D2" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, -0.263415, 6.95791)
+
+[node name="SpotLight3D3" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, 1.43243, 4.23716)
+
+[node name="CarMarker3D11" parent="SecondScene/ParkingScenario/Objects/Interactuables" index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91863, 0.1, 4.38356)
+
+[node name="CarMarker3D12" parent="SecondScene/ParkingScenario/Objects/Interactuables" index="15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91863, 0.1, -4.01644)
+
+[node name="CollisionShape3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/LightArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.87666, 1.13129, 0.894079)
+
+[node name="CriminalCar" parent="SecondScene/ParkingScenario/NPC_1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99992, 0.2, -3.19588)
+TIMER_BETWEEN_LOCATIONS = Array[float]([0.2])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([0.2])
+
+[node name="Location_1" parent="SecondScene/ParkingScenario/NPC_1" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99992, 0.2, -1.69588)
+
+[node name="Spawn" parent="SecondScene/ParkingScenario/NPC_2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17002, 0, -2.19349)
+
+[node name="Location_1" parent="SecondScene/ParkingScenario/NPC_2" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9933, 0, -0.36018)
+
+[node name="SidePerspective" parent="SecondScene/ParkingScenario/ControllableEntity/Sprites" index="2"]
+transform = Transform3D(0.4, 0, 0, 0, 0.393923, 0.0694593, 0, -0.0694593, 0.393923, 0.811464, 1.4, 0)
+
+[node name="PLAYER_SPAWN" parent="SecondScene/ParkingScenario" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39416, 3.08175, 6.6959)
+
+[node name="OverallUI" type="CanvasLayer" parent="."]
+layer = 90
+
+[node name="BlackScreen" type="Panel" parent="OverallUI"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gug2t")
+
+[node name="Animation" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Arm" type="TextureRect" parent="OverallUI/Animation"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_oitkq")
+custom_minimum_size = Vector2(320, 400)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -179.0
+offset_top = 7.0
+offset_right = 150.745
+offset_bottom = 407.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("14_h7f80")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OverallUI/Animation/Arm"]
+libraries = {
+&"": SubResource("AnimationLibrary_byvlv")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="OverallUI/Animation/Arm"]
+tree_root = SubResource("AnimationNodeStateMachine_mhxr6")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Picture1" type="TextureRect" parent="OverallUI/Animation"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_jwi7y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Picture3" type="TextureRect" parent="OverallUI/Animation"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_oitkq")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Picture2" type="TextureRect" parent="OverallUI/Animation"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_jwi7y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Dialogue" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueMarginBox" type="MarginContainer" parent="OverallUI/Dialogue"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="DialoguePanelBox" type="PanelContainer" parent="OverallUI/Dialogue/DialogueMarginBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qrytx")
+
+[node name="TextMarginBox" type="MarginContainer" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="DialogueTextLabel" type="RichTextLabel" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/line_separation = 1
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "License plates? Great job,
+I'll run those plates on the data base."
+fit_content = true
+vertical_alignment = 2
+visible_characters = 66
+
+[node name="DialoguePointer" type="Control" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ContinueDialoguePointer" type="Label" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox/DialoguePointer"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 37.0
+offset_right = 438.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 10
+text = "▼"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox/DialoguePointer"]
+root_node = NodePath("../ContinueDialoguePointer")
+libraries = {
+&"": SubResource("AnimationLibrary_h7f80")
+}
+autoplay = "Moving"
+
+[node name="ItemLabels" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/ItemLabels"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.5
+offset_right = 93.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 6
+
+[node name="NotificationPanelContainer" type="PanelContainer" parent="OverallUI/ItemLabels/MarginContainer"]
+layout_mode = 2
+
+[node name="NotificationMarginContainer" type="MarginContainer" parent="OverallUI/ItemLabels/MarginContainer/NotificationPanelContainer"]
+custom_minimum_size = Vector2(187, 21)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="ItemNotificationLabel" type="Label" parent="OverallUI/ItemLabels/MarginContainer/NotificationPanelContainer/NotificationMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "RECEIVED {n} VHS TAPES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonNotification" type="Control" parent="OverallUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OverallUI/ButtonNotification"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -93.5
+offset_top = -27.0
+offset_right = 93.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 6
+
+[node name="ButtonLabel" type="Label" parent="OverallUI/ButtonNotification/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "PRESS [REWIND] TO REWIND THE TAPES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[editable path="SecondScene/ParkingScenario"]
+[editable path="SecondScene/ParkingScenario/NavigationRegion3D/Scenario"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/Lantern"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/FrontFacingCar"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/FrontFacingCar2"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/BackFacingCar5"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/BackFacingCar3"]
+[editable path="SecondScene/ParkingScenario/Objects/Interactuables/BackFacingCar2"]
+[editable path="SecondScene/ParkingScenario/ControllableEntity"]

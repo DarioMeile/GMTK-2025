@@ -688,6 +688,7 @@ bus = &"SFX"
 [node name="SFXStream2" type="AudioStreamPlayer3D" parent="SFXStreams"]
 unique_name_in_owner = true
 stream = ExtResource("11_6scgm")
+volume_db = 8.0
 bus = &"SFX"
 
 [node name="BGMStream" type="Node" parent="."]

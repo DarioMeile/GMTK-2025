@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://dr7wufbwjfef4"]
+[gd_scene load_steps=61 format=4 uid="uid://dr7wufbwjfef4"]
 
 [ext_resource type="PackedScene" uid="uid://be743evmo8hum" path="res://01_Assets/01_Visual_Assets/02_3D_Models/01_Parking/estacionamiento arboles.glb" id="1_3r6uq"]
 [ext_resource type="Script" uid="uid://b2djayvkvydt7" path="res://03_Scripts/parking_scenario.gd" id="1_j35nm"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://dqy5hd1i8caf8" path="res://02_Scenes/02_NPCs/Scenario_1/criminalCar.tscn" id="23_mdxqk"]
 [ext_resource type="PackedScene" uid="uid://cwgg7oodiif4q" path="res://02_Scenes/02_NPCs/Scenario_1/parkingCriminal.tscn" id="24_cggbu"]
 [ext_resource type="PackedScene" uid="uid://cy4upvcpbn0o" path="res://02_Scenes/creature_parking.tscn" id="30_pjxjp"]
+[ext_resource type="AudioStream" uid="uid://b1v3c2k20qh1" path="res://01_Assets/02_Audio_Assets/02_SFX/bullet-recoil.mp3" id="32_kto3e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a3wdj"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -300,7 +301,7 @@ corner_radius_bottom_left = 8
 [node name="ParkingScenario" type="Node3D" node_paths=PackedStringArray("CONTROLLABLE_ENTITY", "CAR_MARKER_SOLUTION") groups=["Scenario"]]
 script = ExtResource("1_j35nm")
 CONTROLLABLE_ENTITY = NodePath("ControllableEntity")
-CAR_MARKER_SOLUTION = [NodePath("Objects/Interactuables/CarMarker3D5"), NodePath("Objects/Interactuables/CarMarker3D4")]
+CAR_MARKER_SOLUTION = [NodePath("Objects/Interactuables/CarMarker3D4"), NodePath("Objects/Interactuables/CarMarker3D5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_026ka")
@@ -957,6 +958,11 @@ APPEAR_AT_START_TIMER = 8.0
 TIMER_BETWEEN_LOCATIONS = Array[float]([2.0])
 TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([0.0, 0.0])
 MOVEMENT_SPEEDS_SOLUTION = Array[float]([4.0])
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="NPC_2/ParkingCriminal"]
+unique_name_in_owner = true
+stream = ExtResource("32_kto3e")
+bus = &"CRT SFX"
 
 [node name="Spawn" type="Marker3D" parent="NPC_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17002, 0, -2.19349)

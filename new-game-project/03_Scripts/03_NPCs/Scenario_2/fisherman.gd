@@ -111,6 +111,7 @@ func _physics_process(delta: float) -> void:
 		npcState.end:
 			velocity.x = 0
 			velocity.z = 0
+			%AudioStreamPlayer3D.play()
 			get_tree().call_group("Main", "_npc_reached_final_destination", self)
 			currentNpcState = npcState.waiting
 		npcState.inactive:
