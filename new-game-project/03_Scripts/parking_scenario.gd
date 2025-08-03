@@ -6,6 +6,9 @@ extends Node3D
 @export var CAR_MARKER_SOLUTION: Array[Marker3D]
 @export var CAR_INTERACTUABLES: Array[Interactuable_Object]
 
+@export var SUBVIEWPORT_A: SubViewport
+@export var SUBVIEWPORT_B: SubViewport
+
 #Trigger areas
 @onready var lightArea:= %LightArea
 var LInPlace: bool = false
@@ -21,6 +24,7 @@ enum scenarioState {init, startingScene, rewinding, playerControlling, waiting}
 var currentScenarioState = scenarioState.init
 
 func _ready() -> void:
+	get_tree().call_group("Main", "_subviewports", SUBVIEWPORT_A, SUBVIEWPORT_B)
 	if get_parent() is SubViewport: #is not main scene
 		return
 

@@ -298,10 +298,12 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="ParkingScenario" type="Node3D" node_paths=PackedStringArray("CONTROLLABLE_ENTITY", "CAR_MARKER_SOLUTION") groups=["Scenario"]]
+[node name="ParkingScenario" type="Node3D" node_paths=PackedStringArray("CONTROLLABLE_ENTITY", "CAR_MARKER_SOLUTION", "SUBVIEWPORT_A", "SUBVIEWPORT_B") groups=["Scenario"]]
 script = ExtResource("1_j35nm")
 CONTROLLABLE_ENTITY = NodePath("ControllableEntity")
 CAR_MARKER_SOLUTION = [NodePath("Objects/Interactuables/CarMarker3D4"), NodePath("Objects/Interactuables/CarMarker3D5")]
+SUBVIEWPORT_A = NodePath("SubViewportA")
+SUBVIEWPORT_B = NodePath("SubViewportB")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_026ka")

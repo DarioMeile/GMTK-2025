@@ -808,3 +808,8 @@ func _flicker_light(delta: float):
 
 func _both_solutions():
 	puzzleSolved = true
+
+
+func _subviewports(A, B):
+	$Environment/Desktop/TVs/TV_A.VIEWPORT = A
+	$Environment/Desktop/TVs/TV_B.VIEWPORT = B

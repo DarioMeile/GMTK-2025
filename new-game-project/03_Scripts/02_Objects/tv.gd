@@ -50,6 +50,9 @@ func _set_viewport():
 		return
 	VIEWPORT_SCREEN.material_override.albedo_texture.set("viewport_path", VIEWPORT)
 
+func _set_viewport_path(_viewport):
+	VIEWPORT = _viewport
+
 func _show_string(_show: bool = true, _string: String = SIDE_STRING):
 	if DISABLED:
 		return

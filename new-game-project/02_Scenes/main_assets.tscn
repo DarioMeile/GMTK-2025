@@ -508,13 +508,11 @@ size = Vector3(0.501495, 0.002, 0.720825)
 transform = Transform3D(0.998353, 7.8551e-11, 0.0573723, -7.8543e-11, 1, -2.39382e-12, -0.0573723, -2.11633e-12, 0.998353, 0.904419, 2.21286, 1.33918)
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/ParkingScenario/SubViewportA")
-DISABLED = false
 
 [node name="TV_B" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
 transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 2.21286, 1.34771)
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/ParkingScenario/SubViewportB")
-DISABLED = false
 
 [node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
 transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, 0.212856, 1.33918)
@@ -708,47 +706,6 @@ size = Vector2i(1000, 1000)
 
 [node name="Cube_015" parent="SecondScene/ParkingScenario/NavigationRegion3D/Scenario" index="27"]
 surface_material_override/0 = null
-
-[node name="CollisionShape3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern/Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58301, 0)
-
-[node name="SpotLight3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, 2.16815, 0)
-
-[node name="SpotLight3D2" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="8"]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, -0.263415, 6.95791)
-
-[node name="SpotLight3D3" parent="SecondScene/ParkingScenario/Objects/Interactuables/Lantern" index="9"]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.42401, 1.43243, 4.23716)
-
-[node name="CarMarker3D11" parent="SecondScene/ParkingScenario/Objects/Interactuables" index="14"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91863, 0.1, 4.38356)
-
-[node name="CarMarker3D12" parent="SecondScene/ParkingScenario/Objects/Interactuables" index="15"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91863, 0.1, -4.01644)
-
-[node name="CollisionShape3D" parent="SecondScene/ParkingScenario/Objects/Interactuables/LightArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.87666, 1.13129, 0.894079)
-
-[node name="CriminalCar" parent="SecondScene/ParkingScenario/NPC_1" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99992, 0.2, -3.19588)
-TIMER_BETWEEN_LOCATIONS = Array[float]([0.2])
-TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([0.2])
-
-[node name="Location_1" parent="SecondScene/ParkingScenario/NPC_1" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.99992, 0.2, -1.69588)
-
-[node name="Spawn" parent="SecondScene/ParkingScenario/NPC_2" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17002, 0, -2.19349)
-
-[node name="Location_1" parent="SecondScene/ParkingScenario/NPC_2" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9933, 0, -0.36018)
-
-[node name="SidePerspective" parent="SecondScene/ParkingScenario/ControllableEntity/Sprites" index="2"]
-transform = Transform3D(0.4, 0, 0, 0, 0.393923, 0.0694593, 0, -0.0694593, 0.393923, 0.811464, 1.4, 0)
-
-[node name="PLAYER_SPAWN" parent="SecondScene/ParkingScenario" index="9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39416, 3.08175, 6.6959)
 
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
