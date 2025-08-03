@@ -5,10 +5,10 @@ extends CharacterBody3D
 @export_category("Load Resources")
 @export_group("External")
 @export_subgroup("Perspective Textures")
-@export var PERSPECTIVE_TEXTURE_A: Resource
-@export var PERSPECTIVE_TEXTURE_B: Resource
-@export var PERSPECTIVE_TEXTURE_C: Resource
-@export var PERSPECTIVE_TEXTURE_D: Resource
+@export var PERSPECTIVE_TEXTURE_A: Sprite3D
+@export var PERSPECTIVE_TEXTURE_B: Sprite3D
+@export var PERSPECTIVE_TEXTURE_C: Sprite3D
+@export var PERSPECTIVE_TEXTURE_D: Sprite3D
 @export_subgroup("Location Markers")
 @export var SPAWN_MARKER: Marker3D
 @export_category("Behavior and General Information")
@@ -16,9 +16,7 @@ extends CharacterBody3D
 
 
 @onready var animPlayer:= $AnimationPlayer
-@onready var animTree:= $AnimationTree
-var animTreeStateMachine
-
+@onready var objectTransform:= %Object
 
 var liftingSomething: bool = false
 var droppingSomething: bool = false
@@ -27,7 +25,7 @@ var liftingPossibilities: Array[Interactuable_Object]
 var enabled: bool = false
 
 func _ready():
-	animTreeStateMachine = animTree["parameters/playback"]
+	pass
 
 func _process(delta: float) -> void:
 	pass
@@ -45,13 +43,9 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		if !liftingSomething:
-			animTreeStateMachine.travel("Walk")
 		velocity.x = direction.x * MOVEMENT_SPEED
 		velocity.z = direction.z * MOVEMENT_SPEED
 	else:
-		if !liftingSomething:
-			animTreeStateMachine.travel("Idle")
 		velocity.x = move_toward(velocity.x, 0, MOVEMENT_SPEED)
 		velocity.z = move_toward(velocity.z, 0, MOVEMENT_SPEED)
 
@@ -59,7 +53,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _start_of_scene():
-	animTreeStateMachine.start("Disappear")
+	#animTreeStateMachine.start("Disappear")
 	enabled = false
 	liftingSomething = false
 	liftingPossibilities.clear()
@@ -70,7 +64,7 @@ func _start_of_scene():
 
 func _start_controlling():
 	enabled = true
-	animTreeStateMachine.start("Appear")
+	#animTreeStateMachine.start("Appear")
 	show()
 
 func _enable(_enable: bool = false):
@@ -81,7 +75,11 @@ func _enable(_enable: bool = false):
 
 
 func _lifting():
-	animTreeStateMachine.start("Lift")
+	for _sprite in $Sprites.get_children():
+		_sprite.hide()
+	$Sprites/FrontPerspectiveLifting.show()
 
 func _putDown():
-	animTreeStateMachine.start("Drop")
+	for _sprite in $Sprites.get_children():
+		_sprite.show()
+	$Sprites/FrontPerspectiveLifting.hide()

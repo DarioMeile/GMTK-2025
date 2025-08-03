@@ -32,6 +32,7 @@ var currentState: int = state.init
 
 var character: Controllable_Entity
 var enabled: bool = false
+var nodeMarker: Node3D
 var downPosition
 var initialYPosition: float = 0.0
 
@@ -57,7 +58,8 @@ func _process(_delta: float):
 				character._lifting()
 				_show_outline(false)
 		state.isLifted:
-			global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
+			#global_position = Vector3(character.position.x, character.position.y+3, character.position.z)
+			global_position = nodeMarker.global_position
 			if Input.is_action_just_pressed("ui_accept"):
 				currentState = state.waiting
 				global_position.y = initialYPosition
@@ -95,6 +97,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		if !body.liftingPossibilities.has(self):
 			body.liftingPossibilities.append(self)
 		character = body
+		nodeMarker = character.objectTransform
 		initialYPosition = global_position.y
 		currentState = state.canBeInteracted
 		_show_outline(true)
