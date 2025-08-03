@@ -1,4 +1,4 @@
-class_name Store_Scene
+class_name School_Scene
 extends Node3D
 
 @export_category("Load Resources")
@@ -74,7 +74,7 @@ var currentTapeState: int = tapeState.init
 var tapesInserted: bool = false
 
 ##TV control
-enum tvState {init, firstWatch, firstRewind, rewinding, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting, finishedWatching}
+enum tvState {init, firstWatch, firstRewind, rewinding, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting, finishedWatching, doorTalking, end}
 var firstWatched: bool = false
 var firstRewind: bool = false
 var currentTvState = tvState.init
@@ -147,8 +147,10 @@ func _process(delta: float) -> void:
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
 			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
-			dialogueLabel.append_text("The car was reported stolen a week ago. Yesterday it was seen at a convenience store, we got this security camera footage.\n")
-			dialogueLabel.append_text("See if you can get an ID.")
+			dialogueLabel.append_text("We arrested a gang member in a high school with a tattoo.\n")
+			dialogueLabel.append_text("I think it's best we get him out off the streets and close this case once and for all.\n")
+			dialogueLabel.append_text("The principal gave us his file and these tapes from today's end of school.\n")
+			dialogueLabel.append_text("See if you can find anything for us to look for in tomorrow's visit.")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
@@ -159,12 +161,18 @@ func _process(delta: float) -> void:
 			await _tween.finished
 			await get_tree().create_timer(0.5).timeout
 			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
-			_tween.tween_property(dialogueLabel, "visible_characters", 137, 3).from(14)
+			_tween.tween_property(dialogueLabel, "visible_characters", 58, 3).from(14)
 			_load_sound_fx("talk")
 			currentState = state.talking
 			await _tween.finished
 			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
-			_tween.tween_property(dialogueLabel, "visible_characters", 162, 1.5).from(137)
+			_tween.tween_property(dialogueLabel, "visible_characters", 145, 3).from(58)
+			await _tween.finished
+			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+			_tween.tween_property(dialogueLabel, "visible_characters", 220, 4).from(145)
+			await _tween.finished
+			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+			_tween.tween_property(dialogueLabel, "visible_characters", 302, 3).from(220)
 			await _tween.finished
 			n_visible_chars = 0 # reset the visible chars for next talking dialogue
 			tapeNodes.show()
@@ -343,14 +351,10 @@ func _tv_perspective_control(delta: float):
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0
 			dialogueLabel.show()
-			dialogueLabel.append_text("[i][color=olive]...Hmmm,\n")
-			dialogueLabel.append_text("Well, let's see...[/color][/i]")
+			dialogueLabel.append_text("[b][color=olive]...[/color][/b]")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
-			_tween.set_parallel(false)
-			_tween.tween_property(dialogueLabel, "visible_characters", 9, 0.4).from(0)
-			_tween.tween_interval(1)
-			_tween.tween_property(dialogueLabel, "visible_characters", 27, 0.8).from(9)
+			_tween.tween_property(dialogueLabel, "visible_characters", 3, 1).from(0)
 			await _tween.finished
 			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
@@ -520,6 +524,25 @@ func _tv_perspective_control(delta: float):
 			firstWatched = true
 			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
+		tvState.doorTalking:
+			if (dialogueLabel.get_visible_characters() > n_visible_chars):
+				_play_sound_fx()
+				n_visible_chars = dialogueLabel.get_visible_characters()
+			pass
+		tvState.end:
+			dialogueNode.show()
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[i][color=red]...\n")
+			dialogueLabel.append_text("...[/color][/i]")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.set_parallel(false)
+			_tween.tween_property(dialogueLabel, "visible_characters", 4, 1).from(0)
+			_tween.tween_interval(0.5)
+			_tween.tween_property(dialogueLabel, "visible_characters", 7, 1).from(4)
+			await _tween.finished
 
 
 func _board_perspective_control(delta: float):
@@ -579,6 +602,7 @@ func _show_totem_dialogue():
 	dialoguePointer.show()
 	totemWatched = true
 	currentTvState = tvState.waitingForInput
+	_show_puzzle_completed_dialogue()
 
 func _totem_disappeared():
 	animationNode.hide()
@@ -586,6 +610,30 @@ func _totem_disappeared():
 	get_tree().call_group("Scenario", "_player_controlling_scene")
 	buttonNotificationNode.show()
 	buttonNotificationLabel.text = "PRESS [ARROW KEYS] TO MOVE THE ENTITY"
+
+func _show_puzzle_completed_dialogue():
+	DOOR_CAMERA.priority = 2
+	dialogueNode.show()
+	dialogueLabel.clear()
+	dialogueLabel.visible_characters = 0
+	dialogueLabel.show()
+	dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+	dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+	var _tween = create_tween()
+	_tween.set_ease(Tween.EASE_IN)
+	_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
+	n_visible_chars = 0;
+	_load_sound_fx("door_knock")
+	_play_sound_fx()
+	await _tween.finished
+	await get_tree().create_timer(0.5).timeout
+	_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+	_tween.tween_property(dialogueLabel, "visible_characters", 28, 0.4).from(14)
+	_load_sound_fx("door_knock")
+	_play_sound_fx()
+	await _tween.finished
+	await get_tree().create_timer(0.5).timeout
+	currentTvState = tvState.end
 
 func _fade_to_black(_black: bool = true):
 	var _alpha: int = 0
