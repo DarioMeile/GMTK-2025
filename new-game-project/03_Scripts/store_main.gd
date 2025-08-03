@@ -584,7 +584,6 @@ func _show_totem_dialogue():
 	dialoguePointer.show()
 	totemWatched = true
 	currentTvState = tvState.waitingForInput
-	_show_puzzle_completed_dialogue()
 
 func _totem_disappeared():
 	animationNode.hide()
