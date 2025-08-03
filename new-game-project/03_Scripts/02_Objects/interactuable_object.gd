@@ -3,11 +3,6 @@ extends RigidBody3D
 
 @export_category("Load Resources")
 @export_group("External")
-@export_subgroup("Perspective Textures")
-@export var PERSPECTIVE_TEXTURE_A: Resource
-@export var PERSPECTIVE_TEXTURE_B: Resource
-@export var PERSPECTIVE_TEXTURE_C: Resource
-@export var PERSPECTIVE_TEXTURE_D: Resource
 @export_subgroup("Location Markers")
 @export var SPAWN_MARKER: Marker3D
 @export_category("Behavior and Information")
@@ -39,16 +34,7 @@ var initialYPosition: float = 0.0
 func _process(_delta: float):
 	match currentState:
 		state.init:
-			if textureA.texture == null:
-				textureA.texture = PERSPECTIVE_TEXTURE_A
-				textureB.texture = PERSPECTIVE_TEXTURE_B
-				textureC.texture = PERSPECTIVE_TEXTURE_C
-				textureD.texture = PERSPECTIVE_TEXTURE_D
-			if TEXTURE_A_PIXEL_SIZE > 0.0:
-				textureA.pixel_size = TEXTURE_A_PIXEL_SIZE
-				textureB.pixel_size = TEXTURE_B_PIXEL_SIZE
-				textureC.pixel_size = TEXTURE_C_PIXEL_SIZE
-				textureD.pixel_size = TEXTURE_D_PIXEL_SIZE
+			pass
 		state.canBeInteracted:
 			if Input.is_action_just_pressed("ui_accept") and character.liftingPossibilities.size() > 0:
 				if character.liftingPossibilities[0] != self:
