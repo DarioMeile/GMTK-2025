@@ -25,6 +25,8 @@ extends Node3D
 @export_range(0.1,6,0.1, "suffix:s") var FLICKERING_LIGHT_ON_TIMER_MAX: float = 4
 @export_group("Tweens")
 @export var FADE_TO_BLACK_TIMER: float = 0.25
+@export_group("SFX")
+@export var sfx_hashmap: Dictionary;
 
 #Get nodes
 @onready var roomLight := %RoomLight
@@ -53,7 +55,7 @@ var transitioningLight: bool = false
 var lightOn: bool = false
 
 ##Overall control
-enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting}
+enum state {init, introduction, initialDialogue, waitingForInput, startSelecting, selectingPerspective, waiting, talking}
 var currentState: int = state.init
 
 ##Introduction control
@@ -91,7 +93,8 @@ enum boardState {init, selecting, controling}
 var currentBoardState = boardState.init
 
 ##SFX Control
-enum soundEffects {startDialogue, endDialogue, userInput}
+var n_visible_chars: int = 0;
+var sfx_load_ok: bool = false;
 
 #Calls only at the start of the scene
 func _ready() -> void:
@@ -157,24 +160,32 @@ func _process(delta: float) -> void:
 			await get_tree().create_timer(0.1).timeout
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0
-			_play_sound(soundEffects.startDialogue)
 			dialogueLabel.show()
-			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]KNOCK KNOCK[/wave]\n")
+			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
 			dialogueLabel.append_text("We received the VHS tapes from the packing security cameras, see if you can find anything.")
 			var _tween = create_tween()
 			_tween.set_ease(Tween.EASE_IN)
-			_tween.set_parallel(false)
-			_tween.tween_property(dialogueLabel, "visible_characters", 12, 0.4).from(0)
-			_tween.tween_interval(1)
-			_tween.tween_property(dialogueLabel, "visible_characters", 102, 2).from(12)
+			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
+			n_visible_chars = 0;
+			currentState = state.waiting
+			_load_sound_fx("door_knock")
+			_play_sound_fx()
 			await _tween.finished
+			await get_tree().create_timer(0.5).timeout
+			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+			_tween.tween_property(dialogueLabel, "visible_characters", 104, 2).from(14)
+			_load_sound_fx("talk")
+			currentState = state.talking
+			await _tween.finished
+			n_visible_chars = 0 # reset the visible chars for next talking dialogue
 			tapeNodes.show()
 			dialoguePointer.show()
 			_showItemNotification("RECEIVED VHS TAPES")
 			currentState = state.waitingForInput
 		state.waitingForInput:
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
-				_play_sound(soundEffects.userInput)
+				_load_sound_fx("bell")
+				_play_sound_fx()
 				currentState = state.selectingPerspective
 				dialogueLabel.clear()
 				dialogueLabel.visible_characters = 0
@@ -182,6 +193,10 @@ func _process(delta: float) -> void:
 				dialogueNode.hide()
 				dialoguePointer.hide()
 				DOOR_CAMERA.priority = 0
+		state.talking:
+			if (dialogueLabel.get_visible_characters() > n_visible_chars):
+				_play_sound_fx()
+				n_visible_chars = dialogueLabel.get_visible_characters()
 		state.waiting:
 			pass
 
@@ -242,12 +257,16 @@ func _room_perspective_control(delta: float):
 					interactuableObject.nothing:
 						pass
 					interactuableObject.tv:
+						_load_sound_fx("navigate_room")
+						_play_sound_fx()
 						currentRoomPerspective  = roomPerspectives.tv
 						currentTvState = tvState.init
 						TV_CAMERA.priority = 2
 						get_tree().call_group("TV", "_outline_meshes", false, 0)
 						get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 					interactuableObject.vhsTapes:
+						_load_sound_fx("navigate_room")
+						_play_sound_fx()
 						currentRoomPerspective  = roomPerspectives.tapes
 						TAPES_CAMERA.priority = 2
 						board.material_overlay.set("shader_parameter/scale", 0)
@@ -255,6 +274,8 @@ func _room_perspective_control(delta: float):
 						get_tree().call_group("TV", "_outline_meshes", false, 0)
 						get_tree().call_group("VHS_Tapes", "_outline_meshes", false)
 					interactuableObject.board:
+						_load_sound_fx("navigate_room")
+						_play_sound_fx()
 						currentRoomPerspective  = roomPerspectives.rightWall
 						BOARD_CAMERA.priority = 2
 						board.material_overlay.set("shader_parameter/scale", 0)
@@ -281,6 +302,8 @@ func _tapes_perspective_control(delta: float):
 				buttonNotificationNode.show()
 				showingButtonTimer = -100
 			if Input.is_action_just_pressed("ui_cancel"):
+				_load_sound_fx("navigate_room")
+				_play_sound_fx()
 				TAPES_CAMERA.priority = 0
 				board.material_overlay.set("shader_parameter/scale", 0)
 				board.material_overlay.set("shader_parameter/outline_spread", 0)
@@ -307,6 +330,8 @@ func _tapes_perspective_control(delta: float):
 				for _pause in _pauses:
 					_pause.show()
 				_showItemNotification("INSERTED SECURITY TAPES")
+				_load_sound_fx("tape_insert")
+				_play_sound_fx()
 		tapeState.viewing:
 			pass
 		tapeState.selected:
@@ -344,6 +369,8 @@ func _tv_perspective_control(delta: float):
 			pass
 		tvState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
+				_load_sound_fx("navigate_room")
+				_play_sound_fx()
 				if !turnOnTVShowed:
 					buttonNotificationNode.hide()
 				TV_CAMERA.priority = 0
@@ -354,6 +381,8 @@ func _tv_perspective_control(delta: float):
 				get_tree().call_group("ControllableEntity", "_enable", false)
 				currentRoomPerspective = roomPerspectives.room
 			if Input.is_action_just_pressed("ui_accept"):
+				_load_sound_fx("tv_switch")
+				_play_sound_fx()
 				if !turnOnTVShowed:
 					turnOnTVShowed = true
 					buttonNotificationNode.hide()
@@ -509,6 +538,8 @@ func _board_perspective_control(delta: float):
 			currentBoardState = boardState.selecting
 		boardState.selecting:
 			if Input.is_action_just_pressed("ui_cancel"):
+				_load_sound_fx("navigate_room")
+				_play_sound_fx()
 				BOARD_CAMERA.priority = 0
 				board.material_overlay.set("shader_parameter/scale", 2)
 				board.material_overlay.set("shader_parameter/outline_spread", 2)
@@ -519,15 +550,18 @@ func _board_perspective_control(delta: float):
 			pass
 
 ##Sound effect control
+func _load_sound_fx(_id: String):
+	var resource = load(sfx_hashmap[_id])
+	if resource:
+		%SFXStream.stream = resource
+		sfx_load_ok = true
+	else:
+		print("[ERR] Cannot load resource! File: %s" % sfx_hashmap[_id])
+		sfx_load_ok = false
 
-func _play_sound(_id: int = 0):
-	match _id:
-		soundEffects.userInput:
-			%SFXStream_Jingle.play()
-		soundEffects.startDialogue:
-			%SFXStream_Bell.play()
-		soundEffects.endDialogue:
-			pass
+func _play_sound_fx():
+	if sfx_load_ok:
+		%SFXStream.play()
 
 
 ##Signals called externally

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=50 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -9,11 +9,9 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_h7f80"]
 [ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="7_l6366"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_jwi7y"]
-[ext_resource type="AudioStream" uid="uid://bml4st7wu74vu" path="res://01_Assets/02_Audio_Assets/01_BGM/idea_mistery_3.wav" id="8_qrytx"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_gug2t"]
+[ext_resource type="AudioStream" uid="uid://c556b4hrvmdve" path="res://01_Assets/02_Audio_Assets/01_BGM/strings-bgm.mp3" id="11_h7f80"]
 [ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="11_l6366"]
-[ext_resource type="AudioStream" uid="uid://bkd2vbe17mf5s" path="res://01_Assets/02_Audio_Assets/02_SFX/01_UI/bell.mp3" id="11_oitkq"]
-[ext_resource type="AudioStream" uid="uid://i0qim8s75wyy" path="res://01_Assets/02_Audio_Assets/02_SFX/01_UI/jingle.mp3" id="12_6scgm"]
 [ext_resource type="Shader" uid="uid://pae4uleqloaj" path="res://01_Assets/03_Misc_Assets/02_Shaders/simple_2d_shake.gdshader" id="13_h7f80"]
 [ext_resource type="Texture2D" uid="uid://coyao7kh7acs3" path="res://01_Assets/01_Visual_Assets/00_Placeholders/b84.png" id="14_jwi7y"]
 
@@ -189,6 +187,48 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_6scgm"]
+resource_name = "Disappear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(61, 32), Vector2(61, 32), Vector2(61, 400)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Animation/../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.96667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_totem_disappeared"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_jwi7y"]
 length = 0.001
 tracks/0/type = "value"
@@ -279,48 +319,6 @@ tracks/3/keys = {
 "values": [{
 "args": [],
 "method": &"_show_totem_dialogue"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_6scgm"]
-resource_name = "Disappear"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/hit_effect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(61, 32), Vector2(61, 32), Vector2(61, 400)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("%Animation/../..")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.96667),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_totem_disappeared"
 }]
 }
 
@@ -415,6 +413,14 @@ BOARD_CAMERA = NodePath("Cameras/BoardCamera")
 TV_NODES = [NodePath("Environment/Desktop/TVs/TV_A"), NodePath("Environment/Desktop/TVs/TV_B"), NodePath("Environment/Desktop/TVs/TV_C"), NodePath("Environment/Desktop/TVs/TV_D")]
 TAPE_NODES = [NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_A"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_B"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_C"), NodePath("Environment/Desktop/VHS-Tapes/VHS_Tape_D")]
 FLICKERING_LIGHT_OFF_TIMER_MAX = 0.2
+sfx_hashmap = {
+"bell": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/bell.mp3",
+"door_knock": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/door-knock.mp3",
+"navigate_room": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/wind-movement.mp3",
+"talk": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/text-low.mp3",
+"tape_insert": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/tape-insert.mp3",
+"tv_switch": "res://01_Assets/02_Audio_Assets/02_SFX/01_UI/tv-switch.mp3"
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wxww")
@@ -652,22 +658,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94532, 1.34984, 2.14685)
 
 [node name="SFXStreams" type="Node" parent="."]
 
-[node name="SFXStream_Bell" type="AudioStreamPlayer3D" parent="SFXStreams"]
+[node name="SFXStream" type="AudioStreamPlayer3D" parent="SFXStreams"]
 unique_name_in_owner = true
-stream = ExtResource("11_oitkq")
-bus = &"SFX"
-
-[node name="SFXStream_Jingle" type="AudioStreamPlayer3D" parent="SFXStreams"]
-unique_name_in_owner = true
-stream = ExtResource("12_6scgm")
 bus = &"SFX"
 
 [node name="BGMStream" type="Node" parent="."]
 
 [node name="BackgroundAudioStream" type="AudioStreamPlayer3D" parent="BGMStream"]
 transform = Transform3D(1, 0, 0, 0, 0.96991, 0.243463, 0, -0.243463, 0.96991, 0.705683, 1.45061, 6.90729)
-stream = ExtResource("8_qrytx")
+stream = ExtResource("11_h7f80")
 autoplay = true
+panning_strength = 0.0
 bus = &"BGM"
 
 [node name="SecondScene" type="SubViewport" parent="."]
