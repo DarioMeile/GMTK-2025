@@ -63,6 +63,8 @@ height = 2.8
 [node name="NPC" type="CharacterBody3D" groups=["NPC"]]
 script = ExtResource("1_g18ix")
 
+[node name="PerspectiveA" type="Sprite3D" parent="."]
+
 [node name="Joker" parent="." instance=ExtResource("2_mhbvb")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 layers = 0

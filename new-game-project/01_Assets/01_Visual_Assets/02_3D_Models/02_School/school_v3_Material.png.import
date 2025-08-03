@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://descy03ea04q6"
+path.s3tc="res://.godot/imported/school_v3_Material.png-1a9f08b76576c655684510ad6762af18.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "f1bb88f88d6a7580d984445b4db4595f"
+}
+
+[deps]
+
+source_file="res://01_Assets/01_Visual_Assets/02_3D_Models/02_School/school_v3_Material.png"
+dest_files=["res://.godot/imported/school_v3_Material.png-1a9f08b76576c655684510ad6762af18.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
