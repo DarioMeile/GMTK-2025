@@ -446,7 +446,6 @@ material = SubResource("StandardMaterial3D_du1uk")
 
 [node name="Ceiling4thWall" type="CSGBox3D" parent="Environment/Room"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.76126, -0.0225979)
-visible = false
 material_override = SubResource("StandardMaterial3D_du1uk")
 use_collision = true
 size = Vector3(9, 0.5, 15)
@@ -568,7 +567,7 @@ spot_angle = 50.46
 [node name="PresentLight" type="OmniLight3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27292, 3.8788)
 light_color = Color(1, 0.857303, 0.669312, 1)
-light_energy = 0.4
+light_energy = 0.988
 light_indirect_energy = 8.0
 light_volumetric_fog_energy = 4.0
 omni_range = 8.0
@@ -580,6 +579,13 @@ light_energy = 0.4
 light_indirect_energy = 8.0
 light_volumetric_fog_energy = 4.0
 omni_range = 8.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment"]
+transform = Transform3D(0.982071, 0.0655961, -0.176732, 4.44089e-16, 0.937507, 0.347967, 0.188513, -0.341728, 0.920698, 2.05249, 2.91684, 6.90801)
+light_color = Color(0.66, 0.4224, 0.264, 1)
+light_energy = 14.0
+spot_range = 6.13076
+spot_angle = 40.3705
 
 [node name="Cameras" type="Node" parent="."]
 

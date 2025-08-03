@@ -22,7 +22,6 @@ extends RigidBody3D
 
 ##Get nodes
 @onready var sideLabel:= %SideLabel
-@onready var tvLight:= $TV/OmniLight3D
 
 func _ready() -> void:
 	pass
@@ -74,13 +73,11 @@ func _turn_screen(_on: bool = true, _tapeInside: bool = false):
 	match _on:
 		true:
 			OFF_SCREEN.hide()
-			tvLight.show()
 			if _tapeInside:
 				_set_viewport()
 				VIEWPORT_SCREEN.show()
 				return
 			VIEWPORT_SCREEN.hide()
 		false:
-			tvLight.hide()
 			OFF_SCREEN.show()
 			VIEWPORT_SCREEN.hide()
