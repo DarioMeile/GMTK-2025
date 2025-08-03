@@ -697,6 +697,9 @@ size = Vector2i(1000, 1000)
 
 [node name="ParkingScenario" parent="SecondScene" instance=ExtResource("12_h7f80")]
 
+[node name="Cube_015" parent="SecondScene/ParkingScenario/NavigationRegion3D/Scenario" index="27"]
+surface_material_override/0 = null
+
 [node name="OverallUI" type="CanvasLayer" parent="."]
 layer = 90
 
@@ -790,11 +793,11 @@ theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/normal_font_size = 12
 theme_override_font_sizes/bold_font_size = 12
 bbcode_enabled = true
-text = "I think I got something,
-the license plates are A6G6G."
+text = "License plates? Great job,
+I'll run those plates on the data base."
 fit_content = true
 vertical_alignment = 2
-visible_characters = 54
+visible_characters = 66
 
 [node name="DialoguePointer" type="Control" parent="OverallUI/Dialogue/DialogueMarginBox/DialoguePanelBox/TextMarginBox"]
 unique_name_in_owner = true

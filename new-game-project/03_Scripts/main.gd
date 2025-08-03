@@ -194,6 +194,29 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down"):
 				_load_sound_fx("bell")
 				_play_sound_fx()
+				if puzzleSolved:
+					currentState = state.waiting
+					dialogueLabel.text = ""
+					dialogueLabel.clear()
+					dialogueLabel.visible_characters = 0
+					dialogueLabel.show()
+					dialogueLabel.append_text("License plates? Great job,\n")
+					dialogueLabel.append_text("I'll run those plates on the data base.")
+					var _tween = create_tween()
+					_tween.set_ease(Tween.EASE_IN)
+					_tween.tween_property(dialogueLabel, "visible_characters", 26, 0.6).from(0)
+					n_visible_chars = 0;
+					currentState = state.waiting
+					await _tween.finished
+					await get_tree().create_timer(0.5).timeout
+					_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+					_tween.tween_property(dialogueLabel, "visible_characters", 66, 0.8).from(26)
+					_load_sound_fx("talk")
+					currentState = state.talking
+					await _tween.finished
+					n_visible_chars = 0 # reset the visible chars for next talking dialogue
+					await get_tree().create_timer(3)
+					currentState = state.endDialogue
 				currentState = state.selectingPerspective
 				dialogueLabel.clear()
 				dialogueLabel.visible_characters = 0
@@ -207,7 +230,32 @@ func _process(delta: float) -> void:
 				n_visible_chars = dialogueLabel.get_visible_characters()
 		state.waiting:
 			pass
-
+		state.puzzleSolved:
+			dialogueLabel.text = ""
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+			dialogueLabel.append_text("Did you get anything useful?")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
+			n_visible_chars = 0;
+			currentState = state.waiting
+			_load_sound_fx("door_knock")
+			_play_sound_fx()
+			await _tween.finished
+			await get_tree().create_timer(0.5).timeout
+			_tween = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+			_tween.tween_property(dialogueLabel, "visible_characters", 42, 0.8).from(14)
+			_load_sound_fx("talk")
+			currentState = state.talking
+			await _tween.finished
+			n_visible_chars = 0 # reset the visible chars for next talking dialogue
+			dialoguePointer.show()
+			currentState = state.waitingForInput
+		state.endDialogue:
+			get_tree().change_scene_to_file("res://02_Scenes/store_investigation.tscn")
 
 func _room_perspective_control(delta: float):
 	match currentRoomPerspective:
@@ -456,7 +504,8 @@ func _tv_perspective_control(delta: float):
 				dialogueNode.hide()
 				dialoguePointer.hide()
 				if puzzleSolved:
-					pass
+					currentState = state.puzzleSolved
+					DOOR_CAMERA.priority = 3
 				if !firstWatched:
 					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
 					for _rewind in _rewinds:
@@ -509,18 +558,17 @@ func _tv_perspective_control(delta: float):
 					dialogueLabel.clear()
 					dialogueLabel.visible_characters = 0
 					dialogueLabel.show()
-					dialogueLabel.append_text("[i][color=olive]...These tapes are useless...\n")
-					dialogueLabel.append_text("I need to see the car license plates.[/color][/i]")
-					_showItemNotification("Added new information to your board.")
+					dialogueLabel.append_text("[i][color=olive]Got it!\n")
+					dialogueLabel.append_text("The license plate is AG6G6.[/color][/i]")
 					clue_1.show()
 					clue_2.show()
 					clue_3.show()
 					var _tween = create_tween()
 					_tween.set_ease(Tween.EASE_IN)
 					_tween.set_parallel(false)
-					_tween.tween_property(dialogueLabel, "visible_characters", 25, 0.3).from(0)
+					_tween.tween_property(dialogueLabel, "visible_characters", 7, 0.3).from(0)
 					_tween.tween_interval(1.5)
-					_tween.tween_property(dialogueLabel, "visible_characters", 54, 0.3).from(25)
+					_tween.tween_property(dialogueLabel, "visible_characters", 34, 0.6).from(7)
 					await _tween.finished
 					dialoguePointer.show()
 					currentTvState = tvState.waitingForInput
@@ -548,6 +596,7 @@ func _tv_perspective_control(delta: float):
 					return
 		tvState.finishedFirstWatching:
 			currentTvState = tvState.waiting
+			dialogueLabel.text = ""
 			dialogueNode.show()
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0

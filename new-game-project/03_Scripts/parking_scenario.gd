@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 			var _LInPlace: bool = false
 			for _area in lightArea.get_overlapping_areas():
 				if _area.get_parent() is Interactuable_Object:
-					if _area.get_parent().OBJECT_NAME == "Store Fan":
+					if _area.get_parent().OBJECT_NAME == "Lantern":
 						_LInPlace = true
 						break
 			LInPlace = _LInPlace
@@ -63,8 +63,9 @@ func _startScene():
 		if !CAR_MARKER_SOLUTION[n].HAS_CAR:
 			criminalCar._found_solution_id(n)
 			criminalNPC._found_solution_id(n)
-			break
 			solutionOne = true
+			get_tree().call_group("Main", "_both_solutions")
+			break
 	get_tree().call_group("NPC", "_start_npc")
 	CONTROLLABLE_ENTITY._start_of_scene()
 	get_tree().call_group("Interactuable_Object", "_start_of_scene")

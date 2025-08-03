@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bwoivo8h1x4fq"]
+[gd_scene load_steps=50 format=3 uid="uid://dsxoh1g5hgsbq"]
 
 [ext_resource type="Script" uid="uid://kb7cicivehx7" path="res://03_Scripts/school_main.gd" id="1_voaso"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="2_b3jgq"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_8msf4"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="10_lygr7"]
 [ext_resource type="AudioStream" uid="uid://c556b4hrvmdve" path="res://01_Assets/02_Audio_Assets/01_BGM/strings-bgm.mp3" id="11_qdn0a"]
-[ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/test_scenario.tscn" id="12_xhkdm"]
+[ext_resource type="PackedScene" uid="uid://dammomljjhoxl" path="res://02_Scenes/03_Scenarios/test_scenario.tscn" id="12_xhkdm"]
 [ext_resource type="Shader" uid="uid://pae4uleqloaj" path="res://01_Assets/03_Misc_Assets/02_Shaders/simple_2d_shake.gdshader" id="13_s6rju"]
 [ext_resource type="Texture2D" uid="uid://50eptmiuj1wx" path="res://01_Assets/01_Visual_Assets/03_2D_Assets/Mano.PNG" id="14_mj6gk"]
 
@@ -504,16 +504,19 @@ size = Vector3(0.501495, 0.002, 0.720825)
 transform = Transform3D(0.997297, 7.81548e-11, -0.073482, -7.8543e-11, 1, -2.39382e-12, 0.073482, 8.15883e-12, 0.997297, 1.90384, 2.21286, 1.33918)
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportA")
+DISABLED = false
 
 [node name="TV_B" parent="Environment/Desktop/TVs" instance=ExtResource("2_b3jgq")]
 transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509, 2.93503, 0.221285, 1.34771)
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportB")
+DISABLED = false
 
 [node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("2_b3jgq")]
 transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, 0.212856, 1.33918)
 FUNCTION_AS_TOOL = true
 VIEWPORT = NodePath("../../../../SecondScene/TestScenario/SubViewportC")
+DISABLED = false
 
 [node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
 unique_name_in_owner = true

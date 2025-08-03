@@ -1,0 +1,658 @@
+[gd_scene load_steps=24 format=3 uid="uid://ceu878m2o5uxc"]
+
+[ext_resource type="Script" uid="uid://bj1oc7mpd23p6" path="res://03_Scripts/test_scenario.gd" id="1_jp1dp"]
+[ext_resource type="PackedScene" uid="uid://caafi0vk2ftd1" path="res://01_Assets/01_Visual_Assets/02_3D_Models/03_Store/tiendita_lowres.glb" id="2_dgijl"]
+[ext_resource type="PackedScene" uid="uid://1kjxovnemijv" path="res://02_Scenes/creature.tscn" id="2_le7hi"]
+[ext_resource type="PackedScene" uid="uid://qsf7hi3jjtpc" path="res://02_Scenes/02_NPCs/Scenario_2/fisherman.tscn" id="3_dgijl"]
+[ext_resource type="PackedScene" uid="uid://cb500wlm127rr" path="res://02_Scenes/02_NPCs/Scenario_2/storeLady.tscn" id="4_ekccr"]
+[ext_resource type="PackedScene" uid="uid://j6sdgthviqt1" path="res://02_Scenes/02_NPCs/Scenario_2/storeCriminal.tscn" id="5_2kxe0"]
+[ext_resource type="PackedScene" uid="uid://ye87d5lvjm7v" path="res://02_Scenes/01_Objects/01_Interactuables/store_fan.tscn" id="6_nfiol"]
+[ext_resource type="PackedScene" uid="uid://cbx2q6rs8w650" path="res://02_Scenes/01_Objects/01_Interactuables/wet_floor_sign.tscn" id="7_66aoe"]
+[ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="8_ljevd"]
+[ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="9_abgf3"]
+[ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="10_jm4w3"]
+[ext_resource type="Texture2D" uid="uid://cin8xcnauynb1" path="res://01_Assets/01_Visual_Assets/00_Placeholders/playSymbol.png" id="11_4gxj2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nmnme"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_y06yk"]
+sky_material = SubResource("ProceduralSkyMaterial_nmnme")
+
+[sub_resource type="Environment" id="Environment_ycu1a"]
+background_mode = 2
+sky = SubResource("Sky_y06yk")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_arolk"]
+vertices = PackedVector3Array(-17.3867, 0.35, -13.9, -15.3867, 0.35, -13.9, -15.3867, 0.35, -15.9, -17.3867, 0.35, -20.4, -14.8867, 0.35, -16.4, 13.3633, 0.35, -16.4, 13.3633, 0.35, -20.4, 16.3633, 0.35, -9.65, 17.6133, 0.35, -9.9, 17.6133, 0.35, -14.15, 16.3633, 0.35, -20.4, 20.1133, 0.35, -14.15, 20.1133, 0.35, -10.15, 37.1133, 0.35, -10.15, 18.1133, 0.35, -14.65, 19.6133, 0.35, -14.65, 37.1133, 0.35, -20.4, -13.6367, 3.1, -14.65, -13.6367, 3.1, 1.35, -12.6367, 3.1, 1.35, -12.6367, 3.1, -14.65, -0.8867, 0.35, -7.4, 0.6133, 0.35, -7.4, 0.6133, 0.35, -9.9, 0.6133, 0.35, 4.85, 0.6133, 0.35, 1.6, -0.8867, 0.35, 1.6, -1.3867, 0.35, -6.9, -3.8867, 0.35, -9.9, -11.1367, 0.35, 2.35, -1.3867, 0.35, 1.1, -1.6367, 0.35, -1.9, -4.3867, 0.35, -10.4, -11.1367, 0.35, -14.65, -10.8867, 0.35, 4.85, -3.8867, 0.35, -13.65, 13.3633, 0.35, -13.65, 13.3633, 0.35, -14.65, -4.3867, 0.35, -13.15, -17.3867, 0.35, 14.1, -15.3867, 0.35, 14.1, -2.8867, 3.1, -12.15, -2.8867, 3.1, -11.4, 10.6133, 3.1, -11.4, 10.6133, 3.1, -12.15, 16.8633, 0.35, -1.4, 17.3633, 0.35, -0.9, 17.6133, 0.35, -0.9, 18.1133, 0.35, -1.4, 15.6133, 0.35, -3.15, 19.6133, 0.35, -7.65, 18.1133, 0.35, -7.65, 16.3633, 0.35, -6.4, 19.6133, 0.35, -1.4, 17.6133, 0.35, -8.15, 20.1133, 0.35, -8.15, 15.3633, 0.35, -1.4, 14.6133, 0.35, -5.4, 14.6133, 0.35, -3.65, 20.1133, 0.35, -0.9, 37.1133, 0.35, 1.1, 20.1133, 0.35, 1.1, 11.6133, 0.35, 5.35, 11.6133, 0.35, 6.85, 13.3633, 0.35, 6.85, 13.6133, 0.35, -3.15, 13.3633, 0.35, -6.4, 2.1133, 0.35, -7.4, 11.1133, 0.35, 4.85, 2.6133, 0.35, -6.9, 2.6133, 0.35, 1.1, 2.1133, 0.35, 1.6, 13.3633, 0.35, -9.9, 17.3633, 0.35, 0.35, 17.6133, 0.35, 5.1, 16.3633, 0.35, 12.1, 17.6133, 0.35, 11.85, 17.6133, 0.35, 7.6, 19.6133, 0.35, 5.6, 18.1133, 0.35, 5.6, 18.1133, 0.35, 7.1, 19.6133, 0.35, 7.1, 16.3633, 0.35, 0.85, 37.1133, 0.35, 3.1, 20.1133, 0.35, 3.1, 20.1133, 0.35, 5.1, 20.1133, 0.35, 7.6, 37.1133, 0.35, 9.6, 20.1133, 0.35, 9.6, -11.6367, 0.35, 2.85, -11.6367, 0.35, 5.35, -13.6367, 0.35, 2.85, -11.1367, 0.35, 9.1, -11.6367, 0.35, 8.6, -13.6367, 0.35, 12.35, -13.1367, 0.35, 12.6, -5.8867, 0.35, 12.6, -4.6367, 0.35, 12.1, -4.6367, 0.35, 9.1, -13.1367, 0.35, 14.85, -5.8867, 0.35, 14.85, 11.6133, 0.35, 8.6, 13.1133, 0.35, 14.85, 4.8633, 0.35, 9.1, 4.8633, 0.35, 12.1, 5.8633, 0.35, 12.6, 11.1133, 0.35, 9.1, 5.8633, 0.35, 14.85, -3.6367, 0.35, 12.6, 3.6133, 0.35, 12.6, -3.6367, 0.35, 14.85, 3.6133, 0.35, 14.85, 17.6133, 0.35, 13.6, 16.3633, 0.35, 15.6, 20.1133, 0.35, 13.6, 19.6133, 0.35, 14.1, 14.6133, 0.35, 20.1, 37.1133, 0.35, 20.1, 18.1133, 0.35, 14.1, 14.6133, 0.35, 16.6, -13.6367, 7.6, 13.6, -13.6367, 7.6, 14.85, 13.6133, 7.6, 14.85, 13.6133, 7.6, 13.6, -15.3867, 0.35, 16.1, -17.3867, 0.35, 20.1, -14.8867, 0.35, 16.6)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 3), PackedInt32Array(4, 2, 3), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(13, 12, 11), PackedInt32Array(14, 9, 10), PackedInt32Array(15, 14, 10), PackedInt32Array(15, 10, 11), PackedInt32Array(11, 10, 16), PackedInt32Array(11, 16, 13), PackedInt32Array(20, 19, 17), PackedInt32Array(17, 19, 18), PackedInt32Array(23, 22, 21), PackedInt32Array(26, 25, 24), PackedInt32Array(21, 27, 23), PackedInt32Array(23, 27, 28), PackedInt32Array(30, 29, 31), PackedInt32Array(31, 29, 32), PackedInt32Array(32, 29, 33), PackedInt32Array(26, 24, 30), PackedInt32Array(30, 24, 34), PackedInt32Array(30, 34, 29), PackedInt32Array(28, 27, 32), PackedInt32Array(32, 27, 31), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 33), PackedInt32Array(35, 38, 33), PackedInt32Array(38, 32, 33), PackedInt32Array(0, 1, 39), PackedInt32Array(39, 1, 40), PackedInt32Array(44, 43, 41), PackedInt32Array(41, 43, 42), PackedInt32Array(46, 45, 47), PackedInt32Array(47, 45, 48), PackedInt32Array(48, 45, 49), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 49), PackedInt32Array(49, 50, 48), PackedInt32Array(48, 50, 53), PackedInt32Array(8, 54, 7), PackedInt32Array(7, 54, 52), PackedInt32Array(55, 12, 13), PackedInt32Array(52, 54, 51), PackedInt32Array(45, 56, 49), PackedInt32Array(58, 57, 49), PackedInt32Array(49, 57, 52), PackedInt32Array(50, 55, 53), PackedInt32Array(53, 55, 59), PackedInt32Array(59, 55, 13), PackedInt32Array(59, 13, 60), PackedInt32Array(60, 61, 59), PackedInt32Array(64, 63, 62), PackedInt32Array(58, 65, 57), PackedInt32Array(57, 65, 66), PackedInt32Array(67, 22, 23), PackedInt32Array(62, 68, 64), PackedInt32Array(64, 68, 65), PackedInt32Array(65, 68, 66), PackedInt32Array(66, 68, 70), PackedInt32Array(66, 70, 69), PackedInt32Array(24, 25, 71), PackedInt32Array(67, 23, 69), PackedInt32Array(69, 23, 72), PackedInt32Array(69, 72, 66), PackedInt32Array(71, 70, 24), PackedInt32Array(24, 70, 68), PackedInt32Array(46, 47, 73), PackedInt32Array(73, 47, 74), PackedInt32Array(77, 76, 75), PackedInt32Array(81, 80, 78), PackedInt32Array(78, 80, 79), PackedInt32Array(73, 74, 82), PackedInt32Array(82, 74, 77), PackedInt32Array(82, 77, 75), PackedInt32Array(85, 84, 83), PackedInt32Array(78, 85, 81), PackedInt32Array(81, 85, 86), PackedInt32Array(86, 85, 83), PackedInt32Array(86, 83, 87), PackedInt32Array(80, 77, 79), PackedInt32Array(79, 77, 74), PackedInt32Array(87, 88, 86), PackedInt32Array(61, 60, 84), PackedInt32Array(84, 60, 83), PackedInt32Array(89, 29, 34), PackedInt32Array(34, 90, 89), PackedInt32Array(89, 90, 91), PackedInt32Array(95, 94, 92), PackedInt32Array(92, 94, 93), PackedInt32Array(97, 96, 98), PackedInt32Array(98, 96, 92), PackedInt32Array(90, 93, 91), PackedInt32Array(91, 93, 94), PackedInt32Array(95, 92, 99), PackedInt32Array(99, 92, 96), PackedInt32Array(99, 96, 100), PackedInt32Array(63, 64, 101), PackedInt32Array(101, 64, 102), PackedInt32Array(104, 103, 105), PackedInt32Array(105, 103, 106), PackedInt32Array(105, 106, 107), PackedInt32Array(107, 106, 102), PackedInt32Array(106, 101, 102), PackedInt32Array(97, 98, 108), PackedInt32Array(108, 98, 109), PackedInt32Array(109, 98, 104), PackedInt32Array(104, 98, 103), PackedInt32Array(109, 111, 108), PackedInt32Array(108, 111, 110), PackedInt32Array(76, 112, 75), PackedInt32Array(75, 112, 113), PackedInt32Array(115, 114, 116), PackedInt32Array(116, 114, 117), PackedInt32Array(117, 114, 87), PackedInt32Array(113, 112, 118), PackedInt32Array(113, 118, 115), PackedInt32Array(119, 113, 116), PackedInt32Array(116, 113, 115), PackedInt32Array(114, 88, 87), PackedInt32Array(123, 122, 120), PackedInt32Array(120, 122, 121), PackedInt32Array(40, 124, 39), PackedInt32Array(39, 124, 125), PackedInt32Array(119, 116, 126), PackedInt32Array(126, 116, 125), PackedInt32Array(125, 124, 126)]
+agent_height = 4.0
+agent_radius = 0.75
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nmnme"]
+size = Vector3(10, 7, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y06yk"]
+size = Vector3(2, 11, 22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ito4j"]
+size = Vector3(1.7124, 7.19595, 9.02759)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_flp7v"]
+radius = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_flp7v"]
+radius = 1.5
+height = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gaap2"]
+shader = ExtResource("8_ljevd")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.185
+shader_parameter/noise_amount = 0.095
+shader_parameter/interference_amount = 0.645
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -4.799
+shader_parameter/pixel_strength = -1.66
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmnme"]
+bg_color = Color(1, 1, 1, 0.705882)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TestScenario" type="Node3D" node_paths=PackedStringArray("CONTROLLABLE_ENTITY") groups=["Scenario"]]
+script = ExtResource("1_jp1dp")
+CONTROLLABLE_ENTITY = NodePath("ControllableEntity")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ycu1a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_arolk")
+
+[node name="tiendita_lowres" parent="NavigationRegion3D" instance=ExtResource("2_dgijl")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57142, 9.46629, -4.22112)
+
+[node name="InvisibleWalls" type="StaticBody3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4.38003, 13.4984)
+shape = SubResource("BoxShape3D_nmnme")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="InvisibleWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.5, -7)
+shape = SubResource("BoxShape3D_nmnme")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InvisibleWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 5.5, 3)
+shape = SubResource("BoxShape3D_y06yk")
+
+[node name="PlayerOnlyInvisibleWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8562, 2.43003, 2.69761)
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="PlayerOnlyInvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21794, 0)
+shape = SubResource("BoxShape3D_ito4j")
+
+[node name="ControllableEntity" parent="." node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("2_le7hi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20794, 3.44181, 6.85011)
+visible = false
+SPAWN_MARKER = NodePath("../PLAYER_SPAWN")
+
+[node name="FrontPerspective" parent="ControllableEntity/Sprites" index="0"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.13595, 1.27081, -1.07618)
+visible = true
+layers = 1
+
+[node name="FrontPerspectiveLifting" parent="ControllableEntity/Sprites" index="1"]
+visible = false
+
+[node name="PLAYER_SPAWN" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.994158, 3.08175, 6.6959)
+
+[node name="DebugCamera" type="Camera3D" parent="PLAYER_SPAWN"]
+transform = Transform3D(-4.04074e-08, -0.992182, 0.124796, -1.66712e-08, 0.124796, 0.992182, -1, 3.8011e-08, -2.15836e-08, 2.61413, 26.2419, -3.5788)
+current = true
+
+[node name="NPC_1" type="Node" parent="."]
+
+[node name="Fisherman" parent="NPC_1" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("3_dgijl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.806984, 1, 8.8813)
+SPAWN_MARKER = NodePath("../SpawnMarker")
+LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2")]
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_1_Solution"), NodePath("../Location_2")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([2.0, 4.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([2.0, 4.0])
+MOVEMENT_SPEEDS = Array[float]([4.0, 2.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([4.0, 2.0])
+
+[node name="SpawnMarker" type="Marker3D" parent="NPC_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40698, 3, 9.5813)
+
+[node name="Location_1" type="Marker3D" parent="NPC_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 10)
+
+[node name="Location_2" type="Marker3D" parent="NPC_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 10)
+
+[node name="Location_1_Solution" type="Marker3D" parent="NPC_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, 10)
+
+[node name="NPC_2" type="Node" parent="."]
+
+[node name="StoreLady" parent="NPC_2" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("4_ekccr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 1.1, 6)
+SPAWN_MARKER = NodePath("../SpawnMarker")
+LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2"), NodePath("../Location_3")]
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_2_Solution")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([8.0, 1.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([8.0])
+MOVEMENT_SPEEDS = Array[float]([2.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([2.0])
+
+[node name="SpawnMarker" type="Marker3D" parent="NPC_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 6)
+
+[node name="Location_1" type="Marker3D" parent="NPC_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 3)
+
+[node name="Location_2" type="Marker3D" parent="NPC_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 7)
+
+[node name="Location_3" type="Marker3D" parent="NPC_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.3)
+
+[node name="Location_2_Solution" type="Marker3D" parent="NPC_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -0.5)
+
+[node name="NPC_3" type="Node" parent="."]
+
+[node name="StoreCriminal" parent="NPC_3" node_paths=PackedStringArray("SPAWN_MARKER", "LOCATION_MARKERS", "LOCATION_MARKERS_SOLUTION") instance=ExtResource("5_2kxe0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, 10.4094)
+SPAWN_MARKER = NodePath("../SpawnMarker")
+LOCATION_MARKERS = [NodePath("../Location_1"), NodePath("../Location_2")]
+LOCATION_MARKERS_SOLUTION = [NodePath("../Location_1"), NodePath("../Location_2")]
+TIMER_BETWEEN_LOCATIONS = Array[float]([15.0, 2.0])
+TIMER_BETWEEN_LOCATIONS_SOLUTION = Array[float]([15.0, 2.0])
+MOVEMENT_SPEEDS = Array[float]([6.0])
+MOVEMENT_SPEEDS_SOLUTION = Array[float]([6.0])
+
+[node name="SpawnMarker" type="Marker3D" parent="NPC_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 10)
+
+[node name="Location_1" type="Marker3D" parent="NPC_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.52598)
+
+[node name="Location_2" type="Marker3D" parent="NPC_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -1)
+
+[node name="Location_2_Solution" type="Marker3D" parent="NPC_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1.1)
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="StoreFan" parent="Objects" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("6_nfiol")]
+SPAWN_MARKER = NodePath("../FanSpawn")
+
+[node name="WetFloorSign" parent="Objects" node_paths=PackedStringArray("SPAWN_MARKER") instance=ExtResource("7_66aoe")]
+SPAWN_MARKER = NodePath("../SignSpawn")
+
+[node name="FanSpawn" type="Marker3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1065, 1.30874, 10)
+
+[node name="SignSpawn" type="Marker3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41923, 1.04834, -0.93083)
+
+[node name="TriggerNodeAreas" type="Node" parent="."]
+
+[node name="WetSignNotHereArea" type="Area3D" parent="TriggerNodeAreas"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 0.6, 0)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerNodeAreas/WetSignNotHereArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.4)
+shape = SubResource("SphereShape3D_flp7v")
+debug_color = Color(0.917647, 0.113725, 0, 0.780392)
+
+[node name="FanHereArea" type="Area3D" parent="TriggerNodeAreas"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 0.6, 0)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerNodeAreas/FanHereArea"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3, 0.7, -0.4)
+shape = SubResource("CapsuleShape3D_flp7v")
+debug_color = Color(0.219868, 0.44551, 1, 0.847059)
+
+[node name="SubViewportA" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraA" type="Camera3D" parent="SubViewportA"]
+transform = Transform3D(0.859165, -0.0174536, -0.5114, 0.184704, 0.942616, 0.278137, 0.477199, -0.333423, 0.813087, 5, 7.7, 13)
+cull_mask = 3
+
+[node name="Control" type="Control" parent="SubViewportA/CameraA"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportA/CameraA/Control"]
+material = SubResource("ShaderMaterial_gaap2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportA"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportA/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportA/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportA/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "A"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("9_abgf3")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("10_jm4w3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportA/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("11_4gxj2")
+expand_mode = 1
+
+[node name="SubViewportB" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraB" type="Camera3D" parent="SubViewportB"]
+transform = Transform3D(-1, 1.83688e-15, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 5.7, -6)
+cull_mask = 5
+current = true
+fov = 60.0
+
+[node name="Control" type="Control" parent="SubViewportB/CameraB"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportB/CameraB/Control"]
+material = SubResource("ShaderMaterial_gaap2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportB"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportB/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportB/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportB/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "B"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("9_abgf3")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("10_jm4w3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportB/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("11_4gxj2")
+expand_mode = 1
+
+[node name="SubViewportC" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraC" type="Camera3D" parent="SubViewportC"]
+transform = Transform3D(0.258819, -0.482963, 0.836516, 4.37114e-08, 0.866025, 0.5, -0.965926, -0.12941, 0.224144, 4, 6.7, -2)
+cull_mask = 9
+current = true
+fov = 60.0
+
+[node name="Control" type="Control" parent="SubViewportC/CameraC"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportC/CameraC/Control"]
+material = SubResource("ShaderMaterial_gaap2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportC"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportC/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportC/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportC/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "C"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("9_abgf3")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("10_jm4w3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportC/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportC/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("11_4gxj2")
+expand_mode = 1
+
+[node name="SubViewportD" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraD" type="Camera3D" parent="SubViewportD"]
+transform = Transform3D(0.25, 0.69065, -0.678603, -0.0669872, 0.711516, 0.699469, 0.965926, -0.12941, 0.224144, -9.9, 7.7, 10)
+cull_mask = 17
+current = true
+
+[node name="Control" type="Control" parent="SubViewportD/CameraD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportD/CameraD/Control"]
+material = SubResource("ShaderMaterial_gaap2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportD"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportD/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_nmnme")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportD/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportD/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "D"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("9_abgf3")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("10_jm4w3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportD/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportD/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("11_4gxj2")
+expand_mode = 1
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.7, 2)
+start_position = Vector3(5.19974, -1.24545, 0.66347)
+end_position = Vector3(0.666349, -1.07992, 0.869645)
+
+[editable path="ControllableEntity"]
