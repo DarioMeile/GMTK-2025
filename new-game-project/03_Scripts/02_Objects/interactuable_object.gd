@@ -14,7 +14,18 @@ extends RigidBody3D
 @export var OBJECT_NAME: String = "Placeholder"
 @export_group("Outline Shader")
 @export var OUTLINE_SCALE: float = 2.135
+@export_group("Perspective Control")
+@export var TEXTURE_A_PIXEL_SIZE: float = 0.01
+@export var TEXTURE_B_PIXEL_SIZE: float = 0.01
+@export var TEXTURE_C_PIXEL_SIZE: float = 0.01
+@export var TEXTURE_D_PIXEL_SIZE: float = 0.01
 
+
+#Load nodes
+@onready var textureA: = %PerspectiveA
+@onready var textureB: = %PerspectiveB
+@onready var textureC: = %PerspectiveC
+@onready var textureD: = %PerspectiveD
 
 enum state {init, canBeInteracted, isLifted, restart, waiting}
 var currentState: int = state.init
@@ -28,7 +39,14 @@ var downPosition
 func _process(_delta: float):
 	match currentState:
 		state.init:
-			pass
+			textureA.texture = PERSPECTIVE_TEXTURE_A
+			textureB.texture = PERSPECTIVE_TEXTURE_B
+			textureC.texture = PERSPECTIVE_TEXTURE_C
+			textureD.texture = PERSPECTIVE_TEXTURE_D
+			textureA.pixel_size = TEXTURE_A_PIXEL_SIZE
+			textureB.pixel_size = TEXTURE_B_PIXEL_SIZE
+			textureC.pixel_size = TEXTURE_C_PIXEL_SIZE
+			textureD.pixel_size = TEXTURE_D_PIXEL_SIZE
 		state.canBeInteracted:
 			if Input.is_action_just_pressed("ui_accept"):
 				currentState = state.isLifted
