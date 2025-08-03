@@ -1,18 +1,347 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr7wufbwjfef4"]
+[gd_scene load_steps=19 format=4 uid="uid://dr7wufbwjfef4"]
 
 [ext_resource type="PackedScene" uid="uid://be743evmo8hum" path="res://01_Assets/01_Visual_Assets/02_3D_Models/01_Parking/estacionamiento arboles.glb" id="1_3r6uq"]
 [ext_resource type="Texture2D" uid="uid://cx8wjtynr2ll8" path="res://01_Assets/01_Visual_Assets/02_3D_Models/01_Parking/estacionamiento arboles_Screenshot 2025-08-02 at 9.30.03 p.m.png" id="2_6w6vn"]
+[ext_resource type="PackedScene" uid="uid://b4ah2t6hfevr0" path="res://01_Assets/01_Visual_Assets/02_3D_Models/01_Parking/tree.glb" id="3_a3wdj"]
+[ext_resource type="Shader" uid="uid://bx3sthilg0xck" path="res://01_Assets/03_Misc_Assets/02_Shaders/postprocessing_crt.gdshader" id="4_026ka"]
+[ext_resource type="Texture2D" uid="uid://ceeao1qvkbrk5" path="res://01_Assets/01_Visual_Assets/00_Placeholders/pauseSymbol.png" id="5_1y7fw"]
+[ext_resource type="Texture2D" uid="uid://culcqhsy0gyqq" path="res://01_Assets/01_Visual_Assets/00_Placeholders/rewind.png" id="6_nyh1q"]
+[ext_resource type="Texture2D" uid="uid://cin8xcnauynb1" path="res://01_Assets/01_Visual_Assets/00_Placeholders/playSymbol.png" id="7_pgtnd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a3wdj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_y06yk"]
+sky_material = SubResource("ProceduralSkyMaterial_a3wdj")
+
+[sub_resource type="Environment" id="Environment_026ka"]
+background_mode = 2
+sky = SubResource("Sky_y06yk")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caua3"]
 albedo_texture = ExtResource("2_6w6vn")
 uv1_scale = Vector3(-2, -1.8, -2)
 uv2_offset = Vector3(400, 400, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fx5jd"]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("2_6w6vn")
+roughness = 0.5
+uv1_scale = Vector3(0.22, 0.1, 1)
+uv1_offset = Vector3(-0.7, 1.6, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4rfnr"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEAAwAFAAIABQAAAAIABgAEAAAABQAGAAAABwABAAQABwADAAEABgAHAAQABQADAAcABQAHAAYA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAAAAP////8AAAAA//8AAAAAAAAAAP//AAD///////8AAAAAAAAAAAAA//8AAAAAAAD//wAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ejn71"]
+resource_name = "estacionamiento arboles_Cube_043"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("bNv/v///Wx3///+fWx3//////79bHVsdbNv/n//////atv+f/////2zb/39bHVsdbNv/n///Wx3atv9/Wx3//9q2//9bHf//bNv/3///Wx1s2///Wx1bHdq2/9//////SJL/v1sdWx3atv+f/////9q2/7///1sdSJL/n1sd///atv+//////2zb/59bHVsdbNv/v///Wx3atv+fWx3//9q2/99bHf//bNv/v///Wx1s2//fWx1bHdq2/7//////"),
+"format": 34896613431,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_fx5jd"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(1.75, 2, 8.72053, 8.72053),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA//8AAP///////wAA//8AAP///////////////wAA////vwAA//////+//////////78AAAAA////vwAAAAD//1TVAAD//wAAVNUAAP////9U1QAAAAAAAFTVAAAAAAAA/7///wAA////v///AAAAAP+/AAAAAP///7///wAAAABU1f///////1TV/////wAAVNX//wAA//9U1QAAAAAAAP///////wAA//8AAP//AAD/////AAAAAP///3//v/9//7//f/+//3//v/////////////////////9U1VTVVNVU1VTVVNVU1VTVAAD/fwAA/38AAP9/AAD/f6oqqiqqKqoqqiqqKqoqqir/v/+//7//v/+//7//v/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_4rfnr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1hja"]
+shader = ExtResource("4_026ka")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.185
+shader_parameter/noise_amount = 0.095
+shader_parameter/interference_amount = 0.645
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -4.799
+shader_parameter/pixel_strength = -1.66
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwxah"]
+bg_color = Color(1, 1, 1, 0.705882)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3wdj"]
+shader = ExtResource("4_026ka")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.185
+shader_parameter/noise_amount = 0.095
+shader_parameter/interference_amount = 0.645
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -4.799
+shader_parameter/pixel_strength = -1.66
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_026ka"]
+bg_color = Color(1, 1, 1, 0.705882)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="ParkingScenario" type="Node3D"]
 
-[node name="estacionamiento arboles" parent="." instance=ExtResource("1_3r6uq")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_026ka")
 
-[node name="Cube_014" parent="estacionamiento arboles" index="19"]
+[node name="Objects" type="Node" parent="."]
+
+[node name="Static Objects" parent="Objects" instance=ExtResource("1_3r6uq")]
+
+[node name="Cube_014" parent="Objects/Static Objects" index="19"]
 surface_material_override/0 = SubResource("StandardMaterial3D_caua3")
 
-[editable path="estacionamiento arboles"]
+[node name="Cube_015" type="MeshInstance3D" parent="Objects/Static Objects"]
+transform = Transform3D(-4.85657e-07, 0.0678006, 0.00312534, 0, 4.54437e-05, -4.66291, -11.1105, -2.96366e-09, 4.06222e-10, -11.8587, 3.90211, -3.93719)
+mesh = SubResource("ArrayMesh_ejn71")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_caua3")
+
+[node name="tree" parent="Objects/Static Objects" instance=ExtResource("3_a3wdj")]
+transform = Transform3D(0.355, 0, 0, 0, 0.688, 0, 0, 0, 0.355, -9.08093, 0, -8.19674)
+
+[node name="tree6" parent="Objects/Static Objects" instance=ExtResource("3_a3wdj")]
+transform = Transform3D(0.139441, 0, 0.269008, 0, 0.587, 0, -0.269008, 0, 0.139441, -2.74165, 0, -8.19674)
+
+[node name="tree2" parent="Objects/Static Objects" instance=ExtResource("3_a3wdj")]
+transform = Transform3D(0.192209, -0.0510185, 0.235345, 0.0413933, 0.585532, 0, -0.233168, 0.0618904, 0.194004, 8.01983, 0, -8.19674)
+
+[node name="tree5" parent="Objects/Static Objects" instance=ExtResource("3_a3wdj")]
+transform = Transform3D(0.0158054, 0, 0.239479, 0, 0.465, 0, -0.239479, 0, 0.0158054, -8.79771, 0, 3.01815)
+
+[node name="SubViewportA" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraA" type="Camera3D" parent="SubViewportA"]
+transform = Transform3D(0.737277, -0.425163, 0.525032, 0, 0.777146, 0.629321, -0.67559, -0.463984, 0.572972, 7.81, 7.725, 2.985)
+cull_mask = 3
+
+[node name="Control" type="Control" parent="SubViewportA/CameraA"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportA/CameraA/Control"]
+material = SubResource("ShaderMaterial_s1hja")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportA"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportA/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_dwxah")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportA/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportA/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "A"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("5_1y7fw")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("6_nyh1q")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportA/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportA/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("7_pgtnd")
+expand_mode = 1
+
+[node name="SubViewportB" type="SubViewport" parent="."]
+size = Vector2i(480, 360)
+
+[node name="CameraB" type="Camera3D" parent="SubViewportB"]
+transform = Transform3D(1, 0, 0, 0, 0.824126, 0.566406, 0, -0.566406, 0.824126, -1.07, 3.66, 2.795)
+cull_mask = 5
+current = true
+fov = 60.0
+
+[node name="Control" type="Control" parent="SubViewportB/CameraB"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportB/CameraB/Control"]
+material = SubResource("ShaderMaterial_a3wdj")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportB"]
+
+[node name="UpUI" type="PanelContainer" parent="SubViewportB/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -62.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_026ka")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportB/CanvasLayer/UpUI"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="SubViewportB/CanvasLayer/UpUI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "B"
+horizontal_alignment = 1
+
+[node name="PauseTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Pause_Overlay"]]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("5_1y7fw")
+expand_mode = 1
+
+[node name="RewindTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Rewind_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("6_nyh1q")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportB/CanvasLayer/RewindTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = 159.0
+offset_right = 264.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "[REWINDING]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayTexture" type="TextureRect" parent="SubViewportB/CanvasLayer" groups=["Play_Overlay"]]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("7_pgtnd")
+expand_mode = 1
+
+[editable path="Objects/Static Objects"]
