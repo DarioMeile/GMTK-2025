@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dvm1ppl7qjf8i"]
+[gd_scene load_steps=62 format=3 uid="uid://dvm1ppl7qjf8i"]
 
 [ext_resource type="Script" uid="uid://cxtegmd48ktug" path="res://03_Scripts/main.gd" id="1_llutj"]
 [ext_resource type="PackedScene" uid="uid://fcgvlypsriku" path="res://02_Scenes/01_Objects/tv.tscn" id="5_gug2t"]
@@ -82,6 +82,104 @@ size = Vector2(0.02, 0.02)
 albedo_color = Color(0.231108, 0.168846, 0.125913, 1)
 metallic = 0.72
 roughness = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6scgm"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_byvlv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhxr6"]
+resource_local_to_scene = true
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("ViewportTexture_byvlv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nwbd"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j21sn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 2.0
+shader_parameter/outline_spread = 2.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 0.2
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byvlv"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mhxr6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7nwbd"]
+resource_local_to_scene = true
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("ViewportTexture_mhxr6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1r86"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 1.0
+shader_parameter/outline_spread = 5.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 60.0
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfvvn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_l6366")
+shader_parameter/scale = 2.0
+shader_parameter/outline_spread = 2.0
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 3.0
+shader_parameter/_DepthThreshold = 1.5
+shader_parameter/_NormalThreshold = 2.0
+shader_parameter/outline_brightness = 0.2
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qrytx"]
 resource_local_to_scene = true
@@ -489,18 +587,6 @@ material_override = SubResource("StandardMaterial3D_kd5td")
 use_collision = true
 size = Vector3(6.5, 0.4, 1.6)
 
-[node name="Notes_Paper" type="Node3D" parent="Environment/Desktop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60793, 0, 0)
-visible = false
-
-[node name="Paper" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
-transform = Transform3D(0.88179, 0, 0.471643, 0, 1, 0, -0.471643, 0, 0.88179, -0.833889, -0.790521, -3.16019)
-size = Vector3(0.501495, 0.002, 0.720825)
-
-[node name="Paper2" type="CSGBox3D" parent="Environment/Desktop/Notes_Paper"]
-transform = Transform3D(0.604377, 0, 0.796699, 0, 1, 0, -0.796699, 0, 0.604377, -1.33389, -0.791208, -3.16019)
-size = Vector3(0.501495, 0.002, 0.720825)
-
 [node name="TVs" type="Node" parent="Environment/Desktop"]
 
 [node name="TV_A" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
@@ -512,16 +598,50 @@ transform = Transform3D(0.995509, 0, -0.0946643, 0, 1, 0, 0.0946643, 0, 0.995509
 FUNCTION_AS_TOOL = true
 
 [node name="TV_C" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-process_mode = 4
 transform = Transform3D(0.999508, 7.85795e-11, 0.0313584, -7.8543e-11, 1, -2.39382e-12, -0.0313584, -7.03465e-14, 0.999508, 0.904419, 0.212856, 1.33918)
-FUNCTION_AS_TOOL = true
 DISABLED = true
 
+[node name="TVCRT_M_TVCRT_0" parent="Environment/Desktop/TVs/TV_C/TV/RootNode_001/TVCRT" index="0"]
+material_overlay = SubResource("ShaderMaterial_6scgm")
+
+[node name="OffScreen" parent="Environment/Desktop/TVs/TV_C/TV" index="2"]
+visible = true
+
+[node name="ViewportScreen" parent="Environment/Desktop/TVs/TV_C/TV" index="3"]
+visible = false
+material_override = SubResource("StandardMaterial3D_mhxr6")
+
+[node name="GlassScreen" parent="Environment/Desktop/TVs/TV_C/TV" index="4"]
+visible = false
+
+[node name="VHSPlayer_M_VHS_0" parent="Environment/Desktop/TVs/TV_C/VHS-Player/RootNode/VHSPlayer" index="0"]
+material_overlay = SubResource("ShaderMaterial_7nwbd")
+
+[node name="CSGBox3D" parent="Environment/Desktop/TVs/TV_C" index="3"]
+material = SubResource("ShaderMaterial_j21sn")
+
 [node name="TV_D" parent="Environment/Desktop/TVs" instance=ExtResource("5_gug2t")]
-process_mode = 4
 transform = Transform3D(0.999258, 0, -0.0385099, 0, 1, 0, 0.0385099, 0, 0.999258, 2.93503, 0.212856, 1.34771)
-FUNCTION_AS_TOOL = true
 DISABLED = true
+
+[node name="TVCRT_M_TVCRT_0" parent="Environment/Desktop/TVs/TV_D/TV/RootNode_001/TVCRT" index="0"]
+material_overlay = SubResource("ShaderMaterial_byvlv")
+
+[node name="Label3D" parent="Environment/Desktop/TVs/TV_D/TV" index="1"]
+visible = false
+
+[node name="OffScreen" parent="Environment/Desktop/TVs/TV_D/TV" index="2"]
+visible = true
+
+[node name="ViewportScreen" parent="Environment/Desktop/TVs/TV_D/TV" index="3"]
+visible = false
+material_override = SubResource("StandardMaterial3D_7nwbd")
+
+[node name="VHSPlayer_M_VHS_0" parent="Environment/Desktop/TVs/TV_D/VHS-Player/RootNode/VHSPlayer" index="0"]
+material_overlay = SubResource("ShaderMaterial_h1r86")
+
+[node name="CSGBox3D" parent="Environment/Desktop/TVs/TV_D" index="3"]
+material = SubResource("ShaderMaterial_lfvvn")
 
 [node name="VHS-Tapes" type="Node3D" parent="Environment/Desktop"]
 unique_name_in_owner = true
@@ -935,3 +1055,10 @@ theme_override_font_sizes/font_size = 9
 text = "PRESS [REWIND] TO REWIND THE TAPES"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[editable path="Environment/Desktop/TVs/TV_C"]
+[editable path="Environment/Desktop/TVs/TV_C/TV"]
+[editable path="Environment/Desktop/TVs/TV_C/VHS-Player"]
+[editable path="Environment/Desktop/TVs/TV_D"]
+[editable path="Environment/Desktop/TVs/TV_D/TV"]
+[editable path="Environment/Desktop/TVs/TV_D/VHS-Player"]
