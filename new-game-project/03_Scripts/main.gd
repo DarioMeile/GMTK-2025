@@ -51,6 +51,11 @@ var armAnimationTreeStateMachine
 @onready var clue_2:= %Clue2
 @onready var clue_3:= %Clue3
 
+#pictures
+@onready var pic1:= %Picture1
+@onready var pic2:= %Picture2
+@onready var pic3:= %Picture3
+
 var enabled: bool = true
 var lightTimer: float = 0.0
 var transitioningLight: bool = false
@@ -81,7 +86,7 @@ var currentTapeState: int = tapeState.init
 var tapesInserted: bool = false
 
 ##TV control
-enum tvState {init, firstWatch, firstRewind, rewinding, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting, finishedWatching}
+enum tvState {init, firstWatch, firstRewind, rewinding, selecting, controlling, waitingForInput, watching, watchingStart, finishedFirstWatching, waiting, finishedWatching, doorTalking, end}
 var firstWatched: bool = false
 var firstRewind: bool = false
 var currentTvState = tvState.init
@@ -231,6 +236,7 @@ func _process(delta: float) -> void:
 		state.waiting:
 			pass
 		state.puzzleSolved:
+			currentState = state.waiting
 			dialogueLabel.text = ""
 			dialogueLabel.clear()
 			dialogueLabel.visible_characters = 0
@@ -241,7 +247,6 @@ func _process(delta: float) -> void:
 			_tween.set_ease(Tween.EASE_IN)
 			_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
 			n_visible_chars = 0;
-			currentState = state.waiting
 			_load_sound_fx("door_knock")
 			_play_sound_fx()
 			await _tween.finished
@@ -255,7 +260,7 @@ func _process(delta: float) -> void:
 			dialoguePointer.show()
 			currentState = state.waitingForInput
 		state.endDialogue:
-			get_tree().change_scene_to_file("res://02_Scenes/store_investigation.tscn")
+			get_tree()
 
 func _room_perspective_control(delta: float):
 	match currentRoomPerspective:
@@ -504,8 +509,8 @@ func _tv_perspective_control(delta: float):
 				dialogueNode.hide()
 				dialoguePointer.hide()
 				if puzzleSolved:
-					currentState = state.puzzleSolved
-					DOOR_CAMERA.priority = 3
+					_show_puzzle_completed_dialogue()
+					return
 				if !firstWatched:
 					var _rewinds = get_tree().get_nodes_in_group("Rewind_Overlay")
 					for _rewind in _rewinds:
@@ -616,6 +621,25 @@ func _tv_perspective_control(delta: float):
 			firstWatched = true
 			dialoguePointer.show()
 			currentTvState = tvState.waitingForInput
+		tvState.doorTalking:
+			if (dialogueLabel.get_visible_characters() > n_visible_chars):
+				_play_sound_fx()
+				n_visible_chars = dialogueLabel.get_visible_characters()
+			pass
+		tvState.end:
+			dialogueNode.show()
+			dialogueLabel.clear()
+			dialogueLabel.visible_characters = 0
+			dialogueLabel.show()
+			dialogueLabel.append_text("[i][color=red]...\n")
+			dialogueLabel.append_text("...[/color][/i]")
+			var _tween = create_tween()
+			_tween.set_ease(Tween.EASE_IN)
+			_tween.set_parallel(false)
+			_tween.tween_property(dialogueLabel, "visible_characters", 4, 1).from(0)
+			_tween.tween_interval(0.5)
+			_tween.tween_property(dialogueLabel, "visible_characters", 7, 1).from(4)
+			await _tween.finished
 
 
 func _board_perspective_control(delta: float):
@@ -709,6 +733,48 @@ func _showItemNotification(_text: String):
 	_tween.tween_property(itemNotificationNode, "modulate:a", 0, 0.1).from(1)
 	await _tween.finished
 	itemNotificationNode.hide()
+
+
+func _show_puzzle_completed_dialogue():
+	DOOR_CAMERA.priority = 2
+	dialogueNode.show()
+	dialogueLabel.clear()
+	dialogueLabel.visible_characters = 0
+	dialogueLabel.show()
+	dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+	dialogueLabel.append_text("[wave amp=50.0 freq=5.0 connected=1]*KNOCK KNOCK*[/wave]\n")
+	var _tween = create_tween()
+	_tween.set_ease(Tween.EASE_IN)
+	_tween.tween_property(dialogueLabel, "visible_characters", 14, 0.4).from(0)
+	n_visible_chars = 0;
+	_load_sound_fx("door_knock")
+	_play_sound_fx()
+	await _tween.finished
+	await get_tree().create_timer(1).timeout
+	
+	var _tween2 = create_tween() # reset tween object for next animation (needed to separate sound fxs)
+	_tween2.set_ease(Tween.EASE_IN)
+	_tween2.tween_property(dialogueLabel, "visible_characters", 28, 0.4).from(14)
+	_load_sound_fx("door_knock")
+	_play_sound_fx()
+	await _tween2.finished
+	await get_tree().create_timer(1).timeout
+	dialogueLabel.text = ""
+	dialogueNode.hide()
+	pic1.show()
+	await get_tree().create_timer(1).timeout
+	%SFXStream2.play()
+	pic2.show()
+	pic1.hide()
+	await get_tree().create_timer(1).timeout
+	pic3.show()
+	var _tween3 = create_tween()
+	_tween3.set_ease(Tween.EASE_IN)
+	_tween3.set_trans(Tween.TRANS_CUBIC)
+	_tween3.tween_property(pic2, "modulate", Color(1,1,1,0), FADE_TO_BLACK_TIMER).from_current()
+	await _tween3.finished
+	currentTvState = tvState.end
+
 
 func _flicker_light(delta: float):
 	if transitioningLight:
