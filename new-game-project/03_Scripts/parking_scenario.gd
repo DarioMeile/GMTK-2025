@@ -20,11 +20,19 @@ var parkingMarkerOpen: Marker3D
 enum scenarioState {init, startingScene, rewinding, playerControlling, waiting}
 var currentScenarioState = scenarioState.init
 
+#Debug only
+@onready var debugging: bool = false
+
+
 func _ready() -> void:
 	if get_parent() is SubViewport: #is not main scene
+		debugging = true
 		return
 
 func _process(delta: float) -> void:
+	if debugging:
+		
+		pass
 	match currentScenarioState:
 		scenarioState.init:
 			pass

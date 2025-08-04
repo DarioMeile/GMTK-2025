@@ -1,6 +1,8 @@
 class_name Interactuable_Car
 extends Interactuable_Object
 
+@export_range(0,12,1) var SPAWN_ID: int = 0
+
 var downPosition: Vector3
 var canBePutDown: bool = false
 var currentMarker: Marker3D

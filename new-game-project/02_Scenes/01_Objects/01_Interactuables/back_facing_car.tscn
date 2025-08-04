@@ -31,18 +31,17 @@ disabled = true
 
 [node name="PerspectiveA" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+transform = Transform3D(0.939693, -0.283166, 0.191819, 0, 0.560841, 0.827923, -0.34202, -0.777993, 0.527018, 0.125679, 1.5, -0.3)
 layers = 2
 flip_h = true
 flip_v = true
-pixel_size = 0.0015
-billboard = 1
+pixel_size = 0.0017
 shaded = true
 texture = ExtResource("2_c7sl1")
 
 [node name="PerspectiveB" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.6)
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.6, 0.5)
 layers = 4
 pixel_size = 0.0011
 shaded = true
